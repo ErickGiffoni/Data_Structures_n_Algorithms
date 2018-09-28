@@ -1,5 +1,5 @@
 #include <stdio.h>
-//#include <stdlib.h>
+#include <stdlib.h>
 //#include <string.h>
 
 #define numero_de_imagens 4 //numero de imagens a serem lidas
@@ -7,6 +7,7 @@
 int main(){
 
 int contador =0;
+int i_for =0, j_for =0; //contadores para qualquer loop que for preciso
 
 FILE *file_para_grama;
 FILE *file_para_asfalto; //ponteiros para os arquivos
@@ -28,6 +29,8 @@ int numero_de_colunas_asfalto =0;
 int numero_de_linhas_grama =0;
 int numero_de_linhas_asfalto =0;
 int numero_no_arquivo =0;
+
+    /* Aqui comeca o show */
 
 while(contador <numero_de_imagens){ //DataSet grama
 
@@ -66,7 +69,27 @@ while(contador <numero_de_imagens){ //DataSet grama
 
       //alocar dinamicamente uma matriz para armazenar os numeros do arquivo .txt e ler esses numeros
 
+        int ** matriz_grama_txt = (int **) calloc(numero_de_linhas_grama, sizeof(int *)); //alocacao de uma matriz para o arquivo txt
+        for(i_for =0; i_for<numero_de_linhas_grama; i_for++){
+          matriz_grama_txt[i_for] = (int *) calloc(numero_de_linhas_grama, sizeof(int)); //alocacao das colunas da matriz com mesmo numero de linhas
+        }
 
+      //ler o .txt novamente e preencher a matriz_grama_txt
+        rewind(file_para_grama); //o ponteiro deve voltar ao inicio do arquivo
+
+        for(i_for = 0; i_for < numero_de_linhas_grama; i_for++){
+          for(j_for =0; j_for< numero_de_linhas_grama; j_for++){
+            if(feof(file_para_grama)){
+              printf("END OF FILE %d\n", contador+1);
+              break;
+            }
+            else fscanf(file_para_grama, "%d%c", &matriz_grama_txt[i_for][j_for], &ponto_e_virgula);
+          }
+printf("Proxima linha %d\n", i_for);
+        }//end for preenche matriz
+
+printf("FREE NIGGA %d\n", contador+1);
+      free(matriz_grama_txt); //liberar o espaco em memoria
 
     //CALCULAR O GLCM
 
