@@ -2,14 +2,14 @@
 //#include <stdlib.h>
 //#include <string.h>
 
-#define numero_de_imagens 4
+#define numero_de_imagens 4 //numero de imagens a serem lidas
 
 int main(){
 
 int contador =0;
 
 FILE *file_para_grama;
-FILE *file_para_asfalto;
+FILE *file_para_asfalto; //ponteiros para os arquivos
 
 int  vec_numeros[4][2] = { {0,1}, {0,2}, {0,3}, {0,4} };
 
@@ -17,12 +17,17 @@ int  vec_numeros[4][2] = { {0,1}, {0,2}, {0,3}, {0,4} };
 
 char path_grama[29] ;
 char path_asfalto[33] ;
+char ponto_e_virgula;
 
 int num_de_char_no_path_grama;
 int num_de_char_no_path_asfalto;
 
-int tamanho_maximo_da_grama_txt =0;
-int tamanho_maximo_do_asfalto_txt =0;
+int numero_de_colunas_grama =0;
+int numero_de_colunas_asfalto =0;
+
+int numero_de_linhas_grama =0;
+int numero_de_linhas_asfalto =0;
+int numero_no_arquivo =0;
 
 while(contador <numero_de_imagens){ //DataSet grama
 
@@ -36,17 +41,41 @@ while(contador <numero_de_imagens){ //DataSet grama
   if(file_para_grama != NULL){
     printf("Abri o arquivo %d corretamente\n", contador+1);
 
-    // calcular o ILBP
+    // CALCULAR O ILBP
 
-      //encontrar o tamanho maximo da imagem .txt
+      //encontrar o tamanho maximo da imagem .txt -> 1024 x 1024
+    fscanf(file_para_grama, "%d%c", &numero_no_arquivo, &ponto_e_virgula);
+      while(!feof(file_para_grama)){
 
-      tamanho_maximo_da_grama_txt = fscanf(file_para_grama, "%d%c");
+        if(ponto_e_virgula == ';'){
+          numero_de_colunas_grama ++;
+        }
+        else if(ponto_e_virgula == '\n'){
+          numero_de_linhas_grama ++;
+          numero_de_colunas_grama --; // para desconsiderar as quebras de linha
+        }
 
-    //calcular o GLCM
+        fscanf(file_para_grama, "%d%c", &numero_no_arquivo, &ponto_e_virgula);//leia os proximos
+
+      }//end of while feof grama
+
+      numero_de_colunas_grama += 1; //o ultimo numero do arquivo nao e seguido de ';'
+      numero_de_linhas_grama -= 1; //a ultima quebra de linha do arquivo nao representa uma nova linha com elementos
+      printf("Tamaho de colunas : %d\nNumero de linhas : %d\n\n", numero_de_colunas_grama, numero_de_linhas_grama);
+      printf("Numero no arquivo : %d\nPonto e virgula : %c\n\n", numero_no_arquivo, ponto_e_virgula);
+
+      //alocar dinamicamente uma matriz para armazenar os numeros do arquivo .txt e ler esses numeros
+
+
+
+    //CALCULAR O GLCM
 
 
 
     //fim
+
+    numero_de_colunas_grama =0; //atualizar para ler a proxima imagem
+    numero_de_linhas_grama =0; //atualizar tambem
 
     fclose(file_para_grama);
     printf("Fechei o %d\n", contador+1);
@@ -73,11 +102,11 @@ while(contador <numero_de_imagens){ //DataSet asfalto
   if(file_para_asfalto != NULL){
     printf("Abri o arquivo %d corretamente\n", contador+1);
 
-    // calcular o ILBP
+    // CALCULAR O ILBP
 
-      //encontrar o tamanho maximo da imagem .txt
+      //encontrar o tamanho maximo da imagem .txt -> 1024 x 1024
 
-    //calcular o GLCM
+    //CALCULAR O GLCM
 
 
 
