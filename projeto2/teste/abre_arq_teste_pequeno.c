@@ -77,15 +77,15 @@ while(contador <numero_de_imagens){ //DataSet grama
       //ler o .txt novamente e preencher a matriz_grama_txt
         rewind(file_para_grama); //o ponteiro deve voltar ao inicio do arquivo
 
-        for(i_for = 0; i_for < numero_de_linhas_grama; i_for++){
-          for(j_for =0; j_for< numero_de_linhas_grama; j_for++){
+        for(i_for = 0; i_for < numero_de_linhas_grama; i_for++){ //acesso as linhas
+          for(j_for =0; j_for< numero_de_linhas_grama; j_for++){ //acesso as colunas
             if(feof(file_para_grama)){
-              printf("END OF FILE %d\n", contador+1);
+              printf("END OF FILE %d\n", contador+1); //se o ponteiro chegar ao EOF
               break;
             }
-            else fscanf(file_para_grama, "%d%c", &matriz_grama_txt[i_for][j_for], &ponto_e_virgula);
+            else fscanf(file_para_grama, "%d%c", &matriz_grama_txt[i_for][j_for], &ponto_e_virgula); //le o numero e o caractere
           }
-printf("Proxima linha %d\n", i_for);
+printf("Elemento [][ultimo] %d\n", matriz_grama_txt[i_for][numero_de_linhas_grama-1]);
         }//end for preenche matriz
 
 printf("FREE NIGGA %d\n", contador+1);
