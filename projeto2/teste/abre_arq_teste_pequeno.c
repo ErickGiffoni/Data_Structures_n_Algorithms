@@ -16,10 +16,10 @@ FILE *file_para_asfalto; //ponteiros para os arquivos
 
 int  vec_numeros[4][2] = { {0,1}, {0,2}, {0,3}, {0,4} };
 
-int vetores_ILBP_grama[4][512]; //servira para armazenar o vetor ILBP de cada .txt de grama.
+int vetores_ILBP_grama[4][512]={0};//servira para armazenar o vetor ILBP de cada .txt de grama.
                                  //Cada vetor possui 512 posicoes, correspondentes aos possiveis valores do ILBP calculado na
                                 //vizinhanca de 8, que sao de 0 a 511.
-int vetores_ILBP_asfalto[4][512];//servira para armazenar o vetor ILBP de cada .txt de asfalto.
+int vetores_ILBP_asfalto[4][512]={0};//servira para armazenar o vetor ILBP de cada .txt de asfalto.
 
 //printf("%d %d\n\n", vec_numeros[contador+2][0], vec_numeros[contador+2][1]);
 
@@ -104,6 +104,7 @@ while(contador <numero_de_imagens){ //DataSet grama
         rewind(file_para_grama);
         int soma_ILBP =0; //calcular o somatorio parcial
         int vetor_somas_parciais[9]; //9 somas parciais
+        int menor_valor_no_somas_parciais =0;
         int avg_pixel =0; //media dos valores dos 8 vizinhos + pixel central
 
         for(i_for =1; i_for<numero_de_linhas_grama-1; i_for++){ //percorrer a matriz_grama_txt da linha 1 a linha 1023
@@ -115,38 +116,55 @@ while(contador <numero_de_imagens){ //DataSet grama
             for(int vizinho=0; vizinho<=8; vizinho++){
               for(int posicao_pixel=0; posicao_pixel<=8; posicao_pixel++){
                 if((posicao_pixel+vizinho)%9==0){
-
+                  soma_ILBP += s_function(matriz_grama_txt[i_for-1][j_for-1],avg_pixel)*pow(2,posicao_pixel);
                 }//%0
-                if((posicao_pixel+vizinho)%9==1){
-
+                else if((posicao_pixel+vizinho)%9==1){
+                  soma_ILBP += s_function(matriz_grama_txt[i_for-1][j_for],avg_pixel)*pow(2,posicao_pixel);
                 }//%1
-                if((posicao_pixel+vizinho)%9==2){
-
+                else if((posicao_pixel+vizinho)%9==2){
+                  soma_ILBP += s_function(matriz_grama_txt[i_for-1][j_for+1],avg_pixel)*pow(2,posicao_pixel);
                 }//%2
-                if((posicao_pixel+vizinho)%9==3){
-
+                else if((posicao_pixel+vizinho)%9==3){
+                  soma_ILBP += s_function(matriz_grama_txt[i_for][j_for-1],avg_pixel)*pow(2,posicao_pixel);
                 }//%3
-                if((posicao_pixel+vizinho)%9==4){
-
+                else if((posicao_pixel+vizinho)%9==4){
+                  soma_ILBP += s_function(matriz_grama_txt[i_for][j_for],avg_pixel)*pow(2,posicao_pixel);
                 }//%4
-                if((posicao_pixel+vizinho)%9==5){
-
+                else if((posicao_pixel+vizinho)%9==5){
+                  soma_ILBP += s_function(matriz_grama_txt[i_for][j_for+1],avg_pixel)*pow(2,posicao_pixel);
                 }//%5
-                if((posicao_pixel+vizinho)%9==6){
-
+                else if((posicao_pixel+vizinho)%9==6){
+                  soma_ILBP += s_function(matriz_grama_txt[i_for+1][j_for-1],avg_pixel)*pow(2,posicao_pixel);
                 }//%6
-                if((posicao_pixel+vizinho)%9==7){
-
+                else if((posicao_pixel+vizinho)%9==7){
+                  soma_ILBP += s_function(matriz_grama_txt[i_for+1][j_for],avg_pixel)*pow(2,posicao_pixel);
                 }//%7
-                if((posicao_pixel+vizinho)%9==8){
-
+                else if((posicao_pixel+vizinho)%9==8){
+                  soma_ILBP += s_function(matriz_grama_txt[i_for+1][j_for+1],avg_pixel)*pow(2,posicao_pixel);
                 }//%8
 
               }//end for posicao_pixel
               vetor_somas_parciais[vizinho] = soma_ILBP;
+              //if(soma_ILBP >511 || soma_ILBP<0) printf("************EEEEEEEEEEEEEEEEEEEEEEEEEPPPPPPPPPPPPPPPPPPAAAAAAAAAAAAAAA*************\n\n\n\n");
+              soma_ILBP=0;
 
             }//end for vizinho
 
+            //encontrar o menor valor no vetor_somas_parciais, ir no vetores_ILBP_grama[menor valor] e incrementar 1 unidade inteira
+              menor_valor_no_somas_parciais = vetor_somas_parciais[0];
+              for(int k=1; k<=8; k++){
+                if(menor_valor_no_somas_parciais > vetor_somas_parciais[k]) menor_valor_no_somas_parciais = vetor_somas_parciais[k];
+                else continue;
+
+              }//end for achar menor_valor_no_somas_parciais
+
+              //zerar o vetor_somas_parciais
+                for(int k=0; k<=8; k++){
+                  vetor_somas_parciais[k] = 0;
+                }//end for zera vetor_somas_parciais
+
+              //ir no vetores_ILBP_grama e incrementar
+                vetores_ILBP_grama[contador][menor_valor_no_somas_parciais]+=1;
 
           }//end for colunas
         }//end for ILBP
@@ -209,6 +227,13 @@ while(contador <numero_de_imagens){ //DataSet asfalto
 
 printf("****************************************************************\n\n");
   // FIM DO PROGRAMA
+printf("vetores_ILBP_grama gerado : \n");
+  for(i_for=0; i_for<4; i_for++){
+    for(j_for=0; j_for<512; j_for++){
+      printf("%d ", vetores_ILBP_grama[i_for][j_for]);
+    }
+    printf("End line %d\n\n", i_for);
+  }
 
   return 0;
 }
