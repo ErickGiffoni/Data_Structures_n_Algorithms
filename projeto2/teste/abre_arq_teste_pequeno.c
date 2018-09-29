@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 //#include <string.h>
 #include "../libraries/ILBP_library.h"
 
@@ -15,7 +16,10 @@ FILE *file_para_asfalto; //ponteiros para os arquivos
 
 int  vec_numeros[4][2] = { {0,1}, {0,2}, {0,3}, {0,4} };
 
-int ** vetores_ILBP_grama; //servira para armazenar o vetor ILBP de cada .txt
+int vetores_ILBP_grama[4][512]; //servira para armazenar o vetor ILBP de cada .txt de grama.
+                                 //Cada vetor possui 512 posicoes, correspondentes aos possiveis valores do ILBP calculado na
+                                //vizinhanca de 8, que sao de 0 a 511.
+int vetores_ILBP_asfalto[4][512];//servira para armazenar o vetor ILBP de cada .txt de asfalto.
 
 //printf("%d %d\n\n", vec_numeros[contador+2][0], vec_numeros[contador+2][1]);
 
@@ -33,7 +37,7 @@ int numero_de_linhas_grama =0;
 int numero_de_linhas_asfalto =0;
 int numero_no_arquivo =0;
 
-int avg_pixel =0, contador_do_pixel =0; //media dos 8 vizinhos do pixel (inclusive) e contador de repeticao respectivamente
+//int avg_pixel =0, contador_do_pixel =0; //media dos 8 vizinhos do pixel (inclusive) e contador de repeticao, respectivamente
 
     /* Aqui comeca o show */
 
@@ -96,51 +100,53 @@ while(contador <numero_de_imagens){ //DataSet grama
 //printf("Elemento [][ultimo] %d\n", matriz_grama_txt[i_for][j_for-1]);
         }//end for preenche matriz
 
-      //alocar dinamicamente o vetores_ILBP_grama
-
-        vetores_ILBP_grama = (int **) calloc(50, sizeof(int *));
-        for(i_for=0; i_for<50; i_for++){
-          vetores_ILBP_grama[i_for] = (int *) calloc(numero_de_linhas_grama*numero_de_colunas_grama, sizeof(int));
-        }//end for aloca vetores_ILBP_grama
-
       //calcular a vizinhanca de 8 de cada pixel, armazenar no vetores_ILBP_grama correspondente
         rewind(file_para_grama);
+        int soma_ILBP =0; //calcular o somatorio parcial
+        int vetor_somas_parciais[9]; //9 somas parciais
+        int avg_pixel =0; //media dos valores dos 8 vizinhos + pixel central
 
-        for(i_for =0; i_for<numero_de_linhas_grama; i_for++){
-          for(j_for =0; j_for<numero_de_colunas_grama; j_for++){
-            if(i_for== 0){ //vizinhos na linha 0
-              if(j_for == 0){ //primeiro elemento da matriz
+        for(i_for =1; i_for<numero_de_linhas_grama-1; i_for++){ //percorrer a matriz_grama_txt da linha 1 a linha 1023
+          for(j_for =1; j_for<numero_de_colunas_grama-1; j_for++){// colunas de 1 a 1023 (elementos que tem 8 vizinhos)
+            avg_pixel = (matriz_grama_txt[i_for-1][j_for-1]+matriz_grama_txt[i_for-1][j_for]+matriz_grama_txt[i_for-1][j_for+1]+
+                         matriz_grama_txt[i_for][j_for-1]+matriz_grama_txt[i_for][j_for]+matriz_grama_txt[i_for][j_for+1]+
+                         matriz_grama_txt[i_for+1][j_for-1]+matriz_grama_txt[i_for+1][j_for]+matriz_grama_txt[i_for+1][j_for+1])/9;
 
-              }//end if primeiro elemento da matriz
-              if(j_for == numero_de_colunas_grama-1){ //ultimo elemento da primeira linha
+            for(int vizinho=0; vizinho<=8; vizinho++){
+              for(int posicao_pixel=0; posicao_pixel<=8; posicao_pixel++){
+                if((posicao_pixel+vizinho)%9==0){
 
-              }//end if ultimo elemento da primeira linha
-              else{ //vizinhos no meio
+                }//%0
+                if((posicao_pixel+vizinho)%9==1){
 
-              }//end else vizinhos no meio
+                }//%1
+                if((posicao_pixel+vizinho)%9==2){
 
-            }//end if vizinhos na linha 0
-            if(i_for!=0 && j_for==0){ //vizinhos na coluna 0, mas nao na primeira linha
-              if(i_for == numero_de_linhas_grama-1){ //vizinho na ultima linha e coluna 0
+                }//%2
+                if((posicao_pixel+vizinho)%9==3){
 
-              }//end if vizinho na ultima linha e coluna 0
-              else{ //outros da coluna 0
+                }//%3
+                if((posicao_pixel+vizinho)%9==4){
 
-              }//end else outros da coluna 0
+                }//%4
+                if((posicao_pixel+vizinho)%9==5){
 
-            }//end if vizinhos na coluna 0, mas nao na primeira linha
-            if(i_for!=0 && j_for== numero_de_colunas_grama-1){//vizinhos na ultima coluna, mas nao na linha 0
+                }//%5
+                if((posicao_pixel+vizinho)%9==6){
 
+                }//%6
+                if((posicao_pixel+vizinho)%9==7){
 
-            }//end if vizinhos na ultima coluna, mas nao na linha 0
-            if(i_for==numero_de_linhas_grama-1 && j_for!=0 && j_for!=numero_de_colunas_grama-1){//vizinhos na ultima linha, mas nao na primeira ou ultima colunas
+                }//%7
+                if((posicao_pixel+vizinho)%9==8){
 
+                }//%8
 
-            }//end if vizinhos na ultima linha, mas nao na primeira ou ultima colunas
-            else{//demais vizinhos
+              }//end for posicao_pixel
+              vetor_somas_parciais[vizinho] = soma_ILBP;
 
+            }//end for vizinho
 
-            }//end else demais vizinhos
 
           }//end for colunas
         }//end for ILBP
@@ -203,7 +209,6 @@ while(contador <numero_de_imagens){ //DataSet asfalto
 
 printf("****************************************************************\n\n");
   // FIM DO PROGRAMA
-free(vetores_ILBP_grama);
 
   return 0;
 }
