@@ -33,6 +33,8 @@ int numero_de_linhas_grama =0;
 int numero_de_linhas_asfalto =0;
 int numero_no_arquivo =0;
 
+int avg_pixel =0, contador_do_pixel =0; //media dos 8 vizinhos do pixel (inclusive) e contador de repeticao respectivamente
+
     /* Aqui comeca o show */
 
 while(contador <numero_de_imagens){ //DataSet grama
@@ -106,8 +108,41 @@ while(contador <numero_de_imagens){ //DataSet grama
 
         for(i_for =0; i_for<numero_de_linhas_grama; i_for++){
           for(j_for =0; j_for<numero_de_colunas_grama; j_for++){
+            if(i_for== 0){ //vizinhos na linha 0
+              if(j_for == 0){ //primeiro elemento da matriz
 
-          }
+              }//end if primeiro elemento da matriz
+              if(j_for == numero_de_colunas_grama-1){ //ultimo elemento da primeira linha
+
+              }//end if ultimo elemento da primeira linha
+              else{ //vizinhos no meio
+
+              }//end else vizinhos no meio
+
+            }//end if vizinhos na linha 0
+            if(i_for!=0 && j_for==0){ //vizinhos na coluna 0, mas nao na primeira linha
+              if(i_for == numero_de_linhas_grama-1){ //vizinho na ultima linha e coluna 0
+
+              }//end if vizinho na ultima linha e coluna 0
+              else{ //outros da coluna 0
+
+              }//end else outros da coluna 0
+
+            }//end if vizinhos na coluna 0, mas nao na primeira linha
+            if(i_for!=0 && j_for== numero_de_colunas_grama-1){//vizinhos na ultima coluna, mas nao na linha 0
+
+
+            }//end if vizinhos na ultima coluna, mas nao na linha 0
+            if(i_for==numero_de_linhas_grama-1 && j_for!=0 && j_for!=numero_de_colunas_grama-1){//vizinhos na ultima linha, mas nao na primeira ou ultima colunas
+
+
+            }//end if vizinhos na ultima linha, mas nao na primeira ou ultima colunas
+            else{//demais vizinhos
+
+
+            }//end else demais vizinhos
+
+          }//end for colunas
         }//end for ILBP
 
 printf("i for : %d\nj for : %d\nFREE NIGGA %d\n", i_for, j_for, contador+1);
