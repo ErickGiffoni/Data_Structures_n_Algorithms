@@ -51,12 +51,12 @@ while(contador <numero_de_imagens){
   //printf("Aqui o erro\n");
   num_de_char_no_path_grama = sprintf(path_grama, "DataSet/grass/grass_%d%d.txt", vec_numeros[contador][0], vec_numeros[contador][1] );
 
-  printf("path grama = %s\n\n", path_grama);
+  //printf("path grama = %s\n\n", path_grama);
 
   file_para_grama = fopen(path_grama, "r");
 
   if(file_para_grama != NULL){
-    printf("Abri o arquivo %d corretamente\n", contador+1);
+    //printf("Abri o arquivo %d corretamente\n", contador+1);
 
     // CALCULAR O ILBP
 
@@ -79,8 +79,8 @@ while(contador <numero_de_imagens){
       //numero_de_colunas_grama += 1; //o ultimo numero do arquivo nao e seguido de ';'
       numero_de_linhas_grama -= 1; //a ultima quebra de linha do arquivo nao representa uma nova linha com elementos
       numero_de_colunas_grama /= numero_de_linhas_grama;
-      printf("Tamaho de colunas : %d\nNumero de linhas : %d\n\n", numero_de_colunas_grama, numero_de_linhas_grama);
-      printf("Ultimo Numero no arquivo : %d\nPonto e virgula : %c\n\n", numero_no_arquivo, ponto_e_virgula);
+      //printf("Tamaho de colunas : %d\nNumero de linhas : %d\n\n", numero_de_colunas_grama, numero_de_linhas_grama);
+      //printf("Ultimo Numero no arquivo : %d\nPonto e virgula : %c\n\n", numero_no_arquivo, ponto_e_virgula);
 
       //alocar dinamicamente uma matriz para armazenar os numeros do arquivo .txt e ler esses numeros
 
@@ -174,7 +174,7 @@ while(contador <numero_de_imagens){
           }//end for colunas
         }//end for ILBP
 
-printf("i for : %d\nj for : %d\nFREE NIGGA %d\n", i_for, j_for, contador+1);
+//printf("i for : %d\nj for : %d\nFREE NIGGA %d\n", i_for, j_for, contador+1);
       free(matriz_grama_txt); //liberar o espaco em memoria
 
     //CALCULAR O GLCM
@@ -187,7 +187,7 @@ printf("i for : %d\nj for : %d\nFREE NIGGA %d\n", i_for, j_for, contador+1);
     numero_de_linhas_grama =0; //atualizar tambem
 
     fclose(file_para_grama);
-    printf("Fechei o %d\n", contador+1);
+    //printf("Fechei o %d\n", contador+1);
   }
   else printf("Erro ao abrir o arquivo %d\n", contador+1);
 
@@ -204,12 +204,12 @@ while(contador <numero_de_imagens){
   //printf("Aqui o erro\n");
   num_de_char_no_path_asfalto = sprintf(path_asfalto, "DataSet/asphalt/asphalt_%d%d.txt", vec_numeros[contador][0], vec_numeros[contador][1] );
 
-  printf("path asfalto = %s\n\n", path_asfalto);
+  //printf("path asfalto = %s\n\n", path_asfalto);
 
   file_para_asfalto = fopen(path_asfalto, "r");
 
   if(file_para_asfalto != NULL){
-    printf("Abri o arquivo %d corretamente\n", contador+1);
+    //printf("Abri o arquivo %d corretamente\n", contador+1);
 
     // CALCULAR O ILBP
 
@@ -232,8 +232,8 @@ while(contador <numero_de_imagens){
       //numero_de_colunas_asfalto += 1; //o ultimo numero do arquivo nao e seguido de ';'
       numero_de_linhas_asfalto -= 1; //a ultima quebra de linha do arquivo nao representa uma nova linha com elementos
       numero_de_colunas_asfalto /= numero_de_linhas_asfalto;
-      printf("Tamaho de colunas : %d\nNumero de linhas : %d\n\n", numero_de_colunas_asfalto, numero_de_linhas_asfalto);
-      printf("Ultimo Numero no arquivo : %d\nPonto e virgula : %c\n\n", numero_no_arquivo, ponto_e_virgula);
+      //printf("Tamaho de colunas : %d\nNumero de linhas : %d\n\n", numero_de_colunas_asfalto, numero_de_linhas_asfalto);
+      //printf("Ultimo Numero no arquivo : %d\nPonto e virgula : %c\n\n", numero_no_arquivo, ponto_e_virgula);
 
       //alocar dinamicamente uma matriz para armazenar os numeros do arquivo .txt e ler esses numeros
 
@@ -327,7 +327,7 @@ while(contador <numero_de_imagens){
           }//end for colunas
         }//end for ILBP
 
-printf("i for : %d\nj for : %d\nFREE NIGGA %d\n", i_for, j_for, contador+1);
+//printf("i for : %d\nj for : %d\nFREE NIGGA %d\n", i_for, j_for, contador+1);
       free(matriz_asfalto_txt); //liberar o espaco em memoria
 
       //CALCULAR O GLCM
@@ -340,7 +340,7 @@ printf("i for : %d\nj for : %d\nFREE NIGGA %d\n", i_for, j_for, contador+1);
     numero_de_linhas_asfalto =0; //atualizar tambem
 
     fclose(file_para_asfalto);
-    printf("Fechei o %d\n", contador+1);
+  //  printf("Fechei o %d\n", contador+1);
   }
   else printf("Erro ao abrir o arquivo %d\n", contador+1);
 
