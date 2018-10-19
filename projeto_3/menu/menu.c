@@ -27,24 +27,24 @@ do{
   switch (opcao) {
     case 1:
       printf("Opcao 1\n");
-      boolean = 1;
+      //boolean = 1;
       break;
     case 2:
       printf("Opcao 2\n");
-      boolean = 1;
+      //boolean = 1;
       break;
     case 3:
       printf("Opcao 3\n");
-      boolean = 1;
+      //boolean = 1;
       break;
     case 4:
       printf("Opcao 4\n");
-      boolean = 1;
+      //boolean = 1;
       break;
     case 5:
       printf("Opcao 5\n"); // implementar a saida do programa
       boolean = 1;
-      return SAIR;
+      break;
     default:
       fflush(stdin);
       opcao = 0; // erro : laco infinito se o usuario digitar algo nao numerico (letra por exemplo)
