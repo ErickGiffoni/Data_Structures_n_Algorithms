@@ -1,4 +1,4 @@
-#include <contatos.h>
+#include "contatos.h"
 
 void menu(int *opcao){
   printf("\t\t\t***** MENU *****\nPor favor, digite o numero da opcao desejada:\n");
