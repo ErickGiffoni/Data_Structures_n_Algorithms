@@ -1,10 +1,13 @@
 #ifndef CONTATOS_H
 #define CONTATOS_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
 typedef struct contatos{
 
   char nome_completo[101];
-  char celular[11];
+  char celular[11]={0};
   char endereco[101];
   unsigned int CEP;
   char data_de_nascimento[11];
@@ -23,7 +26,7 @@ Contatos *adicionaContatosDoArquivo(FILE *ponteiroParaArquivo); //caso de errado
 void liberaContatos(Contatos *contatos); //liberar a partir do primeiro contato
 int inserirNovoContato(Contatos *ondeInserir); //retorna 1 se inseriu corretamente, 0 caso contrario. Deve chamar a funcao criaElemento e a funcao de ordenacao
 int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover); //retorna 1 se removeu, 0 caso contrario. Deve percorrer a lista e tentar remover aquele nome, depois reordenar a lista
-Contato *visualizarContatosPorString(char *stringInformada, Contatos *ondePesquisar); //retorna um ponteiro para o contato, se ele existe, ou null caso contrario. Deve percorrer a lista para achar o contato
+Contatos *visualizarContatosPorString(char *stringInformada, Contatos *ondePesquisar); //retorna um ponteiro para o contato, se ele existe, ou null caso contrario. Deve percorrer a lista para achar o contato
 void visualizarTodosOsContatos(Contatos *primeiroContato); //pesquisar na lista qual o primeiro contato(*anterior==null) e printar a partir dele;
 void sair(); // salvar todos os contatos, em ordem, no arquivo contatos.txt ou no arquivo possivelmente criado
 Contatos *insertionSort(Contatos *contato); //percorrer a lista de contatos e organiza-la em ordem alfabetica

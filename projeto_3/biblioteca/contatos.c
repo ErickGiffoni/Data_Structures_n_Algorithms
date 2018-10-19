@@ -30,9 +30,16 @@ Contatos *criaElemento(){
   scanf("%[^\n]", temp -> nome_completo);
   getchar();
 
-  printf("Informe o número de celular\n");
+  printf("Informe o número de celular no formato : xxxxx-xxxx\n");
   scanf("%[^\n]", temp -> celular );
-  getchar();
+  for(int i =6; i<10; i++){
+    if(temp->celualar[5]!= '-'){
+      printf("Formato nao aceito! Tente novamente.\n");
+      getchar();
+    }
+    if(temp->celular[i])
+  }
+  getchar();  //tratar o erro caso ele digite no formato errado
 
 
   printf("Informe o endereco\n");
@@ -46,8 +53,8 @@ Contatos *criaElemento(){
   temp -> CEP = (unsigned int)aux;
   getchar();
 
-  printf("Informe a data de nascimento\n");
-  fgets(temp -> data_de_nascimento, sizeof(temp -> data_de_nascimento), stdin);
+  printf("Informe a data de nascimento no formato : dd/mm/aaaa\n");
+  fgets(temp -> data_de_nascimento, sizeof(temp -> data_de_nascimento), stdin); //tratar o erro caso ele digite no formato errado
 
   return temp;
 
@@ -69,7 +76,7 @@ int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
 
 }// end removerContatosPorString
 
-Contato *visualizarContatosPorString(char *stringInformada, Contatos *ondePesquisar){
+Contatos *visualizarContatosPorString(char *stringInformada, Contatos *ondePesquisar){
 
 }// end visualizarContatosPorString
 
