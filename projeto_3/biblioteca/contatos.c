@@ -39,7 +39,10 @@ return temp;
 Contatos *inserirNovoRegistro(Contatos *contatos){
   Contatos *temp;
   temp = (Contatos *)malloc(sizeof(Contatos));
-  if(temp==NULL)printf("ALOCACAO FALHOU!\n");
+  if(temp==NULL){
+    printf("Alocacao de novo registro falhou!\n");
+    return NULL;
+  }
 
   printf("Informe o nome nome_completo\n");
   scanf("%[^\n]", temp -> nome_completo);
@@ -72,11 +75,15 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
   temp -> CEP = (unsigned int)aux;
   getchar();
 
+ do{
   printf("Informe a data de nascimento no formato : dd/mm/aaaa\n");
   fgets(temp -> data_de_nascimento, sizeof(temp -> data_de_nascimento), stdin); //tratar o erro caso ele digite no formato errado
-  if(temp->data_de_nascimento[2]!= '/' || temp->data_de_nascimento[5]!= '/' ){
-    printf("FORMATO INVALIDO, TENTE NOVAMENTE!!\n");
-  }
+    if(temp->data_de_nascimento[2]!= '/' || temp->data_de_nascimento[5]!= '/' ){
+      printf("FORMATO INVALIDO, TENTE NOVAMENTE!!\n");
+    }
+
+  }while(temp->data_de_nascimento[2]!= '/' || temp->data_de_nascimento[5]!= '/');
+  
   //temp = insertionSort(contatos,temp);
 //printf("cheguei\n");
   return temp;
