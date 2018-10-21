@@ -156,14 +156,14 @@ return temp;
 
 void liberaContatos(Contatos *contatos){
   Contatos *aux;
-  
+
     if(contatos->anterior == NULL){ // primeiro elemento da lista
 
       do{
         aux = contatos->proximo; // aux aponta para proximo
         free(contatos);
         contatos = aux;
-      }while(aux->proximo != NULL;);
+      }while(aux != NULL;);
 
     }// primeiro elemento da lista
     else{ //nao e o primeiro da lista
@@ -173,11 +173,11 @@ void liberaContatos(Contatos *contatos){
         contatos = aux;
       }while(aux->anterior != NULL);
 
-      do{
+      do{ // liberar tudo
         aux = contatos->proximo; // aux aponta para proximo
         free(contatos);
         contatos = aux;
-      }while(aux->proximo != NULL;)
+      }while(aux != NULL;)
 
     }// end else nao e o primeiro da lista
 
