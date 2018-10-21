@@ -28,6 +28,7 @@ do{
     case 1:
       printf("Opcao 1\n");
       getchar(); //para evitar que o programa pule o nome
+      contatos = inserirNovoRegistro(contatos);
       break;
     case 2:
       printf("Opcao 2\n");

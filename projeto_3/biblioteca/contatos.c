@@ -23,7 +23,7 @@ Contatos *criaContatosVazia(){
 
 }// end criaContatosVazia
 
-Contatos *inserirNovoRegistro(int posicao,Contatos *contatos){
+Contatos *inserirNovoRegistro(Contatos *contatos){
   Contatos *temp;
   temp = (Contatos *)malloc(sizeof(Contatos));
   if(temp==NULL)printf("ALOCACAO FALHOU!\n");
@@ -65,17 +65,8 @@ Contatos *inserirNovoRegistro(int posicao,Contatos *contatos){
     printf("FORMATO INVALIDO, TENTE NOVAMENTE!!\n");
   }
 
-  Contatos *cont_posicao;
-  cont_posicao = contatos;
-  int contador = 1;
-  do{
-    if(contador != posicao){
-    cont_posicao = cont_posicao->proximo;
-    contador++;
-    }
-  }while (contador <= posicao);
-  return NULL;
-
+  temp = insertionSort(contatos,temp);
+  return temp;
 
 }// end inserirNovoRegistro
 
