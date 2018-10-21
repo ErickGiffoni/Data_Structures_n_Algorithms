@@ -68,15 +68,15 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
   if(temp->data_de_nascimento[2]!= '/' || temp->data_de_nascimento[5]!= '/' ){
     printf("FORMATO INVALIDO, TENTE NOVAMENTE!!\n");
   }
-
-  temp = insertionSort(contatos,temp);
+  //temp = insertionSort(contatos,temp);
+//printf("cheguei\n");
   return temp;
 
 }// end inserirNovoRegistro
 
 Contatos *adicionaContatosDoArquivo(FILE *ponteiroParaArquivo){
 
-  ponteiroParaArquivo = fopen("./contatos/contatos.txt","r");
+  ponteiroParaArquivo = fopen("../contatos/contatos2.txt","r");
   if(ponteiroParaArquivo==NULL){
   printf("FALHA AO ABRIR ARQUIVO\n");
   //exit(1);
@@ -92,7 +92,7 @@ while(!feof(ponteiroParaArquivo)){ //WHILE PARA DETERMINAR QUANTIDADE DE LINHAS 
   if(carac=='$')cont_contatos++;
 }
 printf("Quantidade de linas = %d\nQuantidade de contatos = %d\n",cont_linhas,cont_contatos);
-fclose(ponteiroParaArquivo);
+//fclose(ponteiroParaArquivo);
 
 char m_contatos[cont_linhas][100];//MATRIZ QUE ARMAZENA CONTATOS INICIAIS .txt
 ponteiroParaArquivo = fopen("../contatos/contatos.txt","r");
@@ -151,6 +151,8 @@ printf("erro aqui3\n");
      printf("erro aqu4\n" );
      temp = insertionSort(temp,temp2);
    }
+
+   ponteiroParaArquivo = fopen("../contatos/contatos2.txt","w"); //mudar para escrita
 return temp;
 }// end adicionaContatosDoArquivo
 
@@ -163,7 +165,7 @@ void liberaContatos(Contatos *contatos){
         aux = contatos->proximo; // aux aponta para proximo
         free(contatos);
         contatos = aux;
-      }while(aux != NULL;);
+      }while(aux != NULL);
 
     }// primeiro elemento da lista
     else{ //nao e o primeiro da lista
@@ -177,7 +179,7 @@ void liberaContatos(Contatos *contatos){
         aux = contatos->proximo; // aux aponta para proximo
         free(contatos);
         contatos = aux;
-      }while(aux != NULL;)
+      }while(aux != NULL);
 
     }// end else nao e o primeiro da lista
 
@@ -214,7 +216,29 @@ void visualizarTodosOsContatos(Contatos *contatos){
 
 }// end visualizarTodosOsContatos
 
-void sair(){
+void sair(FILE *ondeSalvar, Contatos *contatos){
+  Contatos *aux;
+  if(contatos->anterior!=NULL){ //checar se estamos no primeiro elemento da lista
+    do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
+      aux = contatos->anterior;
+      contatos = aux;
+    }while(aux->anterior != NULL);
+  }
+
+
+  //percorrer todos os contatos e escreve-los no arquivo
+  for(aux = contatos; aux != NULL; aux = aux->proximo){
+    fprintf(ondeSalvar, "%s",aux->nome_completo);
+    fprintf(ondeSalvar, "\n");
+    fprintf(ondeSalvar, "%s",aux->celular);
+    fprintf(ondeSalvar, "\n");
+    fprintf(ondeSalvar, "%s",aux->endereco);
+    fprintf(ondeSalvar, "\n");
+    fprintf(ondeSalvar, "%u",aux->CEP);
+    fprintf(ondeSalvar, "\n");
+    fprintf(ondeSalvar, "%s",aux->data_de_nascimento);
+    fprintf(ondeSalvar, "\n$\n");
+  }
 
 }// end sair
 

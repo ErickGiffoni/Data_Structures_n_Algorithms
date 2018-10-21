@@ -48,6 +48,7 @@ do{
       break;
     case 5:
       printf("Opcao 5\n"); // implementar a saida do programa
+      sair(ponteiroParaArq, contatos);
       boolean = 1;
       break;
     default:
