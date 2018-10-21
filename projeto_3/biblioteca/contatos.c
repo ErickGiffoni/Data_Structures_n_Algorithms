@@ -195,6 +195,12 @@ Contatos *visualizarContatosPorString(char *stringInformada, Contatos *ondePesqu
 }// end visualizarContatosPorString
 
 void visualizarTodosOsContatos(Contatos *contatos){
+  Contatos *aux;
+  do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
+    aux = contatos->anterior;
+    contatos = aux;
+  }while(aux->anterior != NULL);
+
   while(contatos->prox!= NULL){
     printf("%s\n",contatos->nome_completo );
     printf("%s\n",contatos->celular );
