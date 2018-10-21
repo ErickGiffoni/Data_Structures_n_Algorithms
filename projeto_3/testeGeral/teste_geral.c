@@ -10,12 +10,15 @@ int main(){
   FILE *ponteiroParaArq;
   Contatos *contatos;
   contatos = (Contatos *)malloc(sizeof(Contatos));
-  if(contatos == NULL){
-    printf("Erro ao abrir o arquivo\n");
-    exit(-3);
-  }
 
   contatos = adicionaContatosDoArquivo(ponteiroParaArq);
+  if(contatos == NULL){
+    printf("Erro ao abrir o arquivo\n");
+    //exit(-3);
+    //criar novo arquivo
+    ponteiroParaArq = criaArquivoContatos_txt();
+  }
+
 
   int opcao =0;
 
@@ -53,6 +56,8 @@ do{
   }
 
 }while(!boolean);
+
+fclose(ponteiroParaArq);
 
   return 0;
 }

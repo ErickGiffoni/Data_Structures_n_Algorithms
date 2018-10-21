@@ -15,7 +15,11 @@ void menu(int *opcao){
 }//end menu
 
 FILE *criaArquivoContatos_txt(){
- return NULL;
+  FILE *newFile;
+  do{
+  newFile = fopen("../contatos/newListOfContacts.txt", "w");
+}while(newFile == NULL);
+ return newFile;
 }//
 
 Contatos *criaContatosVazia(){
@@ -72,10 +76,11 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
 
 Contatos *adicionaContatosDoArquivo(FILE *ponteiroParaArquivo){
 
-  ponteiroParaArquivo = fopen("../contatos/contatos.txt","r");
+  ponteiroParaArquivo = fopen("./contatos/contatos.txt","r");
   if(ponteiroParaArquivo==NULL){
   printf("FALHA AO ABRIR ARQUIVO\n");
-  exit(1);
+  //exit(1);
+  return NULL;
 }
 int cont_linhas=0;
 int cont_contatos=0;
@@ -93,7 +98,8 @@ char m_contatos[cont_linhas][100];//MATRIZ QUE ARMAZENA CONTATOS INICIAIS .txt
 ponteiroParaArquivo = fopen("../contatos/contatos.txt","r");
 if(ponteiroParaArquivo==NULL){
   printf("ERRO AO ABRIR ARQUIVO\n" );
-  exit(-2);
+  //exit(-2);
+  return NULL;
 }
 
 for(int i=0;i<(cont_linhas-1);i++){
@@ -149,6 +155,19 @@ return temp;
 }// end adicionaContatosDoArquivo
 
 void liberaContatos(Contatos *contatos){
+  Contatos *aux;
+  do{
+    if(contatos->anterior == NULL){
+
+      do{
+        aux = contatos->proximo; // aux aponta para proximo 
+      }while();
+
+    }// primeiro elemento da lista
+    else{
+
+    }
+  }while(contatos->anterior != NULL);
 
 }// end liberaContatos
 
