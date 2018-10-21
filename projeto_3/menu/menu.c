@@ -23,6 +23,8 @@ void menu(int *opcao){
 int main(){
   FILE *ponteiroParaArq;
   Contatos *contatos;
+  contatos = (Contatos *)malloc(sizeof(Contatos));
+
 
   contatos = adicionaContatosDoArquivo(ponteiroParaArq);
   int opcao =0;

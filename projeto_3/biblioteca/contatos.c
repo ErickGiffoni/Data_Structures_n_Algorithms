@@ -15,7 +15,7 @@
 
 FILE *criaArquivoContatos_txt(){
  return NULL;
-}//end criaArquivoContatos_txt
+}//
 
 Contatos *criaContatosVazia(){
   return NULL;
@@ -110,8 +110,11 @@ for(int i=0;i<(cont_linhas-1);i++){
 for(int i=0;i<(cont_linhas-1);i++){
   printf("%s\n",m_contatos[i]);
 }
-int qtd_de_contatos=0;
+
 Contatos *temp;
+temp = (Contatos *)malloc(sizeof(Contatos));
+Contatos *temp2;
+temp2 = (Contatos *)malloc(sizeof(Contatos));
 strcpy(temp->nome_completo,m_contatos[0]);
 strcpy(temp->celular,m_contatos[1]);
 strcpy(temp->endereco,m_contatos[2]);
@@ -124,7 +127,23 @@ printf("%u\n",temp->CEP );
 printf("%s\n",temp->data_de_nascimento );
 temp -> proximo = NULL;
 temp -> anterior = NULL;
-int qtd_de_contatos+=1;
+
+   for(int i=6;(i<cont_linhas-6);i++){
+     if(strcmp(m_contatos[i],"$")==0)i++;
+     strcpy(temp2->nome_completo,m_contatos[i]);
+     i++;
+     strcpy(temp2->celular,m_contatos[i]);
+     i++;
+     strcpy(temp2->endereco,m_contatos[i]);
+     i++;
+     temp2->CEP =  ((unsigned int) m_contatos[i]);
+     i++;
+     strcpy(temp2->data_de_nascimento,m_contatos[i]);
+     temp2 -> proximo = NULL;
+     temp2 -> anterior = NULL;
+     temp = insertionSort(temp,temp2);
+
+   }
 return temp;
 }// end adicionaContatosDoArquivo
 
@@ -151,20 +170,26 @@ void sair(){
 
 }// end sair
 
-void insertion_sort(Contatos *contatos_base,int *p_qtd_de_contatos) {
-
-  Contatos *insertion_sort;
-
-
-    for (int i = 1; i < vetor.size(); i++) {
-		int escolhido = vetor[i];
-		int j = i - 1;
-
-		while ((j >= 0) && (vetor[j] > escolhido)) {
-			vetor[j + 1] = vetor[j];
-			j--;
-		}
-
-		vetor[j + 1] = escolhido;
-	}
+Contatos *insertionSort(Contatos *base,Contatos *compare) {
+  int c, c_aux;
+  Contatos *aux;
+  aux = (Contatos *)malloc(sizeof(Contatos));
+  aux  = base->proximo;
+  do{
+    c = strcmp(base->nome_completo, compare->nome_completo);
+    c_aux = strcmp(aux->nome_completo,compare->nome_completo);
+    if(c>0){
+      compare->proximo = base;
+      compare->anterior = NULL;
+      break;
+    }
+    else if(c<0 && c_aux>0){
+      compare -> anterior = base;
+      compare -> proximo = aux;
+      base->proximo = compare;
+      aux->anterior= compare;
+      break;
+    }
+  }while(1);
+  return base;
 }

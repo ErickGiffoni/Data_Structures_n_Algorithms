@@ -20,7 +20,7 @@ typedef struct contatos{
 /* Operacoes permitidadas para a lista de contatos */
 
 void menu(int *opcao);
-void insertion_sort(std::vector<int> &vetor);
+Contatos *insertionSort(Contatos *base,Contatos *compare);//percorrer a lista de contatos e organiza-la em ordem alfabetica
 FILE *criaArquivoContatos_txt(); //para o caso do programa nao conseguir abrir o arquivo existente ou se nao houver arquivo pre existente. Retorna null se deu errado, ou um ponteiro para o arquivo, se deu certo
 Contatos *criaContatosVazia();
 Contatos *inserirNovoRegistro(int posicao,Contatos *contatos); //retorna 1 se inseriu corretamente, 0 caso contrario. Deve chamar a funcao criaElemento e a funcao de ordenacao
@@ -30,6 +30,5 @@ int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover); 
 Contatos *visualizarContatosPorString(char *stringInformada, Contatos *ondePesquisar); //retorna um ponteiro para o contato, se ele existe, ou null caso contrario. Deve percorrer a lista para achar o contato
 void visualizarTodosOsContatos(Contatos *primeiroContato); //pesquisar na lista qual o primeiro contato(*anterior==null) e printar a partir dele;
 void sair(); // salvar todos os contatos, em ordem, no arquivo contatos.txt ou no arquivo possivelmente criado
-Contatos *insertionSort(Contatos *contato); //percorrer a lista de contatos e organiza-la em ordem alfabetica
 
 #endif
