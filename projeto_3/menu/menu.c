@@ -1,11 +1,16 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include "../biblioteca/contatos.h"
+#include "../biblioteca/contatos.c"
 
 /*  Function to print out the options to the user as a menu   */
 
 #define SAIR 1
 
 void menu(int *opcao){
-  printf("\t\t\t***** MENU *****\nPor favor, digite o numero da opcao desejada:\n");
+  printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t***** MENU *****\nPor favor, digite o numero da opcao desejada:\n");
   printf("\t1- Inserir novo registro ;\n");
   printf("\t2- Remover registro que contenha certa string no nome ;\n");
   printf("\t3- Visualizar registro que contenha certa string no nome ;\n");
@@ -16,7 +21,10 @@ void menu(int *opcao){
 }//end of function MENU
 
 int main(){
+  FILE *ponteiroParaArq;
+  Contatos *contatos;
 
+  contatos = adicionaContatosDoArquivo(ponteiroParaArq);
   int opcao =0;
 
   int boolean = 0;

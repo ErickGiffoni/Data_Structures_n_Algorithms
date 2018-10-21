@@ -1,6 +1,7 @@
 #include "contatos.h"
+#include <string.h>
 
-void menu(int *opcao){
+/*void menu(int *opcao){
   printf("\t\t\t***** MENU *****\nPor favor, digite o numero da opcao desejada:\n");
   printf("\t1- Inserir novo registro ;\n");
   printf("\t2- Remover registro que contenha certa string no nome ;\n");
@@ -10,10 +11,10 @@ void menu(int *opcao){
   printf("Opcao : ");
   scanf("%d", opcao);
 
-}//end menu
+}//end menu*/
 
 FILE *criaArquivoContatos_txt(){
-
+ return NULL;
 }//end criaArquivoContatos_txt
 
 Contatos *criaContatosVazia(){
@@ -21,7 +22,7 @@ Contatos *criaContatosVazia(){
 
 }// end criaContatosVazia
 
-Contatos *criaElemento(){
+Contatos *inserirNovoRegistro(int posicao,Contatos *contatos){
   Contatos *temp;
   temp = (Contatos *)malloc(sizeof(Contatos));
   if(temp==NULL)printf("ALOCACAO FALHOU!\n");
@@ -33,12 +34,16 @@ Contatos *criaElemento(){
   printf("Informe o número de celular no formato : xxxxx-xxxx\n");
   scanf("%[^\n]", temp -> celular );
   for(int i =6; i<10; i++){
-    if(temp->celualar[5]!= '-'){
+    if(temp->celular[5]!= '-'){
       printf("Formato nao aceito! Tente novamente.\n");
       getchar();
+      break;
     }
-    if(temp->celular[i])
-  }
+    if(temp->celular[i]){
+      printf("LOL\n");
+    }
+}
+
   getchar();  //tratar o erro caso ele digite no formato errado
 
 
@@ -55,28 +60,86 @@ Contatos *criaElemento(){
 
   printf("Informe a data de nascimento no formato : dd/mm/aaaa\n");
   fgets(temp -> data_de_nascimento, sizeof(temp -> data_de_nascimento), stdin); //tratar o erro caso ele digite no formato errado
+  if(temp->data_de_nascimento[2]!= '/' || temp->data_de_nascimento[5]!= '/' ){
+    printf("FORMATO INVALIDO, TENTE NOVAMENTE!!\n");
+  }
 
-  return temp;
+  Contatos *cont_posicao;
+  cont_posicao = contatos;
+  int contador = 1;
+  do{
+    if(contador != posicao){
+    cont_posicao = cont_posicao->proximo;
+    contador++;
+    }
+  }while (contador <= posicao);
+  return NULL;
 
-}// end criaElemento
+
+}// end inserirNovoRegistro
 
 Contatos *adicionaContatosDoArquivo(FILE *ponteiroParaArquivo){
 
+  ponteiroParaArquivo = fopen("../contatos/contatos.txt","r");
+  if(ponteiroParaArquivo==NULL){
+  printf("FALHA AO ABRIR ARQUIVO\n");
+  exit(1);
+}
+int cont_linhas=0;
+int cont_contatos=0;
+
+while(!feof(ponteiroParaArquivo)){ //WHILE PARA DETERMINAR QUANTIDADE DE LINHAS E QUANTIDADE DE COLUNAS.
+  char carac;
+  fscanf(ponteiroParaArquivo, "%c", &carac);
+  if(carac=='\n')cont_linhas++;
+  if(carac=='$')cont_contatos++;
+}
+printf("Quantidade de linas = %d\nQuantidade de contatos = %d\n",cont_linhas,cont_contatos);
+fclose(ponteiroParaArquivo);
+
+char m_contatos[cont_linhas][100];//MATRIZ QUE ARMAZENA CONTATOS INICIAIS .txt
+ponteiroParaArquivo = fopen("../contatos/contatos.txt","r");
+if(ponteiroParaArquivo==NULL){
+  printf("ERRO AO ABRIR ARQUIVO\n" );
+  exit(-2);
+}
+
+for(int i=0;i<(cont_linhas-1);i++){
+    fscanf(ponteiroParaArquivo," %[^\n]",m_contatos[i]);
+}
+for(int i=0;i<(cont_linhas-1);i++){
+  printf("%s\n",m_contatos[i]);
+}
+int qtd_de_contatos=0;
+Contatos *temp;
+strcpy(temp->nome_completo,m_contatos[0]);
+strcpy(temp->celular,m_contatos[1]);
+strcpy(temp->endereco,m_contatos[2]);
+temp->CEP =  ((unsigned int) m_contatos[3]);
+strcpy(temp->data_de_nascimento,m_contatos[4]);
+printf("%s\n",temp->nome_completo );
+printf("%s\n",temp->celular );
+printf("%s\n",temp->endereco );
+printf("%u\n",temp->CEP );
+printf("%s\n",temp->data_de_nascimento );
+temp -> proximo = NULL;
+temp -> anterior = NULL;
+int qtd_de_contatos+=1;
+return temp;
 }// end adicionaContatosDoArquivo
 
 void liberaContatos(Contatos *contatos){
 
 }// end liberaContatos
 
-int inserirNovoContato(Contatos *ondeInserir){
-
-}// end inserirNovoContato
 
 int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
+  return 0;
 
 }// end removerContatosPorString
 
 Contatos *visualizarContatosPorString(char *stringInformada, Contatos *ondePesquisar){
+  return NULL;
 
 }// end visualizarContatosPorString
 
@@ -88,6 +151,20 @@ void sair(){
 
 }// end sair
 
-Contatos *insertionSort(Contatos *contato){
+void insertion_sort(Contatos *contatos_base,int *p_qtd_de_contatos) {
 
-}// end insertionSort
+  Contatos *insertion_sort;
+
+
+    for (int i = 1; i < vetor.size(); i++) {
+		int escolhido = vetor[i];
+		int j = i - 1;
+
+		while ((j >= 0) && (vetor[j] > escolhido)) {
+			vetor[j + 1] = vetor[j];
+			j--;
+		}
+
+		vetor[j + 1] = escolhido;
+	}
+}

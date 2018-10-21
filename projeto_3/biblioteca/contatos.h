@@ -3,11 +3,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct contatos{
 
   char nome_completo[101];
-  char celular[11]={0};
+  char celular[11];
   char endereco[101];
   unsigned int CEP;
   char data_de_nascimento[11];
@@ -19,12 +20,12 @@ typedef struct contatos{
 /* Operacoes permitidadas para a lista de contatos */
 
 void menu(int *opcao);
+void insertion_sort(std::vector<int> &vetor);
 FILE *criaArquivoContatos_txt(); //para o caso do programa nao conseguir abrir o arquivo existente ou se nao houver arquivo pre existente. Retorna null se deu errado, ou um ponteiro para o arquivo, se deu certo
 Contatos *criaContatosVazia();
-Contatos *criaElemento();
+Contatos *inserirNovoRegistro(int posicao,Contatos *contatos); //retorna 1 se inseriu corretamente, 0 caso contrario. Deve chamar a funcao criaElemento e a funcao de ordenacao
 Contatos *adicionaContatosDoArquivo(FILE *ponteiroParaArquivo); //caso de errado, retorna 0;
 void liberaContatos(Contatos *contatos); //liberar a partir do primeiro contato
-int inserirNovoContato(Contatos *ondeInserir); //retorna 1 se inseriu corretamente, 0 caso contrario. Deve chamar a funcao criaElemento e a funcao de ordenacao
 int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover); //retorna 1 se removeu, 0 caso contrario. Deve percorrer a lista e tentar remover aquele nome, depois reordenar a lista
 Contatos *visualizarContatosPorString(char *stringInformada, Contatos *ondePesquisar); //retorna um ponteiro para o contato, se ele existe, ou null caso contrario. Deve percorrer a lista para achar o contato
 void visualizarTodosOsContatos(Contatos *primeiroContato); //pesquisar na lista qual o primeiro contato(*anterior==null) e printar a partir dele;
