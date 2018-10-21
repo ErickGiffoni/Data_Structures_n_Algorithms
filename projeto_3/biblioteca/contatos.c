@@ -23,8 +23,17 @@ FILE *criaArquivoContatos_txt(){
 }//
 
 Contatos *criaContatosVazia(){
+  Contatos *temp;
+  temp = (Contatos *)malloc(sizeof(Contatos));
+  if(temp==NULL){
+  printf("Criacao de novo contato falhou!\n");
   return NULL;
-
+  }
+  else {
+    temp -> proximo = NULL;
+    temp -> anterior = NULL;
+  }
+return temp;
 }// end criaContatosVazia
 
 Contatos *inserirNovoRegistro(Contatos *contatos){
