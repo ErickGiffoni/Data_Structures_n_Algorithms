@@ -201,7 +201,7 @@ void visualizarTodosOsContatos(Contatos *contatos){
     contatos = aux;
   }while(aux->anterior != NULL);
 
-  while(contatos->prox!= NULL){
+  while(contatos!= NULL){ // criterio de parada e quando o ponteiro em si nao aponta para nenhum contato
     printf("%s\n",contatos->nome_completo );
     printf("%s\n",contatos->celular );
     printf("%s\n",contatos->endereco );
