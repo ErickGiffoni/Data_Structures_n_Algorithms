@@ -40,6 +40,7 @@ do{
       break;
     case 4:
       printf("Opcao 4\n");
+      visualizarTodosOsContatos(contatos);
       //boolean = 1;
       break;
     case 5:
