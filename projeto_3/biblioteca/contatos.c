@@ -1,7 +1,8 @@
 #include "contatos.h"
 #include <string.h>
+#include <stdio.h>
 
-/*void menu(int *opcao){
+void menu(int *opcao){
   printf("\t\t\t***** MENU *****\nPor favor, digite o numero da opcao desejada:\n");
   printf("\t1- Inserir novo registro ;\n");
   printf("\t2- Remover registro que contenha certa string no nome ;\n");
@@ -11,7 +12,7 @@
   printf("Opcao : ");
   scanf("%d", opcao);
 
-}//end menu*/
+}//end menu
 
 FILE *criaArquivoContatos_txt(){
  return NULL;
@@ -111,10 +112,18 @@ for(int i=0;i<(cont_linhas-1);i++){
   printf("%s\n",m_contatos[i]);
 }
 
+
 Contatos *temp;
 temp = (Contatos *)malloc(sizeof(Contatos));
+if(temp == NULL){
+  printf("erro de alocagem temp\n" );
+}
 Contatos *temp2;
 temp2 = (Contatos *)malloc(sizeof(Contatos));
+if(temp2==NULL){
+  printf("erro de alocagem temp2\n");
+}
+
 strcpy(temp->nome_completo,m_contatos[0]);
 strcpy(temp->celular,m_contatos[1]);
 strcpy(temp->endereco,m_contatos[2]);
@@ -127,6 +136,7 @@ printf("%u\n",temp->CEP );
 printf("%s\n",temp->data_de_nascimento );
 temp -> proximo = NULL;
 temp -> anterior = NULL;
+printf("erro aqui3\n");
 
    for(int i=6;(i<cont_linhas-6);i++){
      if(strcmp(m_contatos[i],"$")==0)i++;
@@ -141,8 +151,8 @@ temp -> anterior = NULL;
      strcpy(temp2->data_de_nascimento,m_contatos[i]);
      temp2 -> proximo = NULL;
      temp2 -> anterior = NULL;
+     printf("erro aqu4\n" );
      temp = insertionSort(temp,temp2);
-
    }
 return temp;
 }// end adicionaContatosDoArquivo
@@ -174,21 +184,34 @@ Contatos *insertionSort(Contatos *base,Contatos *compare) {
   int c, c_aux;
   Contatos *aux;
   aux = (Contatos *)malloc(sizeof(Contatos));
+  if(aux==NULL){
+    printf("ERRO DE ALOCAGEM AUX\n");
+  }
+  if(base->proximo==NULL){
+    base->proximo = compare;
+    base->anterior = NULL;
+    compare->anterior = base;
+    compare -> proximo = NULL;
+    return base;
+  }
   aux  = base->proximo;
+
   do{
     c = strcmp(base->nome_completo, compare->nome_completo);
+
     c_aux = strcmp(aux->nome_completo,compare->nome_completo);
+
     if(c>0){
       compare->proximo = base;
       compare->anterior = NULL;
-      break;
+      return base;
     }
     else if(c<0 && c_aux>0){
       compare -> anterior = base;
       compare -> proximo = aux;
       base->proximo = compare;
       aux->anterior= compare;
-      break;
+      return base;
     }
   }while(1);
   return base;

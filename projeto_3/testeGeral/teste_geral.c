@@ -1,12 +1,21 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "../biblioteca/contatos.h"
 
 
 
 int main(){
 
-  Contatos *teste;
+  FILE *ponteiroParaArq;
+  Contatos *contatos;
+  contatos = (Contatos *)malloc(sizeof(Contatos));
+  if(contatos == NULL){
+    printf("Erro ao abrir o arquivo\n");
+    exit(-3);
+  }
 
-  teste = criaContatosVazia();
+  contatos = adicionaContatosDoArquivo(ponteiroParaArq);
 
   int opcao =0;
 
@@ -18,8 +27,7 @@ do{
   switch (opcao) {
     case 1:
       printf("Opcao 1\n");
-      getchar(); //para evitar que o programa pule o nome 
-      teste = criaElemento();
+      getchar(); //para evitar que o programa pule o nome
       break;
     case 2:
       printf("Opcao 2\n");

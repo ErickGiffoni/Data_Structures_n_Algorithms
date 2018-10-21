@@ -7,12 +7,6 @@
 
 int main(){
 
-  FILE *ponteiroParaArq;
-  Contatos *contatos;
-  contatos = (Contatos *)malloc(sizeof(Contatos));
-  if(contatos == NULL) printf("Erro ao abrir o arquivo\n");
-
-  contatos = adicionaContatosDoArquivo(ponteiroParaArq);
 
   FILE *arquivo_contatos_txt;
 
