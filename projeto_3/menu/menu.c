@@ -21,12 +21,7 @@ void menu(int *opcao){
 }//end of function MENU
 
 int main(){
-  FILE *ponteiroParaArq;
-  Contatos *contatos;
-  contatos = (Contatos *)malloc(sizeof(Contatos));
 
-
-  contatos = adicionaContatosDoArquivo(ponteiroParaArq);
   int opcao =0;
 
   int boolean = 0;
