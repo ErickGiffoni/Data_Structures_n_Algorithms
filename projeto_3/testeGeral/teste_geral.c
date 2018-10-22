@@ -35,6 +35,11 @@ do{
       break;
     case 2:
       printf("Opcao 2\n");
+      char *stringParaRemover;
+      scanf("%[^\n]", stringParaRemover);
+      getchar();
+      int remocao;
+      remocao = removerContatosPorString(stringParaRemover, contatos);
       //boolean = 1;
       break;
     case 3:
