@@ -48,8 +48,8 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
   scanf("%[^\n]", temp -> nome_completo);
   getchar();
 
+  int verifica = 1 ; // true
   do{
-    int verifica = 1 ; // true
     printf("Informe o número de celular no formato : xxxxx-xxxx\n");
     scanf("%[^\n]", temp -> celular );
     for(int i =6; i<10; i++){
@@ -59,7 +59,7 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
         verifica = 0;
         break;
       }// end if verifica se tem '-' e se tem numeros nas posicoes 0,1,2,3
-      if(temp->celular[4] < '48' || tem->celular[4] > '57' || temp->celular[i] < '48' || temp->celular[i] > '57'){
+      if(temp->celular[4] < '48' || temp->celular[4] > '57' || temp->celular[i] < '48' || temp->celular[i] > '57'){
         printf("Formato nao aceito! Tente novamente.\n");
         getchar();
         verifica = 0;
@@ -118,6 +118,17 @@ while(!feof(ponteiroParaArquivo)){ //WHILE PARA DETERMINAR QUANTIDADE DE LINHAS 
 printf("Quantidade de linas = %d\nQuantidade de contatos = %d\n",cont_linhas,cont_contatos);
 fclose(ponteiroParaArquivo);
 
+Contatos **temp;
+temp = (Contatos **)malloc(cont_contatos * sizeof(Contatos *)); //cont_contatos linhas, cada uma aponta para um contato
+
+for(int i =0; i<cont_contatos; i++){
+  temp[i] = (Contatos *) malloc(1 * sizeof(Contatos)); //1 coluna, cada uma e um contato
+}
+
+if(temp == NULL){
+  printf("erro de alocagem temp\n" );
+}
+
 char m_contatos[cont_linhas][100];//MATRIZ QUE ARMAZENA CONTATOS INICIAIS .txt
 ponteiroParaArquivo = fopen("../contatos/contatos.txt","r");
 if(ponteiroParaArquivo==NULL){
@@ -134,16 +145,6 @@ for(int i=0;i<(cont_linhas-1);i++){
 }
 
 
-Contatos **temp;
-temp = (Contatos **)malloc(cont_contatos * sizeof(Contatos *)); //cont_contatos linhas, cada uma aponta para um contato
-
-for(int i =0; i<cont_contatos; i++){
-  temp[i] = (Contatos *) malloc(1 * sizeof(Contatos)); //1 coluna, cada uma e um contato
-}
-
-if(temp == NULL){
-  printf("erro de alocagem temp\n" );
-}
 //Contatos *temp2;
 //temp2 = (Contatos *)malloc(sizeof(Contatos));
 //if(temp2==NULL){
@@ -152,18 +153,18 @@ if(temp == NULL){
 
   for(int i=0; i< cont_contatos; i++){
     if() continue;
-    strcpy(temp[i][0]->nome_completo,m_contatos[i]);
-    strcpy(temp[i][0]->celular,m_contatos[i+1]);
-    strcpy(temp[i][0]->endereco,m_contatos[i+2]);
-    temp[i][0]->CEP =  ((unsigned int) m_contatos[i+3]);
-    strcpy(temp[i][0]->data_de_nascimento,m_contatos[i+4]);
-    printf("%s\n",temp[i][0]->nome_completo );
-    printf("%s\n",temp[i][0]->celular );
-    printf("%s\n",temp[i][0]->endereco );
-    printf("%u\n",temp[i][0]->CEP );
-    printf("%s\n",temp[i][0]->data_de_nascimento );
-    temp -> proximo = NULL;
-    temp -> anterior = NULL;
+    strcpy(temp[i][0].nome_completo,m_contatos[i]);
+    strcpy(temp[i][0].celular,m_contatos[i+1]);
+    strcpy(temp[i][0].endereco,m_contatos[i+2]);
+    temp[i][0].CEP =  ((unsigned int) m_contatos[i+3]);
+    strcpy(temp[i][0].data_de_nascimento,m_contatos[i+4]);
+    printf("%s\n",temp[i][0].nome_completo );
+    printf("%s\n",temp[i][0].celular );
+    printf("%s\n",temp[i][0].endereco );
+    printf("%u\n",temp[i][0].CEP );
+    printf("%s\n",temp[i][0].data_de_nascimento );
+    temp[i][0].proximo = NULL;
+    temp[i][0].anterior = NULL;
     printf("erro aqui3\n");
   }
 
@@ -219,6 +220,40 @@ void liberaContatos(Contatos *contatos){
 
 
 int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
+  //retorna 1 se removeu, 0 caso contrario. Deve percorrer a lista e tentar remover aquele nome, depois reordenar a lista
+  Contatos *aux;
+  do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
+    aux = deOndeRemover->anterior;
+    deOndeRemover = aux;
+  }while(aux->anterior != NULL);
+
+  char *verificador; // usado para verificar se a string esta contida no nome de algum contato
+
+  for(aux; aux!=NULL; aux = aux->proximo){// for percorre lista
+
+    verificador = strstr(deOndeRemover, stringParaRemover);
+    if(verificador != NULL){ //if string contida no nome_completo
+
+      if(deOndeRemover->anterior == NULL){ // if string esta no primeiro contato da lista
+        aux->proximo->anterior = NULL;
+        deOndeRemover = deOndeRemover->proximo;
+        free(aux);
+        aux = deOndeRemover;
+      }// end if string esta no primeiro contato da lista
+      else if(deOndeRemover->proximo == NULL){// if string esta no ultimo contato da lista
+
+      } // end if string esta no ultimo contato da lista
+      else{ // string nem no primeiro nem no ultimo
+
+      }// end else string nem no primeiro nem no ultimo
+
+    }// end if string contida no nome_completo
+    else{ // string nao contida no nome_completo
+      printf("Contato nao identificado na base de dados existente\n");
+    }// end else string nao contida no nome_completo
+
+  }// end for percorre lista
+
   return 0;
 
 }// end removerContatosPorString
