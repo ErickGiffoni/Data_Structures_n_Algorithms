@@ -98,7 +98,7 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
 
 }// end inserirNovoRegistro
 
-Contatos *adicionaContatosDoArquivo(FILE *ponteiroParaArquivo){
+Contatos **adicionaContatosDoArquivo(FILE *ponteiroParaArquivo){
 
   ponteiroParaArquivo = fopen("../contatos/contatos2.txt","r");
   if(ponteiroParaArquivo==NULL){
@@ -116,7 +116,7 @@ while(!feof(ponteiroParaArquivo)){ //WHILE PARA DETERMINAR QUANTIDADE DE LINHAS 
   if(carac=='$')cont_contatos++;
 }
 printf("Quantidade de linas = %d\nQuantidade de contatos = %d\n",cont_linhas,cont_contatos);
-//fclose(ponteiroParaArquivo);
+fclose(ponteiroParaArquivo);
 
 char m_contatos[cont_linhas][100];//MATRIZ QUE ARMAZENA CONTATOS INICIAIS .txt
 ponteiroParaArquivo = fopen("../contatos/contatos.txt","r");
@@ -134,30 +134,38 @@ for(int i=0;i<(cont_linhas-1);i++){
 }
 
 
-Contatos *temp;
-temp = (Contatos *)malloc(sizeof(Contatos));
+Contatos **temp;
+temp = (Contatos **)malloc(cont_contatos * sizeof(Contatos *)); //cont_contatos linhas, cada uma aponta para um contato
+
+for(int i =0; i<cont_contatos; i++){
+  temp[i] = (Contatos *) malloc(1 * sizeof(Contatos)); //1 coluna, cada uma e um contato
+}
+
 if(temp == NULL){
   printf("erro de alocagem temp\n" );
 }
-Contatos *temp2;
-temp2 = (Contatos *)malloc(sizeof(Contatos));
-if(temp2==NULL){
-  printf("erro de alocagem temp2\n");
-}
+//Contatos *temp2;
+//temp2 = (Contatos *)malloc(sizeof(Contatos));
+//if(temp2==NULL){
+//  printf("erro de alocagem temp2\n");
+//}
 
-strcpy(temp->nome_completo,m_contatos[0]);
-strcpy(temp->celular,m_contatos[1]);
-strcpy(temp->endereco,m_contatos[2]);
-temp->CEP =  ((unsigned int) m_contatos[3]);
-strcpy(temp->data_de_nascimento,m_contatos[4]);
-printf("%s\n",temp->nome_completo );
-printf("%s\n",temp->celular );
-printf("%s\n",temp->endereco );
-printf("%u\n",temp->CEP );
-printf("%s\n",temp->data_de_nascimento );
-temp -> proximo = NULL;
-temp -> anterior = NULL;
-printf("erro aqui3\n");
+  for(int i=0; i< cont_contatos; i++){
+    if() continue;
+    strcpy(temp[i][0]->nome_completo,m_contatos[i]);
+    strcpy(temp[i][0]->celular,m_contatos[i+1]);
+    strcpy(temp[i][0]->endereco,m_contatos[i+2]);
+    temp[i][0]->CEP =  ((unsigned int) m_contatos[i+3]);
+    strcpy(temp[i][0]->data_de_nascimento,m_contatos[i+4]);
+    printf("%s\n",temp[i][0]->nome_completo );
+    printf("%s\n",temp[i][0]->celular );
+    printf("%s\n",temp[i][0]->endereco );
+    printf("%u\n",temp[i][0]->CEP );
+    printf("%s\n",temp[i][0]->data_de_nascimento );
+    temp -> proximo = NULL;
+    temp -> anterior = NULL;
+    printf("erro aqui3\n");
+  }
 
    for(int i=6;(i<cont_linhas);i++){
      if(strcmp(m_contatos[i],"$")==0)i++;
