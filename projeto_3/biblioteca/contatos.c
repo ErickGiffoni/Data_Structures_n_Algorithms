@@ -145,14 +145,14 @@ for(int i=0;i<(cont_linhas-1);i++){
 }
 
 
-//Contatos *temp2;
-//temp2 = (Contatos *)malloc(sizeof(Contatos));
-//if(temp2==NULL){
-//  printf("erro de alocagem temp2\n");
-//}
+Contatos *temp2;
+temp2 = (Contatos *)malloc(sizeof(Contatos));
+if(temp2==NULL){
+  printf("erro de alocagem temp2\n");
+}
 
   for(int i=0; i< cont_contatos; i++){
-    if() continue;
+    //if() continue;
     strcpy(temp[i][0].nome_completo,m_contatos[i]);
     strcpy(temp[i][0].celular,m_contatos[i+1]);
     strcpy(temp[i][0].endereco,m_contatos[i+2]);
@@ -235,7 +235,7 @@ int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
 
     deOndeRemover = aux;
 
-    verificador = strstr(deOndeRemover->nome, stringParaRemover);
+    verificador = strstr(deOndeRemover->nome_completo, stringParaRemover);
     if(verificador != NULL){ //if string contida no nome_completo
 
       if(deOndeRemover->anterior == NULL){ // if string esta no primeiro contato da lista
