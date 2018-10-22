@@ -59,7 +59,7 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
         verifica = 0;
         break;
       }// end if verifica se tem '-' e se tem numeros nas posicoes 0,1,2,3
-      if(temp->celular[4] < '48' || tem->celular[4] > '57' || temp->celular[i] < '48' || temp->celular[i] > '57'){
+      if(temp->celular[4] < '48' || temp->celular[4] > '57' || temp->celular[i] < '48' || temp->celular[i] > '57'){
         printf("Formato nao aceito! Tente novamente.\n");
         getchar();
         verifica = 0;
@@ -100,7 +100,7 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
 
 Contatos **adicionaContatosDoArquivo(FILE *ponteiroParaArquivo){
 
-  ponteiroParaArquivo = fopen("../contatos/contatos2.txt","r");
+  ponteiroParaArquivo = fopen("../contatos/contatos.txt","r");
   if(ponteiroParaArquivo==NULL){
   printf("FALHA AO ABRIR ARQUIVO\n");
   //exit(1);
@@ -280,7 +280,6 @@ Contatos *insertionSort(Contatos *base,Contatos *compare) {
   Contatos *aux;
   Contatos *aux2;
   aux = (Contatos *)malloc(sizeof(Contatos));
-
   if(aux==NULL){
     printf("ERRO DE ALOCAGEM AUX\n");
   }
@@ -302,14 +301,16 @@ Contatos *insertionSort(Contatos *base,Contatos *compare) {
       compare->anterior = NULL;
       base->anterior = compare;
       base->proximo = NULL;
-      return compare;
+      aux2 = compare;
+      return aux2;
     }
     else if(c<0){
       compare->proximo = NULL;
       compare -> anterior = base;
       base->anterior = NULL;
       base ->proximo = compare;
-      return base;
+      aux2 = base;
+      return aux2;
     }
   }
   else{
