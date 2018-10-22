@@ -48,18 +48,26 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
   scanf("%[^\n]", temp -> nome_completo);
   getchar();
 
-  printf("Informe o número de celular no formato : xxxxx-xxxx\n");
-  scanf("%[^\n]", temp -> celular );
-  for(int i =6; i<10; i++){
-    if(temp->celular[5]!= '-'){
-      printf("Formato nao aceito! Tente novamente.\n");
-      getchar();
-      break;
+  do{
+    int verifica = 1 ; // true
+    printf("Informe o número de celular no formato : xxxxx-xxxx\n");
+    scanf("%[^\n]", temp -> celular );
+    for(int i =6; i<10; i++){
+      if(temp->celular[5]!= '-' || temp->celular[i-6] < '48' || temp->celular[i-6] > '57'){
+        printf("Formato nao aceito! Tente novamente.\n");
+        getchar();
+        verifica = 0;
+        break;
+      }// end if verifica se tem '-' e se tem numeros nas posicoes 0,1,2,3
+      if(temp->celular[4] < '48' || tem->celular[4] > '57' || temp->celular[i] < '48' || temp->celular[i] > '57'){
+        printf("Formato nao aceito! Tente novamente.\n");
+        getchar();
+        verifica = 0;
+        break;
+      }//end if verifica se tem numeros nas posicoes 6,7,8,9
     }
-    if(temp->celular[i]){
-      printf("LOL\n");
-    }
-}
+
+  }while(!verifica);
 
   getchar();  //tratar o erro caso ele digite no formato errado
 
@@ -83,7 +91,7 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
     }
 
   }while(temp->data_de_nascimento[2]!= '/' || temp->data_de_nascimento[5]!= '/');
-  
+
   //temp = insertionSort(contatos,temp);
 //printf("cheguei\n");
   return temp;
