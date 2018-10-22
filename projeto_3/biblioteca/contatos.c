@@ -168,7 +168,7 @@ if(temp == NULL){
   }
 
    for(int i=6;(i<cont_linhas);i++){
-     if(strcmp(m_contatos[i],"$")==0)i++;
+     if(strcmp(m_contatos[i],"$")==0)i++;        //acho que esses i++ vao dar seg fault ; melhor usar continue
      strcpy(temp2->nome_completo,m_contatos[i]);
      i++;
      strcpy(temp2->celular,m_contatos[i]);
