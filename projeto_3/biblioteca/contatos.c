@@ -48,8 +48,8 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
   scanf("%[^\n]", temp -> nome_completo);
   getchar();
 
+  int verifica = 1 ; // true
   do{
-    int verifica = 1 ; // true
     printf("Informe o número de celular no formato : xxxxx-xxxx\n");
     scanf("%[^\n]", temp -> celular );
     for(int i =6; i<10; i++){
@@ -118,6 +118,17 @@ while(!feof(ponteiroParaArquivo)){ //WHILE PARA DETERMINAR QUANTIDADE DE LINHAS 
 printf("Quantidade de linas = %d\nQuantidade de contatos = %d\n",cont_linhas,cont_contatos);
 fclose(ponteiroParaArquivo);
 
+Contatos **temp;
+temp = (Contatos **)malloc(cont_contatos * sizeof(Contatos *)); //cont_contatos linhas, cada uma aponta para um contato
+
+for(int i =0; i<cont_contatos; i++){
+  temp[i] = (Contatos *) malloc(1 * sizeof(Contatos)); //1 coluna, cada uma e um contato
+}
+
+if(temp == NULL){
+  printf("erro de alocagem temp\n" );
+}
+
 char m_contatos[cont_linhas][100];//MATRIZ QUE ARMAZENA CONTATOS INICIAIS .txt
 ponteiroParaArquivo = fopen("../contatos/contatos.txt","r");
 if(ponteiroParaArquivo==NULL){
@@ -134,41 +145,31 @@ for(int i=0;i<(cont_linhas-1);i++){
 }
 
 
-Contatos **temp;
-temp = (Contatos **)malloc(cont_contatos * sizeof(Contatos *)); //cont_contatos linhas, cada uma aponta para um contato
-
-for(int i =0; i<cont_contatos; i++){
-  temp[i] = (Contatos *) malloc(1 * sizeof(Contatos)); //1 coluna, cada uma e um contato
+Contatos *temp2;
+temp2 = (Contatos *)malloc(sizeof(Contatos));
+if(temp2==NULL){
+  printf("erro de alocagem temp2\n");
 }
-
-if(temp == NULL){
-  printf("erro de alocagem temp\n" );
-}
-//Contatos *temp2;
-//temp2 = (Contatos *)malloc(sizeof(Contatos));
-//if(temp2==NULL){
-//  printf("erro de alocagem temp2\n");
-//}
 
   for(int i=0; i< cont_contatos; i++){
-    if() continue;
-    strcpy(temp[i][0]->nome_completo,m_contatos[i]);
-    strcpy(temp[i][0]->celular,m_contatos[i+1]);
-    strcpy(temp[i][0]->endereco,m_contatos[i+2]);
-    temp[i][0]->CEP =  ((unsigned int) m_contatos[i+3]);
-    strcpy(temp[i][0]->data_de_nascimento,m_contatos[i+4]);
-    printf("%s\n",temp[i][0]->nome_completo );
-    printf("%s\n",temp[i][0]->celular );
-    printf("%s\n",temp[i][0]->endereco );
-    printf("%u\n",temp[i][0]->CEP );
-    printf("%s\n",temp[i][0]->data_de_nascimento );
-    temp -> proximo = NULL;
-    temp -> anterior = NULL;
+    //if() continue;
+    strcpy(temp[i][0].nome_completo,m_contatos[i]);
+    strcpy(temp[i][0].celular,m_contatos[i+1]);
+    strcpy(temp[i][0].endereco,m_contatos[i+2]);
+    temp[i][0].CEP =  ((unsigned int) m_contatos[i+3]);
+    strcpy(temp[i][0].data_de_nascimento,m_contatos[i+4]);
+    printf("%s\n",temp[i][0].nome_completo );
+    printf("%s\n",temp[i][0].celular );
+    printf("%s\n",temp[i][0].endereco );
+    printf("%u\n",temp[i][0].CEP );
+    printf("%s\n",temp[i][0].data_de_nascimento );
+    temp[i][0].proximo = NULL;
+    temp[i][0].anterior = NULL;
     printf("erro aqui3\n");
   }
 
    for(int i=6;(i<cont_linhas);i++){
-     if(strcmp(m_contatos[i],"$")==0)i++;
+     if(strcmp(m_contatos[i],"$")==0)i++;        //acho que esses i++ vao dar seg fault ; melhor usar continue
      strcpy(temp2->nome_completo,m_contatos[i]);
      i++;
      strcpy(temp2->celular,m_contatos[i]);
@@ -219,7 +220,53 @@ void liberaContatos(Contatos *contatos){
 
 
 int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
-  return 0;
+  //retorna 1 se removeu, 0 caso contrario. Deve percorrer a lista e tentar remover aquele nome, depois reordenar a lista
+  Contatos *aux;
+  if(deOndeRemover->anterior != NULL){
+    do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
+      aux = deOndeRemover->anterior;
+      deOndeRemover = aux;
+    }while(aux->anterior != NULL);
+  }
+
+  char *verificador; // usado para verificar se a string esta contida no nome de algum contato
+
+  for(aux; aux!=NULL; aux = aux->proximo){// for percorre lista
+
+    deOndeRemover = aux;
+
+    verificador = strstr(deOndeRemover->nome_completo, stringParaRemover);
+    if(verificador != NULL){ //if string contida no nome_completo
+
+      if(deOndeRemover->anterior == NULL){ // if string esta no primeiro contato da lista
+        aux->proximo->anterior = NULL;
+        deOndeRemover = deOndeRemover->proximo;
+        free(aux);
+        aux = deOndeRemover;
+      }// end if string esta no primeiro contato da lista
+      else if(deOndeRemover->proximo == NULL){// if string esta no ultimo contato da lista
+        aux->anterior->proximo = NULL;
+        deOndeRemover = deOndeRemover->anterior;
+        free(aux);
+        aux = deOndeRemover;
+      } // end if string esta no ultimo contato da lista
+      else{ // string nem no primeiro nem no ultimo
+        aux->anterior->proximo = aux->proximo;
+        aux->proximo->anterior = aux->anterior;
+        deOndeRemover = deOndeRemover->proximo;
+        free(aux);
+        aux = deOndeRemover;
+      }// end else string nem no primeiro nem no ultimo
+
+    }// end if string contida no nome_completo
+    else{ // string nao contida no nome_completo
+      printf("Contato nao identificado na base de dados existente\n");
+      return 0; //nao removido
+    }// end else string nao contida no nome_completo
+
+  }// end for percorre lista
+
+  return 1;
 
 }// end removerContatosPorString
 
@@ -230,10 +277,12 @@ Contatos *visualizarContatosPorString(char *stringInformada, Contatos *ondePesqu
 
 void visualizarTodosOsContatos(Contatos *contatos){
   Contatos *aux;
-  do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
-    aux = contatos->anterior;
-    contatos = aux;
-  }while(aux->anterior != NULL);
+  if(contatos->anterior != NULL){
+    do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
+      aux = contatos->anterior;
+      contatos = aux;
+    }while(aux->anterior != NULL);
+  }
 
   while(contatos!= NULL){ // criterio de parada e quando o ponteiro em si nao aponta para nenhum contato
     printf("%s\n",contatos->nome_completo );
@@ -380,4 +429,5 @@ Contatos *insertionSort(Contatos *base,Contatos *compare) {
       }
     }
   return aux;
+} 
 }
