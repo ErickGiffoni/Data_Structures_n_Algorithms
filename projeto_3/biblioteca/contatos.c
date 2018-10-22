@@ -20,7 +20,7 @@ FILE *criaArquivoContatos_txt(){
   newFile = fopen("../contatos/newListOfContacts.txt", "w");
 }while(newFile == NULL);
  return newFile;
-}//
+}// end cria contatos.txt
 
 Contatos *criaContatosVazia(){
   Contatos *temp;
@@ -92,7 +92,7 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
 
   }while(temp->data_de_nascimento[2]!= '/' || temp->data_de_nascimento[5]!= '/');
 
-  //temp = insertionSort(contatos,temp);
+  temp = insertionSort(contatos,temp);
 //printf("cheguei\n");
   return temp;
 
@@ -237,7 +237,8 @@ int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
 
     verificador = strstr(deOndeRemover->nome_completo, stringParaRemover);
     if(verificador != NULL){ //if string contida no nome_completo
-
+      printf("Nome %s encontrado\n", deOndeRemover->nome_completo);
+      getchar();
       if(deOndeRemover->anterior == NULL){ // if string esta no primeiro contato da lista
         aux->proximo->anterior = NULL;
         deOndeRemover = deOndeRemover->proximo;
@@ -270,13 +271,53 @@ int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
 
 }// end removerContatosPorString
 
-Contatos *visualizarContatosPorString(char *stringInformada, Contatos *ondePesquisar){
-  return NULL;
+void visualizarContatosPorString(char *stringInformada, Contatos *ondePesquisar){
+  Contatos *aux;
+  if(ondePesquisar->anterior != NULL){
+    do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
+      aux = ondePesquisar->anterior;
+      ondePesquisar = aux;
+    }while(aux->anterior != NULL);
+  }
+
+  char *verificador; // usado para verificar se a string esta contida no nome de algum contato
+  int conta_os_prints = 0;
+
+  for(aux; aux!=NULL; aux = aux->proximo){// for percorre lista
+
+    ondePesquisar = aux;
+
+    verificador = strstr(ondePesquisar->nome_completo, stringParaRemover);
+    if(verificador != NULL){ //if string contida no nome_completo
+      printf("Contato encontrado :\n")
+      printf("\t%s\n",contatos->nome_completo );
+      printf("\t%s\n",contatos->celular );
+      printf("\t%s\n",contatos->endereco );
+      printf("\t%u\n",contatos->CEP);
+      printf("\t%s\n",contatos->data_de_nascimento );
+      getchar();
+      conta_os_prints ++;
+    }
+    else{ // string nao contida no nome_completo
+      continue;
+    }// end else string nao contida no nome_completo
+
+  }// end for percorre lista
+  if(conta_os_prints == 0){
+    printf("Nenhum contato encontrado. Tente novamente.\n");
+    getchar();
+  }
 
 }// end visualizarContatosPorString
 
 void visualizarTodosOsContatos(Contatos *contatos){
   Contatos *aux;
+
+  if(contatos == NULL){
+    printf("Nenhum contato cadastrado. Cadastre um contato.\n");
+    getchar();
+  }
+
   if(contatos->anterior != NULL){
     do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
       aux = contatos->anterior;
@@ -291,6 +332,7 @@ void visualizarTodosOsContatos(Contatos *contatos){
     printf("%u\n",contatos->CEP);
     printf("%s\n",contatos->data_de_nascimento );
     printf("\n\n\n\n\n");
+    getchar();
     contatos = contatos->proximo;
   }
 
@@ -299,6 +341,12 @@ void visualizarTodosOsContatos(Contatos *contatos){
 
 void sair(FILE *ondeSalvar, Contatos *contatos){
   Contatos *aux;
+
+  if(contatos == NULL){
+    printf("Nenhum contato cadastrado. Cadastre um contato.\n");
+    getchar();
+  }
+
   if(contatos->anterior!=NULL){ //checar se estamos no primeiro elemento da lista
     do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
       aux = contatos->anterior;
@@ -429,5 +477,4 @@ Contatos *insertionSort(Contatos *base,Contatos *compare) {
       }
     }
   return aux;
-} 
 }

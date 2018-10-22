@@ -27,7 +27,7 @@ Contatos *inserirNovoRegistro(Contatos *); //retorna 1 se inseriu corretamente, 
 Contatos **adicionaContatosDoArquivo(FILE *); //caso de errado, retorna 0;
 void liberaContatos(Contatos *); //liberar a partir do primeiro contato
 int removerContatosPorString(char *, Contatos *); //retorna 1 se removeu, 0 caso contrario. Deve percorrer a lista e tentar remover aquele nome, depois reordenar a lista
-Contatos *visualizarContatosPorString(char *, Contatos *); //retorna um ponteiro para o contato, se ele existe, ou null caso contrario. Deve percorrer a lista para achar o contato
+void visualizarContatosPorString(char *, Contatos *); //printa o(s) contato(s), se ele(s) existe(m). Deve percorrer a lista para achar o contato
 void visualizarTodosOsContatos(Contatos *primeiroContato); //pesquisar na lista qual o primeiro contato(*anterior==null) e printar a partir dele;
 void sair(FILE *, Contatos *); // salvar todos os contatos, em ordem, no arquivo contatos.txt ou no arquivo possivelmente criado
 

@@ -32,6 +32,11 @@ do{
       printf("Opcao 1\n");
       getchar(); //para evitar que o programa pule o nome
       contatos = inserirNovoRegistro(contatos);
+      if(contatos == NULL){
+        printf("Nao foi possivel inserir novo registro. Tente novamente\n\n");
+        getchar();
+        getchar();
+      }
       break;
     case 2:
       printf("Opcao 2\n");
@@ -40,10 +45,18 @@ do{
       getchar();
       int remocao;
       remocao = removerContatosPorString(stringParaRemover, contatos);
+      if(remocao){
+        printf("Nome(s) removido(s) com sucesso!!!\n");
+        getchar();
+      }
       //boolean = 1;
       break;
     case 3:
       printf("Opcao 3\n");
+      char *stringInformada;
+      scanf("%[^\n]", stringInformada);
+      visualizarContatosPorString(stringInformada, contatos);
+      getchar();
       //boolean = 1;
       break;
     case 4:
