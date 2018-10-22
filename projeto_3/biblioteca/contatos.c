@@ -287,14 +287,14 @@ void visualizarContatosPorString(char *stringInformada, Contatos *ondePesquisar)
 
     ondePesquisar = aux;
 
-    verificador = strstr(ondePesquisar->nome_completo, stringParaRemover);
+    verificador = strstr(ondePesquisar->nome_completo, stringInformada);
     if(verificador != NULL){ //if string contida no nome_completo
-      printf("Contato encontrado :\n")
-      printf("\t%s\n",contatos->nome_completo );
-      printf("\t%s\n",contatos->celular );
-      printf("\t%s\n",contatos->endereco );
-      printf("\t%u\n",contatos->CEP);
-      printf("\t%s\n",contatos->data_de_nascimento );
+      printf("Contato encontrado :\n");
+      printf("\t%s\n",ondePesquisar->nome_completo );
+      printf("\t%s\n",ondePesquisar->celular );
+      printf("\t%s\n",ondePesquisar->endereco );
+      printf("\t%u\n",ondePesquisar->CEP);
+      printf("\t%s\n",ondePesquisar->data_de_nascimento );
       getchar();
       conta_os_prints ++;
     }
@@ -442,7 +442,7 @@ Contatos *insertionSort(Contatos *base,Contatos *compare) {
 
       }
       else if(c<0 && c_aux<0){
-        aux_base
+        aux_base = base;
         do{
           base = base->proximo;
           aux2 = aux2->proximo;
