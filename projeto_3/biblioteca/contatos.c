@@ -222,16 +222,20 @@ void liberaContatos(Contatos *contatos){
 int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
   //retorna 1 se removeu, 0 caso contrario. Deve percorrer a lista e tentar remover aquele nome, depois reordenar a lista
   Contatos *aux;
-  do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
-    aux = deOndeRemover->anterior;
-    deOndeRemover = aux;
-  }while(aux->anterior != NULL);
+  if(deOndeRemover->anterior != NULL){
+    do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
+      aux = deOndeRemover->anterior;
+      deOndeRemover = aux;
+    }while(aux->anterior != NULL);
+  }
 
   char *verificador; // usado para verificar se a string esta contida no nome de algum contato
 
   for(aux; aux!=NULL; aux = aux->proximo){// for percorre lista
 
-    verificador = strstr(deOndeRemover, stringParaRemover);
+    deOndeRemover = aux;
+
+    verificador = strstr(deOndeRemover->nome, stringParaRemover);
     if(verificador != NULL){ //if string contida no nome_completo
 
       if(deOndeRemover->anterior == NULL){ // if string esta no primeiro contato da lista
@@ -241,20 +245,28 @@ int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
         aux = deOndeRemover;
       }// end if string esta no primeiro contato da lista
       else if(deOndeRemover->proximo == NULL){// if string esta no ultimo contato da lista
-
+        aux->anterior->proximo = NULL;
+        deOndeRemover = deOndeRemover->anterior;
+        free(aux);
+        aux = deOndeRemover;
       } // end if string esta no ultimo contato da lista
       else{ // string nem no primeiro nem no ultimo
-
+        aux->anterior->proximo = aux->proximo;
+        aux->proximo->anterior = aux->anterior;
+        deOndeRemover = deOndeRemover->proximo;
+        free(aux);
+        aux = deOndeRemover;
       }// end else string nem no primeiro nem no ultimo
 
     }// end if string contida no nome_completo
     else{ // string nao contida no nome_completo
       printf("Contato nao identificado na base de dados existente\n");
+      return 0; //nao removido
     }// end else string nao contida no nome_completo
 
   }// end for percorre lista
 
-  return 0;
+  return 1;
 
 }// end removerContatosPorString
 
@@ -265,10 +277,12 @@ Contatos *visualizarContatosPorString(char *stringInformada, Contatos *ondePesqu
 
 void visualizarTodosOsContatos(Contatos *contatos){
   Contatos *aux;
-  do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
-    aux = contatos->anterior;
-    contatos = aux;
-  }while(aux->anterior != NULL);
+  if(contatos->anterior != NULL){
+    do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
+      aux = contatos->anterior;
+      contatos = aux;
+    }while(aux->anterior != NULL);
+  }
 
   while(contatos!= NULL){ // criterio de parada e quando o ponteiro em si nao aponta para nenhum contato
     printf("%s\n",contatos->nome_completo );
