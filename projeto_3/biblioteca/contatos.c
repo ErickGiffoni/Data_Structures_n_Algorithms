@@ -52,7 +52,7 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
   do{
     printf("Informe o número de celular no formato : xxxxx-xxxx\n");
     scanf("%[^\n]", temp -> celular );
-    for(int i=6; i<10; i++){
+    //for(int i=6; i<10; i++){
       if(temp->celular[5]!= '-'/* || temp->celular[i-6] < '48' || temp->celular[i-6] > '57'*/){
         printf("Formato nao aceito! Tente novamente.\n");
         getchar();
