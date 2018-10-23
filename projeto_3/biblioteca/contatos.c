@@ -52,19 +52,19 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
   do{
     printf("Informe o número de celular no formato : xxxxx-xxxx\n");
     scanf("%[^\n]", temp -> celular );
-    for(int i =6; i<10; i++){
-      if(temp->celular[5]!= '-' || temp->celular[i-6] < '48' || temp->celular[i-6] > '57'){
+    for(int i=6; i<10; i++){
+      if(temp->celular[5]!= '-'/* || temp->celular[i-6] < '48' || temp->celular[i-6] > '57'*/){
         printf("Formato nao aceito! Tente novamente.\n");
         getchar();
         verifica = 0;
         break;
       }// end if verifica se tem '-' e se tem numeros nas posicoes 0,1,2,3
-      if(temp->celular[4] < '48' || temp->celular[4] > '57' || temp->celular[i] < '48' || temp->celular[i] > '57'){
+      /*if(temp->celular[4] < '48' || temp->celular[4] > '57' || temp->celular[i] < '48' || temp->celular[i] > '57'){
         printf("Formato nao aceito! Tente novamente.\n");
         getchar();
         verifica = 0;
         break;
-      }//end if verifica se tem numeros nas posicoes 6,7,8,9
+      }*///end if verifica se tem numeros nas posicoes 6,7,8,9
     }
 
   }while(!verifica);
@@ -92,13 +92,13 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
 
   }while(temp->data_de_nascimento[2]!= '/' || temp->data_de_nascimento[5]!= '/');
 
-  temp = insertionSort(contatos,temp);
+  temp = adicionaLista(contatos,temp);
 //printf("cheguei\n");
   return temp;
 
 }// end inserirNovoRegistro
 
-Contatos **adicionaContatosDoArquivo(FILE *ponteiroParaArquivo){
+Contatos *adicionaContatosDoArquivo(FILE *ponteiroParaArquivo){
 
   ponteiroParaArquivo = fopen("../contatos/contatos.txt","r");
   if(ponteiroParaArquivo==NULL){
@@ -116,21 +116,12 @@ while(!feof(ponteiroParaArquivo)){ //WHILE PARA DETERMINAR QUANTIDADE DE LINHAS 
   if(carac=='$')cont_contatos++;
 }
 printf("Quantidade de linas = %d\nQuantidade de contatos = %d\n",cont_linhas,cont_contatos);
-fclose(ponteiroParaArquivo);
 
-Contatos **temp;
-temp = (Contatos **)malloc(cont_contatos * sizeof(Contatos *)); //cont_contatos linhas, cada uma aponta para um contato
-
-for(int i =0; i<cont_contatos; i++){
-  temp[i] = (Contatos *) malloc(1 * sizeof(Contatos)); //1 coluna, cada uma e um contato
-}
-
-if(temp == NULL){
-  printf("erro de alocagem temp\n" );
-}
-
+char *p_m_contatos;
+p_m_contatos = (char *)malloc(sizeof(cont_linhas*100));
 char m_contatos[cont_linhas][100];//MATRIZ QUE ARMAZENA CONTATOS INICIAIS .txt
-ponteiroParaArquivo = fopen("../contatos/contatos.txt","r");
+
+rewind(ponteiroParaArquivo);
 if(ponteiroParaArquivo==NULL){
   printf("ERRO AO ABRIR ARQUIVO\n" );
   //exit(-2);
@@ -140,52 +131,25 @@ if(ponteiroParaArquivo==NULL){
 for(int i=0;i<(cont_linhas-1);i++){
     fscanf(ponteiroParaArquivo," %[^\n]",m_contatos[i]);
 }
+
+fclose(ponteiroParaArquivo);
+p_m_contatos = m_contatos;
+
 for(int i=0;i<(cont_linhas-1);i++){
-  printf("%s\n",m_contatos[i]);
+  printf("%s\n",p_m_contatos + (i * 100));
 }
 
 
-Contatos *temp2;
-temp2 = (Contatos *)malloc(sizeof(Contatos));
-if(temp2==NULL){
-  printf("erro de alocagem temp2\n");
+Contatos *temp;
+temp = criaLista(p_m_contatos, 0);
+for(int i = 6;i< cont_linhas-5; i+=6){
+  temp = adicionaLista(temp,criaLista(p_m_contatos, i));
 }
 
-  for(int i=0; i< cont_contatos; i++){
-    //if() continue;
-    strcpy(temp[i][0].nome_completo,m_contatos[i]);
-    strcpy(temp[i][0].celular,m_contatos[i+1]);
-    strcpy(temp[i][0].endereco,m_contatos[i+2]);
-    temp[i][0].CEP =  ((unsigned int) m_contatos[i+3]);
-    strcpy(temp[i][0].data_de_nascimento,m_contatos[i+4]);
-    printf("%s\n",temp[i][0].nome_completo );
-    printf("%s\n",temp[i][0].celular );
-    printf("%s\n",temp[i][0].endereco );
-    printf("%u\n",temp[i][0].CEP );
-    printf("%s\n",temp[i][0].data_de_nascimento );
-    temp[i][0].proximo = NULL;
-    temp[i][0].anterior = NULL;
-    printf("erro aqui3\n");
-  }
 
-   for(int i=6;(i<cont_linhas);i++){
-     if(strcmp(m_contatos[i],"$")==0)i++;        //acho que esses i++ vao dar seg fault ; melhor usar continue
-     strcpy(temp2->nome_completo,m_contatos[i]);
-     i++;
-     strcpy(temp2->celular,m_contatos[i]);
-     i++;
-     strcpy(temp2->endereco,m_contatos[i]);
-     i++;
-     temp2->CEP =  ((unsigned int) m_contatos[i]);
-     i++;
-     strcpy(temp2->data_de_nascimento,m_contatos[i]);
-     temp2 -> proximo = NULL;
-     temp2 -> anterior = NULL;
-     printf("erro aqu4\n" );
-     temp = insertionSort(temp,temp2);
-   }
 
-   ponteiroParaArquivo = fopen("../contatos/contatos2.txt","w"); //mudar para escrita
+
+//   ponteiroParaArquivo = fopen("../contatos/contatos2.txt","w"); //mudar para escrita
 return temp;
 }// end adicionaContatosDoArquivo
 
@@ -218,6 +182,41 @@ void liberaContatos(Contatos *contatos){
 
 }// end liberaContatos
 
+
+Contatos *adicionaLista(Contatos *temp, Contatos *temp2){
+  temp2->proximo = temp;
+  temp ->anterior = temp2;
+
+  return temp2;
+}
+
+Contatos *criaLista(char *p_m_contatos,int posicao){
+  Contatos *temp;
+  temp = (Contatos *)malloc(sizeof(Contatos));
+  if(temp == NULL)printf("FALHA NA ALOCACAO TEMO CRIALIST\n");
+  printf("erro aqui\n");
+  int contador = 0;
+
+  for(int i = posicao ;contador == 0; i++){
+  strcpy(temp->nome_completo, (p_m_contatos + (i * 100)));
+  printf("\n\n\ntemp-> nome_completo: %s\n",temp->nome_completo );
+  i++;
+  strcpy(temp->celular, (p_m_contatos + (i * 100)));
+  printf("temp-> nome_celular : %s\n\n\n",temp->celular );
+  i++;
+  strcpy(temp->endereco, (p_m_contatos + (i * 100)));
+  i++;
+  temp->CEP = (unsigned int)(p_m_contatos + (i * 100));
+  i++;
+  strcpy(temp->data_de_nascimento, (p_m_contatos + (i * 100)));
+  contador ++;
+}
+  temp->proximo= NULL;
+  temp->anterior = NULL;
+
+
+    return temp;
+}
 
 int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
   //retorna 1 se removeu, 0 caso contrario. Deve percorrer a lista e tentar remover aquele nome, depois reordenar a lista
@@ -312,27 +311,18 @@ void visualizarContatosPorString(char *stringInformada, Contatos *ondePesquisar)
 
 void visualizarTodosOsContatos(Contatos *contatos){
   Contatos *aux;
-
   if(contatos == NULL){
     printf("Nenhum contato cadastrado. Cadastre um contato.\n");
-    getchar();
   }
 
-  if(contatos->anterior != NULL){
-    do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
-      aux = contatos->anterior;
-      contatos = aux;
-    }while(aux->anterior != NULL);
-  }
 
-  while(contatos!= NULL){ // criterio de parada e quando o ponteiro em si nao aponta para nenhum contato
-    printf("%s\n",contatos->nome_completo );
-    printf("%s\n",contatos->celular );
-    printf("%s\n",contatos->endereco );
-    printf("%u\n",contatos->CEP);
-    printf("%s\n",contatos->data_de_nascimento );
+  for(aux = contatos; aux!=NULL; aux = aux->proximo){
+    printf("%s\n",aux->nome_completo );
+    printf("%s\n",aux->celular );
+    printf("%s\n",aux->endereco );
+    printf("%u\n",aux->CEP);
+    printf("%s\n",aux->data_de_nascimento );
     printf("\n\n\n\n\n");
-    getchar();
     contatos = contatos->proximo;
   }
 
@@ -372,41 +362,27 @@ void sair(FILE *ondeSalvar, Contatos *contatos){
 }// end sair
 
 Contatos *insertionSort(Contatos *base,Contatos *compare) {
-  Contatos *aux;
-  aux = (Contatos *)malloc(sizeof(Contatos));
-  if(aux==NULL)printf("ERRO DE ALOCACAO AUX\n");
-
-  Contatos *aux2;
-  aux2 = (Contatos *)malloc(sizeof(Contatos));
-  if(aux2==NULL)printf("ERRO DE ALOCACAO AUX2\n");
-
-  Contatos *aux_base;
-  aux_base = (Contatos *)malloc(sizeof(Contatos));
-  if(aux_base ==NULL)printf("ERRO DE ALOCACAO aux_base\n");
-
-  Contatos *aux_compare;
-  aux_compare = (Contatos *)malloc(sizeof(Contatos));
-  if(aux_compare ==NULL)printf("ERRO DE ALOCACAO AUX\n");
-  aux_compare = compare;
+  
 
 
   int cont  = 1;
 
   int c = strcmp(base->nome_completo, compare->nome_completo);
 
-  printf("%d\n",c);
-  printf("%s\n",base->nome_completo);
-  printf("%s\n",base->proximo->nome_completo);
-  printf("%s\n",compare->nome_completo);
-  printf("%s\n",base->proximo );
-  printf("%s\n",base->anterior );
+  printf("\n\n\n\n\nresultado strcmp: %d\n",c);
+  printf("base->nome_completo: %s\n",base->nome_completo);
+  printf("base->proximo->nome_completo: %s\n",base->proximo->nome_completo);
+  printf("compare->nome_completo: %s\n",compare->nome_completo);
+  printf("base->proximo: %s\n",base->proximo );
+  printf("base->anterior: %s\n\n\n\n\n",base->anterior );
+  //  getchar();
     if((base->proximo==NULL) && (base->anterior==NULL)){
       if(c<0){
         base->proximo = aux_compare;
         aux_compare->anterior = base;
         aux_compare->proximo = NULL;
-        printf("\n\n\nbase nome_completo: %s\n", base->nome_completo);
-        printf("compare nome_completo: %s\n\n\n",base->proximo->nome_completo );
+      //  printf("\n\n\nbase nome_completo: %s\n", base->nome_completo);
+      //  printf("compare nome_completo: %s\n\n\n",base->proximo->nome_completo );
         aux = base;
         return aux;
 
@@ -423,9 +399,9 @@ Contatos *insertionSort(Contatos *base,Contatos *compare) {
     else if(base->proximo!=NULL){
       aux2 = base->proximo;
       int c_aux = strcmp(aux2->nome_completo,aux_compare->nome_completo);
-      printf("\n\n\nbase nome_completo: %s\n", base->nome_completo);
-      printf("aux2 nome_completo: %s\n",aux2->nome_completo );
-      printf("compare nome_completo: %s\n\n\n",aux_compare->nome_completo );
+    //  printf("\n\n\nbase nome_completo: %s\n", base->nome_completo);
+    //  printf("aux2 nome_completo: %s\n",aux2->nome_completo );
+    //  printf("compare nome_completo: %s\n\n\n",aux_compare->nome_completo );
       if(c>0){
         aux_compare ->proximo = base;
         base->anterior = aux_compare;
@@ -467,13 +443,6 @@ Contatos *insertionSort(Contatos *base,Contatos *compare) {
               return aux;
             }
         }while (cont != 0);
-        printf("\n\n\n\n\n\n" );
-        printf("%d\n",c);
-        printf("%s\n",base->nome_completo);
-        printf("%s\n",compare->nome_completo);
-        printf("%s\n",base->proximo);
-        printf("%s\n",base->anterior);
-
       }
     }
   return aux;

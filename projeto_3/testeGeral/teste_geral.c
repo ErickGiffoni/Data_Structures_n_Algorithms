@@ -40,6 +40,7 @@ do{
       break;
     case 2:
       printf("Opcao 2\n");
+      getchar();
       char *stringParaRemover;
       scanf("%[^\n]", stringParaRemover);
       getchar();
