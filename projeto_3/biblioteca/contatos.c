@@ -182,12 +182,12 @@ void liberaContatos(Contatos *contatos){
 }// end liberaContatos
 
 
-Contatos *adicionaLista(Contatos *temp, Contatos *temp2){
+/*Contatos *adicionaLista(Contatos *temp, Contatos *temp2){
   temp2->proximo = temp;
   temp ->anterior = temp2;
 
   return temp2;
-}
+}*/
 
 Contatos *criaLista(char *p_m_contatos,int posicao){
   Contatos *temp;
