@@ -238,7 +238,7 @@ int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
         aux2->proximo->anterior = NULL;
         //aux2 = aux2->proximo;
         free(aux);
-        deOndeRemover = aux2->proximo; // atualiza o primeiro elemento da lista 
+        deOndeRemover = aux2->proximo; // atualiza o primeiro elemento da lista
         //aux = aux2; //aux = deOndeRemover
       }// end if string esta no primeiro contato da lista
       else if(aux2->proximo == NULL){// if string esta no ultimo contato da lista
@@ -268,29 +268,24 @@ int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
 }// end removerContatosPorString
 
 void visualizarContatosPorString(char *stringInformada, Contatos *ondePesquisar){
-  Contatos *aux;
-  if(ondePesquisar->anterior != NULL){
-    do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
-      aux = ondePesquisar->anterior;
-      ondePesquisar = aux;
-    }while(aux->anterior != NULL);
-  }
+  Contatos *aux = ondePesquisar;
+
 
   char *verificador; // usado para verificar se a string esta contida no nome de algum contato
   int conta_os_prints = 0;
 
   for(aux; aux!=NULL; aux = aux->proximo){// for percorre lista
 
-    ondePesquisar = aux;
+    //ondePesquisar = aux;
 
-    verificador = strstr(ondePesquisar->nome_completo, stringInformada);
+    verificador = strstr(aux->nome_completo, stringInformada);
     if(verificador != NULL){ //if string contida no nome_completo
       printf("Contato encontrado :\n");
-      printf("\t%s\n",ondePesquisar->nome_completo );
-      printf("\t%s\n",ondePesquisar->celular );
-      printf("\t%s\n",ondePesquisar->endereco );
-      printf("\t%u\n",ondePesquisar->CEP);
-      printf("\t%s\n",ondePesquisar->data_de_nascimento );
+      printf("\t%s\n",aux->nome_completo );
+      printf("\t%s\n",aux->celular );
+      printf("\t%s\n",aux->endereco );
+      printf("\t%u\n",aux->CEP);
+      printf("\t%s\n",aux->data_de_nascimento );
       getchar();
       conta_os_prints ++;
     }
