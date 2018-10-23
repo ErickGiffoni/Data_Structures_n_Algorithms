@@ -65,9 +65,7 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
         verifica = 0;
         break;
       }*///end if verifica se tem numeros nas posicoes 6,7,8,9
-    }
-
-  }while(!verifica);
+    }while(!verifica);
 
   getchar();  //tratar o erro caso ele digite no formato errado
 
