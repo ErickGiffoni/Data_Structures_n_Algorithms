@@ -24,7 +24,9 @@ Contatos *insertionSort(Contatos *,Contatos *);//percorrer a lista de contatos e
 FILE *criaArquivoContatos_txt(); //para o caso do programa nao conseguir abrir o arquivo existente ou se nao houver arquivo pre existente. Retorna null se deu errado, ou um ponteiro para o arquivo, se deu certo
 Contatos *criaContatosVazia();
 Contatos *inserirNovoRegistro(Contatos *); //retorna 1 se inseriu corretamente, 0 caso contrario. Deve chamar a funcao criaElemento e a funcao de ordenacao
-Contatos **adicionaContatosDoArquivo(FILE *); //caso de errado, retorna 0;
+Contatos *adicionaContatosDoArquivo(FILE *); //caso de errado, retorna 0;
+Contatos *criaLista(char *,int);
+Contatos *adicionaLista(Contatos *, Contatos*);
 void liberaContatos(Contatos *); //liberar a partir do primeiro contato
 int removerContatosPorString(char *, Contatos *); //retorna 1 se removeu, 0 caso contrario. Deve percorrer a lista e tentar remover aquele nome, depois reordenar a lista
 void visualizarContatosPorString(char *, Contatos *); //printa o(s) contato(s), se ele(s) existe(m). Deve percorrer a lista para achar o contato
