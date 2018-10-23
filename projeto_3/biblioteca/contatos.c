@@ -261,7 +261,7 @@ int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
 
     }// end if string contida no nome_completo
     else{ // string nao contida no nome_completo
-      printf("Contato nao identificado na temp de dados existente\n");
+      printf("Contato nao identificado na base de dados existente\n");
       return 0; //nao removido
     }// end else string nao contida no nome_completo
 
