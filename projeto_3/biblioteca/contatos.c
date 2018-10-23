@@ -435,9 +435,11 @@ if(aux_temp2==NULL)printf("Alocacao aux_temp falhou\n");
               cont = 0;
               return aux_temp;
             }
-            if(aux_temp2 == NULL){
-              temp2 -> anterior = temp;
-              temp->proximo = temp2;
+            if(aux_temp2->proximo == NULL){
+              temp->proximo = aux_temp2;
+              aux_temp2->anterior = temp;
+              temp2 -> anterior = aux_temp2;
+              aux_temp2->proximo = temp2;
               return aux_temp;
             }
 
