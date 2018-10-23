@@ -39,7 +39,7 @@ do{
       }
       break;
     case 2:
-      printf("Opcao 2\n");
+      printf("Opcao 2 : Informe o nome a ser removido\n");
       getchar();
       char *stringParaRemover;
       scanf("%[^\n]", stringParaRemover);
@@ -53,7 +53,7 @@ do{
       //boolean = 1;
       break;
     case 3:
-      printf("Opcao 3\n");
+      printf("Opcao 3 : Informe o nome a ser pesquisado\n");
       char *stringInformada;
       scanf("%[^\n]", stringInformada);
       visualizarContatosPorString(stringInformada, contatos);
@@ -61,12 +61,12 @@ do{
       //boolean = 1;
       break;
     case 4:
-      printf("Opcao 4\n");
+      printf("Opcao 4 : Mostrando todos os contatos...\n");
       visualizarTodosOsContatos(contatos);
       //boolean = 1;
       break;
     case 5:
-      printf("Opcao 5\n"); // implementar a saida do programa
+      printf("Opcao 5 : OBRIGADO, VOLTE SEMPRE\n"); // implementar a saida do programa
       sair(ponteiroParaArq, contatos);
       boolean = 1;
       break;
