@@ -4,7 +4,7 @@
 
 void menu(int *opcao){
   printf("\t\t\t***** MENU *****\nPor favor, digite o numero da opcao desejada:\n");
-  printf("\t1- Inserir novo registro ;\n");
+  printf("\t1- Inserir novo registro;\n");
   printf("\t2- Remover registro que contenha certa string no nome ;\n");
   printf("\t3- Visualizar registro que contenha certa string no nome ;\n");
   printf("\t4- Visualizar todos os registros, em ordem alfabetica, de acordo com o nome ;\n");
@@ -92,9 +92,9 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
 
   }while(temp->data_de_nascimento[2]!= '/' || temp->data_de_nascimento[5]!= '/');
 
-  temp = adicionaLista(contatos,temp);
+  contatos = insertionSort(contatos, temp);
 //printf("cheguei\n");
-  return temp;
+  return contatos;
 
 }// end inserirNovoRegistro
 
@@ -143,7 +143,8 @@ for(int i=0;i<(cont_linhas-1);i++){
 Contatos *temp;
 temp = criaLista(p_m_contatos, 0);
 for(int i = 6;i< cont_linhas-5; i+=6){
-  temp = adicionaLista(temp,criaLista(p_m_contatos, i));
+  printf("temp->nome_completo = %s\n",temp->nome_completo );
+  temp = insertionSort(temp,criaLista(p_m_contatos, i));
 }
 
 
@@ -260,7 +261,7 @@ int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
 
     }// end if string contida no nome_completo
     else{ // string nao contida no nome_completo
-      printf("Contato nao identificado na base de dados existente\n");
+      printf("Contato nao identificado na temp de dados existente\n");
       return 0; //nao removido
     }// end else string nao contida no nome_completo
 
@@ -337,12 +338,12 @@ void sair(FILE *ondeSalvar, Contatos *contatos){
     getchar();
   }
 
-  if(contatos->anterior!=NULL){ //checar se estamos no primeiro elemento da lista
+/*  if(contatos->anterior!=NULL){ //checar se estamos no primeiro elemento da lista
     do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
       aux = contatos->anterior;
       contatos = aux;
     }while(aux->anterior != NULL);
-  }
+  }*/
 
 
   //percorrer todos os contatos e escreve-los no arquivo
@@ -361,89 +362,87 @@ void sair(FILE *ondeSalvar, Contatos *contatos){
 
 }// end sair
 
-Contatos *insertionSort(Contatos *base,Contatos *compare) {
-  
+Contatos *insertionSort(Contatos *temp,Contatos *temp2) {
 
+Contatos *aux_temp;
+aux_temp = (Contatos *)malloc(sizeof(Contatos));
+if(aux_temp==NULL)printf("Alocacao aux_temp falhou\n");
+aux_temp = temp;
+
+
+Contatos *aux_temp2;
+aux_temp2 = (Contatos *)malloc(sizeof(Contatos));
+if(aux_temp2==NULL)printf("Alocacao aux_temp falhou\n");
 
   int cont  = 1;
 
-  int c = strcmp(base->nome_completo, compare->nome_completo);
+  int c = strcmp(temp->nome_completo, temp2->nome_completo);
 
-  printf("\n\n\n\n\nresultado strcmp: %d\n",c);
-  printf("base->nome_completo: %s\n",base->nome_completo);
-  printf("base->proximo->nome_completo: %s\n",base->proximo->nome_completo);
-  printf("compare->nome_completo: %s\n",compare->nome_completo);
-  printf("base->proximo: %s\n",base->proximo );
-  printf("base->anterior: %s\n\n\n\n\n",base->anterior );
+
   //  getchar();
-    if((base->proximo==NULL) && (base->anterior==NULL)){
+    if((temp->proximo==NULL) && (temp->anterior==NULL)){
       if(c<0){
-        base->proximo = aux_compare;
-        aux_compare->anterior = base;
-        aux_compare->proximo = NULL;
-      //  printf("\n\n\nbase nome_completo: %s\n", base->nome_completo);
-      //  printf("compare nome_completo: %s\n\n\n",base->proximo->nome_completo );
-        aux = base;
-        return aux;
+        temp->proximo = temp2;
+        temp2->anterior = temp;
+      //  printf("\n\n\ntemp nome_completo: %s\n", temp->nome_completo);
+      //  printf("temp2 nome_completo: %s\n\n\n",temp->proximo->nome_completo );
+        return temp;
 
       }
       if(c>0){
-        aux_compare->anterior = NULL;
-        aux_compare->proximo = base;
-        base->anterior = aux_compare;
-        aux = aux_compare;
-        return aux;
+        temp2->proximo = temp;
+        temp->anterior = temp2;
+        return temp2;
 
       }
     }
-    else if(base->proximo!=NULL){
-      aux2 = base->proximo;
-      int c_aux = strcmp(aux2->nome_completo,aux_compare->nome_completo);
-    //  printf("\n\n\nbase nome_completo: %s\n", base->nome_completo);
-    //  printf("aux2 nome_completo: %s\n",aux2->nome_completo );
-    //  printf("compare nome_completo: %s\n\n\n",aux_compare->nome_completo );
+    else if(temp->proximo!=NULL){
+      aux_temp2 = temp->proximo;
+      int c_aux = strcmp(aux_temp2->nome_completo,temp2->nome_completo);
+    //  printf("\n\n\ntemp nome_completo: %s\n", temp->nome_completo);
+    //  printf("aux_temp2 nome_completo: %s\n",aux_temp2->nome_completo );
+    //  printf("temp2 nome_completo: %s\n\n\n",temp2->nome_completo );
       if(c>0){
-        aux_compare ->proximo = base;
-        base->anterior = aux_compare;
-        aux = aux_compare;
-        return aux;
+        temp2 ->proximo = temp;
+        temp->anterior = temp2;
+        temp->proximo = aux_temp2;
+        aux_temp2->anterior = temp;
+        return temp2;
 
       }
       else if(c<0 && c_aux>0){
-        aux_compare->anterior = base;
-        base->proximo = aux_compare;
-        aux2->anterior = aux_compare;
-        aux = base;
-        return aux;
+        temp->proximo = temp2;
+        temp2->anterior = temp;
+        temp2->proximo = aux_temp2;
+        aux_temp2->anterior = temp2;
+
+        return temp;
 
       }
       else if(c<0 && c_aux<0){
-        aux_base = base;
+        aux_temp = temp;
+        aux_temp2 = aux_temp2;
         do{
-          base = base->proximo;
-          aux2 = aux2->proximo;
-          c = strcmp(base->nome_completo, aux_compare->nome_completo);
-          c_aux = strcmp(aux2->nome_completo,aux_compare->nome_completo);
-            if(c<0){
-              base->proximo = aux_compare;
-              aux_compare->anterior = base;
-              aux_compare -> proximo = aux2;
-              aux2->anterior = aux_compare;
+          temp = temp->proximo;
+          aux_temp2 = aux_temp2->proximo;
+          c = strcmp(temp->nome_completo, temp2->nome_completo);
+          c_aux = strcmp(aux_temp2->nome_completo,temp2->nome_completo);
+            if(c<0 && c_aux>0){
+              aux_temp2->anterior = temp2;
+              temp2 -> proximo = aux_temp2;
+              temp2->anterior = temp;
+              temp->proximo = temp2;
               cont = 0;
-              aux = base;
-              return aux;
+              return aux_temp;
+            }
+            if(aux_temp2 == NULL){
+              temp2 -> anterior = temp;
+              temp->proximo = temp2;
+              return aux_temp;
+            }
 
-            }
-            else if(c>0 && c_aux<0){
-              aux_compare->anterior = NULL;
-              aux_compare->proximo = base;
-              base->anterior = aux_compare;
-              cont = 0;
-              aux = aux_compare;
-              return aux;
-            }
         }while (cont != 0);
       }
     }
-  return aux;
+  return NULL;
 }
