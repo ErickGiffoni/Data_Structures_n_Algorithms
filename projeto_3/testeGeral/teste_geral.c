@@ -56,6 +56,7 @@ do{
       printf("Opcao 3 : Informe o nome a ser pesquisado\n");
       char *stringInformada;
       scanf("%[^\n]", stringInformada);
+      getchar();
       visualizarContatosPorString(stringInformada, contatos);
       getchar();
       //boolean = 1;
