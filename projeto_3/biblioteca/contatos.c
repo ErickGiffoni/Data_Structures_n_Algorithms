@@ -238,7 +238,7 @@ int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
         aux2->proximo->anterior = NULL;
         //aux2 = aux2->proximo;
         free(aux);
-        deOndeRemover = aux2->proximo; // atualiza o primeiro elemento da lista 
+        deOndeRemover = aux2->proximo; // atualiza o primeiro elemento da lista
         //aux = aux2; //aux = deOndeRemover
       }// end if string esta no primeiro contato da lista
       else if(aux2->proximo == NULL){// if string esta no ultimo contato da lista
@@ -326,34 +326,43 @@ void visualizarTodosOsContatos(Contatos *contatos){
 
 }// end visualizarTodosOsContatos
 
-void sair(FILE *ondeSalvar, Contatos *contatos){
+void sair(Contatos *contatos){
   Contatos *aux;
 
+  FILE *file_sair;
+  file_sair = fopen("../contatos/contatos.txt", "w");
+  if(file_sair == NULL){
+    FILE *novo_sair;
+    novo_sair = fopen("../contatos/newListOfContacts", "w");
+
+    for(aux = contatos; aux != NULL; aux = aux->proximo){
+      fprintf(novo_sair, "%s",aux->nome_completo);
+      fprintf(novo_sair, "\n");
+      fprintf(novo_sair, "%s",aux->celular);
+      fprintf(novo_sair, "\n");
+      fprintf(novo_sair, "%s",aux->endereco);
+      fprintf(novo_sair, "\n");
+      fprintf(novo_sair, "%u",aux->CEP);
+      fprintf(novo_sair, "\n");
+      fprintf(novo_sair, "%s",aux->data_de_nascimento);
+      fprintf(novo_sair, "\n$\n");
+    }
+  }
   if(contatos == NULL){
     printf("Nenhum contato cadastrado. Cadastre um contato.\n");
     getchar();
   }
-
-/*  if(contatos->anterior!=NULL){ //checar se estamos no primeiro elemento da lista
-    do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
-      aux = contatos->anterior;
-      contatos = aux;
-    }while(aux->anterior != NULL);
-  }*/
-
-
-  //percorrer todos os contatos e escreve-los no arquivo
   for(aux = contatos; aux != NULL; aux = aux->proximo){
-    fprintf(ondeSalvar, "%s",aux->nome_completo);
-    fprintf(ondeSalvar, "\n");
-    fprintf(ondeSalvar, "%s",aux->celular);
-    fprintf(ondeSalvar, "\n");
-    fprintf(ondeSalvar, "%s",aux->endereco);
-    fprintf(ondeSalvar, "\n");
-    fprintf(ondeSalvar, "%u",aux->CEP);
-    fprintf(ondeSalvar, "\n");
-    fprintf(ondeSalvar, "%s",aux->data_de_nascimento);
-    fprintf(ondeSalvar, "\n$\n");
+    fprintf(file_sair, "%s",aux->nome_completo);
+    fprintf(file_sair, "\n");
+    fprintf(file_sair, "%s",aux->celular);
+    fprintf(file_sair, "\n");
+    fprintf(file_sair, "%s",aux->endereco);
+    fprintf(file_sair, "\n");
+    fprintf(file_sair, "%u",aux->CEP);
+    fprintf(file_sair, "\n");
+    fprintf(file_sair, "%s",aux->data_de_nascimento);
+    fprintf(file_sair, "\n$\n");
   }
 
 }// end sair

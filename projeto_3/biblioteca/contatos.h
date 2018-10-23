@@ -31,6 +31,6 @@ void liberaContatos(Contatos *); //liberar a partir do primeiro contato
 int removerContatosPorString(char *, Contatos *); //retorna 1 se removeu, 0 caso contrario. Deve percorrer a lista e tentar remover aquele nome, depois reordenar a lista
 void visualizarContatosPorString(char *, Contatos *); //printa o(s) contato(s), se ele(s) existe(m). Deve percorrer a lista para achar o contato
 void visualizarTodosOsContatos(Contatos *primeiroContato); //pesquisar na lista qual o primeiro contato(*anterior==null) e printar a partir dele;
-void sair(FILE *, Contatos *); // salvar todos os contatos, em ordem, no arquivo contatos.txt ou no arquivo possivelmente criado
+void sair(Contatos *); // salvar todos os contatos, em ordem, no arquivo contatos.txt ou no arquivo possivelmente criado
 
 #endif
