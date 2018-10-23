@@ -220,53 +220,50 @@ Contatos *criaLista(char *p_m_contatos,int posicao){
 
 int removerContatosPorString(char *stringParaRemover, Contatos *deOndeRemover){
   //retorna 1 se removeu, 0 caso contrario. Deve percorrer a lista e tentar remover aquele nome, depois reordenar a lista
-  Contatos *aux;
-  if(deOndeRemover->anterior != NULL){
-    do{ //fazer os ponteiros chegarem ao primeiro elemento na lista
-      aux = deOndeRemover->anterior;
-      deOndeRemover = aux;
-    }while(aux->anterior != NULL);
-  }
+  Contatos *aux, *aux2 = deOndeRemover; //aux2 = deOndeRemover
 
+  aux = aux2;
   char *verificador; // usado para verificar se a string esta contida no nome de algum contato
+  int conta_verificador=0;
 
-  for(aux; aux!=NULL; aux = aux->proximo){// for percorre lista
+  for(aux2; aux2!=NULL; aux2 = aux2->proximo){// for percorre lista
 
-    deOndeRemover = aux;
+    aux = aux2; //aux = deOndeRemover
 
-    verificador = strstr(deOndeRemover->nome_completo, stringParaRemover);
+    verificador = strstr(aux2->nome_completo, stringParaRemover);
     if(verificador != NULL){ //if string contida no nome_completo
-      printf("Nome %s encontrado\n", deOndeRemover->nome_completo);
-      getchar();
-      if(deOndeRemover->anterior == NULL){ // if string esta no primeiro contato da lista
-        aux->proximo->anterior = NULL;
-        deOndeRemover = deOndeRemover->proximo;
+      conta_verificador ++;
+      printf("Nome %s encontrado\n", aux2->nome_completo);
+      if(aux2->anterior == NULL){ // if string esta no primeiro contato da lista
+        aux2->proximo->anterior = NULL;
+        //aux2 = aux2->proximo;
         free(aux);
-        aux = deOndeRemover;
+        deOndeRemover = aux2->proximo; // atualiza o primeiro elemento da lista 
+        //aux = aux2; //aux = deOndeRemover
       }// end if string esta no primeiro contato da lista
-      else if(deOndeRemover->proximo == NULL){// if string esta no ultimo contato da lista
-        aux->anterior->proximo = NULL;
-        deOndeRemover = deOndeRemover->anterior;
+      else if(aux2->proximo == NULL){// if string esta no ultimo contato da lista
+        aux2->anterior->proximo = NULL;
+        //aux2 = aux2->anterior;
         free(aux);
-        aux = deOndeRemover;
+      //  aux = aux2;
       } // end if string esta no ultimo contato da lista
       else{ // string nem no primeiro nem no ultimo
-        aux->anterior->proximo = aux->proximo;
-        aux->proximo->anterior = aux->anterior;
-        deOndeRemover = deOndeRemover->proximo;
+        aux2->anterior->proximo = aux2->proximo;
+        aux2->proximo->anterior = aux2->anterior;
+        //aux2 = aux2->proximo; nao precisa, por conta do for acima
         free(aux);
-        aux = deOndeRemover;
+        aux = aux2;
       }// end else string nem no primeiro nem no ultimo
 
     }// end if string contida no nome_completo
     else{ // string nao contida no nome_completo
-      printf("Contato nao identificado na base de dados existente\n");
-      return 0; //nao removido
+      continue;
     }// end else string nao contida no nome_completo
 
   }// end for percorre lista
 
-  return 1;
+  if(conta_verificador > 0) return 1;
+  else {printf("Contato nao identificado na base de dados existente\n");return 0;}
 
 }// end removerContatosPorString
 

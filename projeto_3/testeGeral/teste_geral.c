@@ -19,6 +19,8 @@ int main(){
     ponteiroParaArq = criaArquivoContatos_txt();
   }
 
+  char stringParaRemover[101];
+  char stringInformada[101];
 
   int opcao =0;
 
@@ -41,7 +43,6 @@ do{
     case 2:
       printf("Opcao 2 : Informe o nome a ser removido\n");
       getchar();
-      char *stringParaRemover;
       scanf("%[^\n]", stringParaRemover);
       getchar();
       int remocao;
@@ -54,7 +55,6 @@ do{
       break;
     case 3:
       printf("Opcao 3 : Informe o nome a ser pesquisado\n");
-      char *stringInformada;
       scanf("%[^\n]", stringInformada);
       getchar();
       visualizarContatosPorString(stringInformada, contatos);
