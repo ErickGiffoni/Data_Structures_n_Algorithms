@@ -148,7 +148,7 @@ for(int i = 6;i< cont_linhas-5; i+=6){
 
 
 
-//   ponteiroParaArquivo = fopen("../contatos/contatos2.txt","w"); //mudar para escrita
+   ponteiroParaArquivo = fopen("../contatos/contatos2.txt","w"); //mudar para escrita
 return temp;
 }// end adicionaContatosDoArquivo
 
