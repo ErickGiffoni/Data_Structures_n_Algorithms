@@ -57,7 +57,7 @@ Contatos *inserirNovoRegistro(Contatos *contatos){
         printf("Formato nao aceito! Tente novamente.\n");
         getchar();
         verifica = 0;
-        break;
+        
       }// end if verifica se tem '-' e se tem numeros nas posicoes 0,1,2,3
       /*if(temp->celular[4] < '48' || temp->celular[4] > '57' || temp->celular[i] < '48' || temp->celular[i] > '57'){
         printf("Formato nao aceito! Tente novamente.\n");
