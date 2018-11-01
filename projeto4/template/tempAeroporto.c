@@ -1,4 +1,16 @@
+#include <stdio.h>
+
 int main(){
+
+  printf("--------------------------------------------------------------------------------\n");
+ 	printf("Aeroporto Internacional de Brasília\n");
+ 	printf("Hora inicial: %s\n",__TIME__);
+ 	printf("Fila de Pedidos: \n");
+ 	printf("Número de Voos Total: \n");
+ 	printf("Voos Aproximações: \n");
+ 	printf("Voos Decolagens: \n");
+ 	printf("--------------------------------------------------------------------------------\n");
+ 	printf("Listagem de eventos\n\n");
 
   char codigos_de_voos[64][6] = {{"VG3001"}, {"JJ4404"}, {"LN7001"}, {"TG1501"}, {"GL7602"}, {"TT1010"}, {"AZ1009"}, {"AZ1008"},
                                  {"AZ1010"}, {"TG1506"}, {"VG3002"}, {"JJ4402"}, {"GL7603"}, {"RL7880"}, {"AL0012"}, {"TT4544"},
