@@ -94,6 +94,7 @@ int main(){
 
     }
     randomizeModo(voo);
+    randomizeNivelDeCombustivel(voo);
     imprimeVoos(voo);
 
 

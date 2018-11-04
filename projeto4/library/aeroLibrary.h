@@ -20,12 +20,13 @@ typedef struct fila{
 
 
 // ******* Funcionalidades *******
-Voo *criarVooNull();
+
 Voo *criarVoo(char *);
 //excluirVoo();
 Voo *insereInicio(Voo *, Voo *);
 void imprimeVoos(Voo *);
 void randomizeModo(Voo *);
+void randomizeNivelDeCombustivel(Voo *);
 
 //criarFila();
 //excluirFila();

@@ -5,11 +5,8 @@
 #include "aeroLibrary.h"
 
 
-  Voo *criarVooNull(){
-  return NULL;
-}
 
-  Voo *criarVoo(char *codigo_de_voo){
+  Voo *criarVoo(char *codigo_de_voo){ //Cria nova Struct voo
     Voo *temp;
     temp = (Voo *)malloc(sizeof(Voo));
     if(temp==NULL)printf("Alocacao temp criarVoo falhou\n");
@@ -20,7 +17,7 @@
     return temp;
 }
 
-Voo *insereInicio(Voo *voo, Voo *novo_voo){
+Voo *insereInicio(Voo *voo, Voo *novo_voo){ //Recebe dois elementos da struct Voo e os ordena em uma Lista
   novo_voo->proximo = voo;
   return novo_voo;
 }
@@ -34,12 +31,14 @@ void imprimeVoos(Voo *voo){
   while(temp->proximo!=NULL){
     printf("%s\n",temp->codigo_de_voo);
     printf("%c\n",temp->tipo);
+    printf("%d\n",temp->combustivel);
     printf("\n\n");
     temp = temp->proximo;
   }
+  free(temp);
 }
 
-void randomizeModo(Voo *voo){
+void randomizeModo(Voo *voo){ //Seleciona o modo de Voo randomicamente
   Voo *temp;
   temp = (Voo *)malloc(sizeof(Voo));
   if(temp == NULL)printf("falha na alocacao temp randomize\n");
@@ -57,4 +56,26 @@ void randomizeModo(Voo *voo){
     }
     temp = temp->proximo;
   }
+  free(temp);
+}
+
+void randomizeNivelDeCombustivel(Voo *voo){
+  Voo *temp;
+  temp = (Voo *)malloc(sizeof(Voo));
+  if(temp == NULL)printf("falha na alocacao temp randomize\n");
+  temp = voo;
+
+  srand( (unsigned)time(NULL) );
+  while (temp!=NULL) {
+    if(temp->tipo == 'A'){
+      int aux;
+      aux = rand() % 13;
+      temp->combustivel = aux;
+      temp = temp->proximo;
+    }
+    else{
+      temp = temp->proximo;
+    }
+  }
+  free(temp);
 }
