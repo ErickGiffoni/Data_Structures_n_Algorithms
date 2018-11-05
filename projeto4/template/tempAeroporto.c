@@ -64,9 +64,9 @@ int main(){
         }
     //  printf(" %d\n",random_flight_numbers[i] );
   }
-  for(int i=0; i<NVoos; i++){ //PRINTA O VETOR COM NÚMEROS ALEATÓRIOS
+/*  for(int i=0; i<NVoos; i++){ //PRINTA O VETOR COM NÚMEROS ALEATÓRIOS
     printf(" %d\n",random_flight_numbers[i]);
-  }
+  } */
 
 
 
@@ -93,8 +93,9 @@ int main(){
       voo = insereInicio(voo,criarVoo(auxc));
 
     }
+    randomizeModo(voo);
+    randomizeNivelDeCombustivel(voo);
     imprimeVoos(voo);
-    printf("%d\n",NVoos);
 
 
 
