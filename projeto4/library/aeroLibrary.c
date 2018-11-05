@@ -150,3 +150,39 @@ printf("Cont aprox %d e cont decol %d\n", cont_aprox, cont_decol);
   free(percorre_voos);
 
 }// end preencheFilas
+
+void ordenaFila(int *NAproximacoes, Fila *fila_de_aproximacao){
+  Voo * percorre_fila = (Voo*)malloc(sizeof(Voo)); //aux para percorrer a fila
+  Voo * temporario = (Voo*)calloc(1,sizeof(Voo)); //temporario para salvar conteudos
+
+  if(percorre_fila==NULL) printf("Aux percorre_fila na ordenacao foi null\n\n"); //alocacao
+  if(temporario==NULL) printf("Aux temporario na ordenacao foi null\n\n"); //alocacao
+
+  //percorre_fila = fila_de_aproximacao->primeiro; //aponta para o primeiro da fila
+  for(int i=0; i< *NAproximacoes; i++){
+    for(percorre_fila = fila_de_aproximacao->primeiro; percorre_fila->proximo!=NULL; percorre_fila=percorre_fila->proximo){
+      if(percorre_fila->combustivel > percorre_fila->proximo->combustivel){
+        //copiar os dados para o temporario
+        strcpy(temporario->codigo_de_voo, percorre_fila->codigo_de_voo);
+        temporario->tipo = percorre_fila->tipo;
+        temporario->combustivel = percorre_fila->combustivel;
+
+        //trocar dados do percorre_fila com o percorre_fila->proximo
+        strcpy(percorre_fila->codigo_de_voo, percorre_fila->proximo->codigo_de_voo);
+        percorre_fila->tipo = percorre_fila->proximo->tipo;
+        percorre_fila->combustivel = percorre_fila->proximo->combustivel;
+
+        //atualizar o percorre_fila->proximo
+        strcpy(percorre_fila->proximo->codigo_de_voo, temporario->codigo_de_voo);
+        percorre_fila->proximo->tipo = temporario->tipo;
+        percorre_fila->proximo->combustivel = temporario->combustivel;
+
+      }//end if ordena combustiveis , troca conteudos
+      else{
+        continue;
+      }
+    }// end for percorre fila
+  }//end for NAproximacoes vezes
+  free(percorre_fila);
+  free(temporario);
+}//end ordenaFila
