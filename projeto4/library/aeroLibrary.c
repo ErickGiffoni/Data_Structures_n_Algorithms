@@ -38,21 +38,22 @@ void imprimeVoos(Voo *voo){
   free(temp);
 }
 
-void randomizeModo(Voo *voo){ //Seleciona o modo de Voo randomicamente
+void randomizeModo(Voo *voo, int NAproximacoes){ //Seleciona o modo de Voo randomicamente
   Voo *temp;
   temp = (Voo *)malloc(sizeof(Voo));
   if(temp == NULL)printf("falha na alocacao temp randomize\n");
 
-  srand( (unsigned)time(NULL) );
-  int aux;
+
+  int aux=1;
   temp = voo;
   while(temp!=NULL){
-    aux = rand() % 2;
-    if(aux == 0){
+    if(aux <= NAproximacoes){
       temp->tipo = 'A';
+      aux++;
     }
-    else if(aux == 1){
+    else if(aux > NAproximacoes){
       temp->tipo = 'D';
+      aux++;
     }
     temp = temp->proximo;
   }
