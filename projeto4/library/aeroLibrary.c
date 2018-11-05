@@ -79,3 +79,11 @@ void randomizeNivelDeCombustivel(Voo *voo){
   }
   free(temp);
 }
+
+Fila *criaFila(){
+  Fila *fila = (Fila *) malloc(sizeof(Fila));
+  if(fila == NULL) printf("Criacao da fila falhou\n\n");
+  fila->primeiro = NULL;
+  fila->ultimo = NULL;
+  return fila;
+}
