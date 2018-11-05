@@ -124,10 +124,12 @@ int main(){
               fila_de_aproximacao->primeiro = voo;
               voo->proximo = NULL;
               fila_de_aproximacao->ultimo = voo;
-              printf("Voo tipo = %c\n", voo->tipo);
+              //printf("Voo tipo = %c\n", voo->tipo);
 
             } // end if nao tem elemento na fila
             else{ //tem elemento na fila
+              adicionaVooNaFila(voo, fila_de_aproximacao->ultimo);
+              //printf("Voo codigo na fila = %s\n", voo->codigo_de_voo);
 
             }// end else tem elemento na fila
 
@@ -139,22 +141,24 @@ int main(){
 
           //ja tem elemento na fila ?
           if(fila_de_decolagem->primeiro == NULL){ //nao tem elemento na fila
+            fila_de_decolagem->primeiro = voo;
+            voo->proximo = NULL;
+            fila_de_decolagem->ultimo = voo;
+            //printf("Voo tipo = %c\n", voo->tipo);
 
           } // end if nao tem elemento na fila
           else{ //tem elemento na fila
+            adicionaVooNaFila(voo, fila_de_decolagem->ultimo);
+            //printf("Voo codigo na fila = %s\n", voo->codigo_de_voo);
 
           }// end else tem elemento na fila
-
 
         }//end else tipo D
 
     voo = percorre_voos; //atualiza o aux_percorre
   }// end for percorrer os voos
 
-  // para cada voo de aproximacao, aleatorizar o numero de combustivel e reordenar a fila, se necessario
-    //acho q nesse caso, a gente percorre a fila e ve se tem 3 aeronaves com combustivel 0, tenta pousar elas,
-    // e se nao der, simplismente as remove da fila, nao importa a posicao em que aquele voo esteja
-
+  // ordenar a fila de aproximacao  a partir do primeiro elemento 
 
 
   // chamar o menu, depois mostrar cada voo na tela, um por um
