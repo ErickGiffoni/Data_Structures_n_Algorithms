@@ -97,13 +97,42 @@ int main(){
     }
     randomizeModo(voo);
     randomizeNivelDeCombustivel(voo);
-    imprimeVoos(voo);
-
+    //imprimeVoos(voo);
 
 
   // fazer a fila com os codigos de modo aleatorio e classificar cada voo conforme o codigo
 
+  Fila *fila_de_aproximacao = criaFila(); //ponteiro para fila de aproximacao
+  Fila *fila_de_decolagem = criaFila(); //ponteiro para fila de decolagem
 
+  Voo *percorre_voos = (Voo *) malloc(sizeof(Voo)); //alocaao dinamica de um auxuliar para percorrer a lista de voos
+  Voo *aux = (Voo *) malloc(sizeof(Voo)); //alocaao dinamica de um auxuliar para apontar para o percorre_voos
+  if(percorre_voos == NULL) printf("Alocacao do percorre_voos falhou\n\n");
+  if(aux == NULL) printf("Alocacao do aux do percorre_voos falhou\n\n");
+
+  percorre_voos = voo; //aponta para a lista de voos
+  aux = percorre_voos; //aponta para percorre_voos
+
+  for(percorre_voos; percorre_voos!=NULL; ){
+    //verificar o tipo e adicionar a fila correta, fazer percorre_voos = percorre_voos->proximo
+      //tipo A
+        if(percorre_voos->tipo == 'A'){
+          percorre_voos = percorre_voos->proximo; //atualizacao do percorre_voos na lista
+
+          //ja tem elemento na fila ?
+
+        }//end if tipo A
+
+      //tipo D
+        else{
+          percorre_voos = percorre_voos->proximo; //atualizacao do percorre_voos na lista
+
+          //ja tem elemento na fila ?
+
+        }//end else tipo D
+
+    aux = percorre_voos;
+  }
 
   // para cada voo de aproximacao, aleatorizar o numero de combustivel e reordenar a fila, se necessario
     //acho q nesse caso, a gente percorre a fila e ve se tem 3 aeronaves com combustivel 0, tenta pousar elas,
