@@ -87,3 +87,9 @@ Fila *criaFila(){
   fila->ultimo = NULL;
   return fila;
 }
+
+void adicionaVooNaFila(Voo *novo_voo, Voo *ultimo){
+  ultimo->proximo = novo_voo;
+  ultimo = novo_voo;
+  novo_voo->proximo = NULL;
+}

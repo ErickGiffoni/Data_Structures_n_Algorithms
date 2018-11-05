@@ -28,6 +28,7 @@ void imprimeVoos(Voo *);
 void randomizeModo(Voo *);
 void randomizeNivelDeCombustivel(Voo *);
 Fila *criaFila();
+void adicionaVooNaFila(Voo *, Voo *);
 
 //criarFila();
 //excluirFila();
