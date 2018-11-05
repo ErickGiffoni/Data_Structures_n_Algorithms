@@ -96,9 +96,7 @@ void adicionaVooNaFila(Voo *novo_voo, Voo *ultimo){
 
 void preencheFilas(Voo *voo, Fila *fila_de_aproximacao, Fila *fila_de_decolagem){
   Voo *percorre_voos = (Voo *) malloc(sizeof(Voo)); //alocaao dinamica de um auxuliar para percorrer a lista de voos
-  Voo *aux_percorre = (Voo *) malloc(sizeof(Voo)); //alocaao dinamica de um auxuliar para apontar para o percorre_voos
   if(percorre_voos == NULL) printf("Alocacao do percorre_voos falhou\n\n");
-  if(aux_percorre == NULL) printf("Alocacao do aux do percorre_voos falhou\n\n");
 
   //percorre_voos = voo; //aponta para a lista de voos
 
@@ -146,5 +144,7 @@ void preencheFilas(Voo *voo, Fila *fila_de_aproximacao, Fila *fila_de_decolagem)
 
     voo = percorre_voos; //atualiza o aux_percorre
   }// end for percorrer os voos
+
+  free(percorre_voos);
 
 }// end preencheFilas
