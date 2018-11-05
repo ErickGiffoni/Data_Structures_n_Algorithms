@@ -28,7 +28,7 @@ void imprimeVoos(Voo *voo){
   if(temp==NULL)printf("erro ao alocar temp imprime\n" );
 
   temp = voo;
-  while(temp->proximo!=NULL){
+  while(temp!=NULL){
     printf("%s\n",temp->codigo_de_voo);
     printf("%c\n",temp->tipo);
     printf("%d\n",temp->combustivel);

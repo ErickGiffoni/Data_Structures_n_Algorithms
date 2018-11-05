@@ -42,7 +42,7 @@ int main(){
 
 
   int NVoos = NAproximacoes + NDecolagens; // NDecolagens + NAproximacoes // de 20 a 64
-  //printf("NVoss = %d\n\n", NVoos);
+  printf("NVoss = %d\n\n", NVoos);
   char Voos[6][NVoos];
 
 
@@ -90,6 +90,7 @@ int main(){
       auxc = voos_aleatorios[i];
       if(i==0){
         voo = criarVoo(auxc);
+        continue;
       }
       voo = insereInicio(voo,criarVoo(auxc));
 
