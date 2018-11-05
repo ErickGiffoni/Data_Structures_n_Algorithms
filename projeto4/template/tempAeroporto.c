@@ -105,60 +105,9 @@ int main(){
   Fila *fila_de_aproximacao = criaFila(); //ponteiro para fila de aproximacao
   Fila *fila_de_decolagem = criaFila(); //ponteiro para fila de decolagem
 
-  Voo *percorre_voos = (Voo *) malloc(sizeof(Voo)); //alocaao dinamica de um auxuliar para percorrer a lista de voos
-  Voo *aux_percorre = (Voo *) malloc(sizeof(Voo)); //alocaao dinamica de um auxuliar para apontar para o percorre_voos
-  if(percorre_voos == NULL) printf("Alocacao do percorre_voos falhou\n\n");
-  if(aux_percorre == NULL) printf("Alocacao do aux do percorre_voos falhou\n\n");
+  preencheFilas(voo, fila_de_aproximacao, fila_de_decolagem);
 
-  //percorre_voos = voo; //aponta para a lista de voos
-  aux_percorre = percorre_voos; //aponta para percorre_voos
-
-  for(percorre_voos = voo; voo!=NULL; ){
-    //verificar o tipo e adicionar a fila correta, fazer percorre_voos = percorre_voos->proximo
-      //tipo A
-        if(voo->tipo == 'A'){
-          percorre_voos = voo->proximo; //atualizacao do percorre_voos na lista
-
-          //ja tem elemento na fila ?
-            if(fila_de_aproximacao->primeiro == NULL){ //nao tem elemento na fila
-              fila_de_aproximacao->primeiro = voo;
-              voo->proximo = NULL;
-              fila_de_aproximacao->ultimo = voo;
-              //printf("Voo tipo = %c\n", voo->tipo);
-
-            } // end if nao tem elemento na fila
-            else{ //tem elemento na fila
-              adicionaVooNaFila(voo, fila_de_aproximacao->ultimo);
-              //printf("Voo codigo na fila = %s\n", voo->codigo_de_voo);
-
-            }// end else tem elemento na fila
-
-        }//end if tipo A
-
-      //tipo D
-        else{
-          percorre_voos = voo->proximo; //atualizacao do percorre_voos na lista
-
-          //ja tem elemento na fila ?
-          if(fila_de_decolagem->primeiro == NULL){ //nao tem elemento na fila
-            fila_de_decolagem->primeiro = voo;
-            voo->proximo = NULL;
-            fila_de_decolagem->ultimo = voo;
-            //printf("Voo tipo = %c\n", voo->tipo);
-
-          } // end if nao tem elemento na fila
-          else{ //tem elemento na fila
-            adicionaVooNaFila(voo, fila_de_decolagem->ultimo);
-            //printf("Voo codigo na fila = %s\n", voo->codigo_de_voo);
-
-          }// end else tem elemento na fila
-
-        }//end else tipo D
-
-    voo = percorre_voos; //atualiza o aux_percorre
-  }// end for percorrer os voos
-
-  // ordenar a fila de aproximacao  a partir do primeiro elemento 
+  // ordenar a fila de aproximacao  a partir do primeiro elemento
 
 
   // chamar o menu, depois mostrar cada voo na tela, um por um
