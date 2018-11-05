@@ -88,13 +88,14 @@ Fila *criaFila(){
   return fila;
 }
 
-void adicionaVooNaFila(Voo *novo_voo, Voo *ultimo){
-  ultimo->proximo = novo_voo;
-  ultimo = novo_voo;
+void adicionaVooNaFila(Voo *novo_voo, Fila *fila){
+  fila->ultimo->proximo = novo_voo;
+  fila->ultimo = novo_voo;
   novo_voo->proximo = NULL;
 }
 
 void preencheFilas(Voo *voo, Fila *fila_de_aproximacao, Fila *fila_de_decolagem){
+  int cont_aprox=0, cont_decol=0;
   Voo *percorre_voos = (Voo *) malloc(sizeof(Voo)); //alocaao dinamica de um auxuliar para percorrer a lista de voos
   if(percorre_voos == NULL) printf("Alocacao do percorre_voos falhou\n\n");
 
@@ -105,18 +106,18 @@ void preencheFilas(Voo *voo, Fila *fila_de_aproximacao, Fila *fila_de_decolagem)
       //tipo A
         if(voo->tipo == 'A'){
           percorre_voos = voo->proximo; //atualizacao do percorre_voos na lista
-
+          cont_aprox++;
           //ja tem elemento na fila ?
             if(fila_de_aproximacao->primeiro == NULL){ //nao tem elemento na fila
               fila_de_aproximacao->primeiro = voo;
               voo->proximo = NULL;
               fila_de_aproximacao->ultimo = voo;
-              //printf("Voo tipo = %c\n", voo->tipo);
+              printf("Voo codigo na fila A = %s\n", voo->codigo_de_voo);
 
             } // end if nao tem elemento na fila
             else{ //tem elemento na fila
-              adicionaVooNaFila(voo, fila_de_aproximacao->ultimo);
-              //printf("Voo codigo na fila A = %s\n", voo->codigo_de_voo);
+              adicionaVooNaFila(voo, fila_de_aproximacao);
+              printf("Voo codigo na fila A = %s\n", voo->codigo_de_voo);
 
             }// end else tem elemento na fila
 
@@ -125,7 +126,7 @@ void preencheFilas(Voo *voo, Fila *fila_de_aproximacao, Fila *fila_de_decolagem)
       //tipo D
         else{
           percorre_voos = voo->proximo; //atualizacao do percorre_voos na lista
-
+          cont_decol++;
           //ja tem elemento na fila ?
           if(fila_de_decolagem->primeiro == NULL){ //nao tem elemento na fila
             fila_de_decolagem->primeiro = voo;
@@ -135,7 +136,7 @@ void preencheFilas(Voo *voo, Fila *fila_de_aproximacao, Fila *fila_de_decolagem)
 
           } // end if nao tem elemento na fila
           else{ //tem elemento na fila
-            adicionaVooNaFila(voo, fila_de_decolagem->ultimo);
+            adicionaVooNaFila(voo, fila_de_decolagem);
             //printf("Voo codigo na fila D = %s\n", voo->codigo_de_voo);
 
           }// end else tem elemento na fila
@@ -144,7 +145,7 @@ void preencheFilas(Voo *voo, Fila *fila_de_aproximacao, Fila *fila_de_decolagem)
 
     voo = percorre_voos; //atualiza o aux_percorre
   }// end for percorrer os voos
-
+printf("Cont aprox %d e cont decol %d\n", cont_aprox, cont_decol);
   free(percorre_voos);
 
 }// end preencheFilas
