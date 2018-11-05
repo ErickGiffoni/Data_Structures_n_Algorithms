@@ -42,6 +42,7 @@ int main(){
 
 
   int NVoos = NAproximacoes + NDecolagens; // NDecolagens + NAproximacoes // de 20 a 64
+  //printf("NVoss = %d\n\n", NVoos);
   char Voos[6][NVoos];
 
 
