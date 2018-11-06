@@ -97,7 +97,6 @@ int main(){
     }
     randomizeModo(voo, NAproximacoes);
     randomizeNivelDeCombustivel(voo);
-    imprimeVoos(voo);
     //imprimeVoos(voo);
 
 
@@ -126,10 +125,12 @@ int main(){
 
   // liberar toda a memoria usada
 
-
+  free(voo);
+  //free(auxc);
+  free(fila_de_aproximacao);
+  free(fila_de_decolagem);
 
   // FIM
-  free(voo);
   return 0;
 }
 
