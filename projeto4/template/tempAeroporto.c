@@ -95,7 +95,7 @@ int main(){
       voo = insereInicio(voo,criarVoo(auxc));
 
     }
-    randomizeModo(voo, NAproximacoes);
+    randomizeModo(voo, NAproximacoes, NDecolagens);
     randomizeNivelDeCombustivel(voo);
     imprimeVoos(voo);
     //imprimeVoos(voo);

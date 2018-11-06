@@ -38,25 +38,48 @@ void imprimeVoos(Voo *voo){
   free(temp);
 }
 
-void randomizeModo(Voo *voo, int NAproximacoes){ //Seleciona o modo de Voo randomicamente
+void randomizeModo(Voo *voo, int NAproximacoes, int NDecolagens){ //Seleciona o modo de Voo randomicamente
   Voo *temp;
   temp = (Voo *)malloc(sizeof(Voo));
   if(temp == NULL)printf("falha na alocacao temp randomize\n");
+  srand( (unsigned)time(NULL) );
+  int aux_rand = 4;
 
 
-  int aux=1;
+  int aux_a=1;
+  int aux_d=1;
   temp = voo;
   while(temp!=NULL){
-    if(aux <= NAproximacoes){
-      temp->tipo = 'A';
-      aux++;
+    aux_rand = rand() % 2;
+    if(aux_rand == 0){
+        if(aux_a <= NAproximacoes){
+          temp->tipo = 'A';
+          aux_a++;
+        }
+          else if(aux_a > NAproximacoes){
+            temp->tipo = 'D';
+            aux_d++;
+          }
+        }
+    else{
+      if(aux_d <= NDecolagens){
+        temp->tipo = 'D';
+        aux_d++;
+      }
+      else if(aux_d > NDecolagens){
+        temp->tipo = 'A';
+        aux_a++;
+      }
+
     }
-    else if(aux > NAproximacoes){
-      temp->tipo = 'D';
-      aux++;
-    }
-    temp = temp->proximo;
+  temp = temp->proximo;
   }
+  if((aux_a != (NAproximacoes + 1)) || (aux_d != (NDecolagens + 1))) {
+    printf("aux_a = %d\naux_d = %d",aux_a,aux_d);
+    printf("ERRO APROX DECOL\n");
+    exit(-2);
+  }
+    printf("aux_a = %d\naux_d = %d\n",aux_a,aux_d);
   free(temp);
 }
 
