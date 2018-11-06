@@ -75,11 +75,11 @@ void randomizeModo(Voo *voo, int NAproximacoes, int NDecolagens){ //Seleciona o 
   temp = temp->proximo;
   }
   if((aux_a != (NAproximacoes + 1)) || (aux_d != (NDecolagens + 1))) {
-    printf("aux_a = %d\naux_d = %d",aux_a,aux_d);
+    //printf("aux_a = %d\naux_d = %d",aux_a,aux_d);
     printf("ERRO APROX DECOL\n");
     exit(-2);
   }
-    printf("aux_a = %d\naux_d = %d\n",aux_a,aux_d);
+    //printf("aux_a = %d\naux_d = %d\n",aux_a,aux_d);
   free(temp);
 }
 
@@ -94,7 +94,7 @@ void randomizeNivelDeCombustivel(Voo *voo){
   while (temp!=NULL) {
     if(temp->tipo == 'A'){
       aux = rand() % 13;
-      temp->combustivel = aux;
+      temp->combustivel = 0;
       temp = temp->proximo;
     }
     else{
@@ -207,5 +207,5 @@ void ordenaFila(int *NAproximacoes, Voo *fila_de_aproximacao){
     }// end for percorre fila
   }//end for NAproximacoes vezes
   //free(temporario);
-  //free(percorre_fila); -> esse free dao erro 
+  //free(percorre_fila); -> esse free dao erro
 }//end ordenaFila

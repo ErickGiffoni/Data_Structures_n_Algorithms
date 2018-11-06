@@ -40,7 +40,7 @@ int main(){
 
 
   int NVoos = NAproximacoes + NDecolagens; // NDecolagens + NAproximacoes // de 20 a 64
-  printf("NVoos = %d\nNaprox = %d\nNDecol = %d\n\n", NVoos, NAproximacoes, NDecolagens);
+  //printf("NVoos = %d\nNaprox = %d\nNDecol = %d\n\n", NVoos, NAproximacoes, NDecolagens);
   char Voos[6][NVoos];
 
 
@@ -95,7 +95,7 @@ int main(){
     }
     randomizeModo(voo, NAproximacoes, NDecolagens);
     randomizeNivelDeCombustivel(voo);
-    imprimeVoos(voo);
+    //imprimeVoos(voo);
     //imprimeVoos(voo);
 
 
@@ -135,6 +135,142 @@ int main(){
   //printf("%02d:%02d\n", (relogio_global->tm_hour) , relogio_global->tm_min);
   menuInicial(&NVoos, &NAproximacoes, &NDecolagens, fila_de_aproximacao->primeiro, fila_de_decolagem->primeiro);
 
+  Voo * auxiliar = (Voo*)malloc(sizeof(Voo)); //aux para percorrer a fila
+  Voo * auxiliarD = (Voo*)malloc(sizeof(Voo)); //aux para percorrer a fila
+  if(auxiliar==NULL) printf("Aux dps do menu foi null\n\n"); //alocacao
+  if(auxiliarD==NULL) printf("Aux dps do menu foi null\n\n"); //alocacao
+
+  int tempo = 1; //uma unidade de tempo
+  int pista1 =0, pista2 =0, pista3 =0; //zero siginifica pista livre para uso
+  int pista_livre = 1; //pista 1,2 e 3
+
+  do{
+    relogio_global->tm_min += tempo*unTempo;
+    if(relogio_global->tm_min >= 60){
+      relogio_global->tm_hour ++;
+      relogio_global->tm_min = relogio_global->tm_min % 60;
+    }
+    if(relogio_global->tm_hour >=24) relogio_global->tm_hour = 0;
+
+
+    if(fila_de_aproximacao->primeiro){//prioridade para pouso
+
+      if(fila_de_aproximacao->primeiro->combustivel==0 && fila_de_aproximacao->primeiro->proximo->combustivel==0 && fila_de_aproximacao->primeiro->proximo->proximo->combustivel==0){
+        printf("ALERTA GERAL DE DESVIO DE AERONAVE\n");
+      }//verifica se ha 3 voos com combustivel = 0
+
+      if(fila_de_aproximacao->primeiro->combustivel < 0){
+        printf("ALERTA CRITICO: AERONAVE IRA CAIR!\n\n");
+        pista_livre = 3;
+        auxiliar = fila_de_aproximacao->primeiro->proximo;
+        free(fila_de_aproximacao->primeiro);
+        fila_de_aproximacao->primeiro = auxiliar;
+      }//aeronave cai
+
+
+      switch(pista_livre){
+        case 1:
+          pista_livre = 2;
+          printf("Codigo do voo: %s\n", fila_de_aproximacao->primeiro->codigo_de_voo);
+          printf("Status: aeronave pousou\n");
+          printf("Horario do inicio do procedimento: %02d:%02d\n", relogio_global->tm_hour, relogio_global->tm_min);
+          printf("Numero da pista: %d\n\n", pista_livre);
+          auxiliar = fila_de_aproximacao->primeiro->proximo;
+          free(fila_de_aproximacao->primeiro);
+          fila_de_aproximacao->primeiro = auxiliar;
+          tempo+=4;
+          break;
+
+        case 2:
+        pista_livre = 3;
+        printf("Codigo do voo: %s\n", fila_de_aproximacao->primeiro->codigo_de_voo);
+        printf("Status: aeronave pousou\n");
+        printf("Horario do inicio do procedimento: %02d:%02d\n", relogio_global->tm_hour, relogio_global->tm_min);
+        printf("Numero da pista: %d\n\n", pista_livre);
+        auxiliar = fila_de_aproximacao->primeiro->proximo;
+        free(fila_de_aproximacao->primeiro);
+        fila_de_aproximacao->primeiro = auxiliar;
+        tempo+=4;
+          break;
+
+        case 3://emergencia ou decolagem
+        pista_livre = 1;
+        printf("Codigo do voo: %s\n", fila_de_aproximacao->primeiro->codigo_de_voo);
+        printf("Status: aeronave pousou\n");
+        printf("Horario do inicio do procedimento: %02d:%02d\n", relogio_global->tm_hour, relogio_global->tm_min);
+        printf("Numero da pista: %d\n\n", pista_livre);
+        auxiliar = fila_de_aproximacao->primeiro->proximo;
+        free(fila_de_aproximacao->primeiro);
+        fila_de_aproximacao->primeiro = auxiliar;
+        tempo+=4;
+          break;
+
+        default:
+          printf("Pista inexistente\n");
+          break;
+      }//end switch pista
+
+    }//verifica se ha voos de aproximacao
+     if(fila_de_decolagem->primeiro){
+      switch(pista_livre){
+        case 1:
+        pista_livre = 2;
+        printf("Codigo do voo: %s\n", fila_de_decolagem->primeiro->codigo_de_voo);
+        printf("Status: aeronave DECOLOU\n");
+        printf("Horario do inicio do procedimento: %02d:%02d\n", relogio_global->tm_hour, relogio_global->tm_min);
+        printf("Numero da pista: %d\n\n", pista_livre);
+        auxiliarD = fila_de_decolagem->primeiro->proximo;
+        free(fila_de_decolagem->primeiro);
+        fila_de_decolagem->primeiro = auxiliarD;
+        tempo+=2;
+          break;
+
+        case 2:
+        pista_livre = 3;
+        printf("Codigo do voo: %s\n", fila_de_decolagem->primeiro->codigo_de_voo);
+        printf("Status: aeronave DECOLOU\n");
+        printf("Horario do inicio do procedimento: %02d:%02d\n", relogio_global->tm_hour, relogio_global->tm_min);
+        printf("Numero da pista: %d\n\n", pista_livre);
+        auxiliarD = fila_de_decolagem->primeiro->proximo;
+        free(fila_de_decolagem->primeiro);
+        fila_de_decolagem->primeiro = auxiliarD;
+        tempo+=2;
+          break;
+
+        case 3://emergencia ou decolagem
+        pista_livre = 1;
+        printf("Codigo do voo: %s\n", fila_de_decolagem->primeiro->codigo_de_voo);
+        printf("Status: aeronave DECOLOU\n");
+        printf("Horario do inicio do procedimento: %02d:%02d\n", relogio_global->tm_hour, relogio_global->tm_min);
+        printf("Numero da pista: %d\n\n", pista_livre);
+        auxiliarD = fila_de_decolagem->primeiro->proximo;
+        free(fila_de_decolagem->primeiro);
+        fila_de_decolagem->primeiro = auxiliarD;
+        tempo+=2;
+          break;
+
+        default:
+          printf("Pista inexistente\n");
+          break;
+      }//end switch pista
+
+    }//verifica se ha voo de decolagem
+    else{
+      printf("Nao ha voos ou todos os voos foram atendidos\n\n");
+      break;
+    }//nao ha voo algum
+    if(tempo%10==0){
+      Voo *temp;
+      temp = (Voo*)malloc(sizeof(Voo));
+      temp= fila_de_aproximacao->primeiro;
+      while(temp!=NULL){
+        temp->combustivel -= 1;
+        temp = temp->proximo;
+      }
+    }
+    tempo++;
+  }while(fila_de_aproximacao->primeiro!=NULL && fila_de_decolagem->primeiro!=NULL);
+
   //Voo * percorrer_fila = (Voo*)malloc(sizeof(Voo)); //aux para percorrer a fila
   //if(percorrer_fila==NULL) printf("Aux percorre_fila na ordenacao foi null\n\n"); //alocacao
   //for(percorrer_fila = fila_de_aproximacao->primeiro; percorrer_fila!=NULL; percorrer_fila=percorrer_fila->proximo){
@@ -145,10 +281,7 @@ int main(){
 
   // liberar toda a memoria usada
 
-  free(voo);
-  //free(auxc);
-  free(fila_de_aproximacao);
-  free(fila_de_decolagem);
+
 
   // FIM
   return 0;
