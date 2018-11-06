@@ -146,7 +146,7 @@ void preencheFilas(Voo *voo, Fila *fila_de_aproximacao, Fila *fila_de_decolagem)
 
     voo = percorre_voos; //atualiza o aux_percorre
   }// end for percorrer os voos
-printf("Cont aprox %d e cont decol %d\n", cont_aprox, cont_decol);
+//printf("Cont aprox %d e cont decol %d\n", cont_aprox, cont_decol);
   free(percorre_voos);
 
 }// end preencheFilas
