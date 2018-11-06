@@ -95,6 +95,7 @@ int main(){
     }
     randomizeModo(voo, NAproximacoes, NDecolagens);
     randomizeNivelDeCombustivel(voo);
+    imprimeVoos(voo);
     //imprimeVoos(voo);
 
 
