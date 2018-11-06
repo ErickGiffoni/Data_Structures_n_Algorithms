@@ -4,7 +4,7 @@
 #include <string.h>
 #include "../library/aeroLibrary.h"
 
-void menuInicial(int *, int *, int *);
+void menuInicial(int *, int *, int *, Fila *, Fila *);
 
 int main(){
 
@@ -21,9 +21,7 @@ int main(){
 
 
   int unTempo = 5 ; //minutos
-  int relogio_global[4] = {0,0,0,0} ; // 00:00 h -> hora de inicio dos trabalhos no aeroporto
-
-
+  time_t horario; //  -> hora de inicio dos trabalhos no aeroporto
 
   int CombA ; // combustivel para aproximacao
 
@@ -42,7 +40,7 @@ int main(){
 
 
   int NVoos = NAproximacoes + NDecolagens; // NDecolagens + NAproximacoes // de 20 a 64
-  printf("NVoos = %d\nNaprox = %d\nNDecol = %d\n\n", NVoos, NAproximacoes, NDecolagens);
+  //printf("NVoos = %d\nNaprox = %d\nNDecol = %d\n\n", NVoos, NAproximacoes, NDecolagens);
   char Voos[6][NVoos];
 
 
@@ -121,7 +119,12 @@ int main(){
 
   // chamar o menu, depois mostrar cada voo na tela, um por um
 
-
+  horario = time(&horario);
+  struct tm *relogio_global;
+  relogio_global = localtime(&horario);
+  //relogio_global->tm_min += 20 ;
+  //printf("%02d:%02d\n", (relogio_global->tm_hour) , relogio_global->tm_min);
+  menuInicial(&NVoos, &NAproximacoes, &NDecolagens, fila_de_aproximacao, fila_de_decolagem);
 
   // liberar toda a memoria usada
 
@@ -134,14 +137,40 @@ int main(){
   return 0;
 }
 
-void menuInicial(int *NVoo, int *NAproximacoes, int *NDecolagens){
+void menuInicial(int *NVoo, int *NAproximacoes, int *NDecolagens, Fila *fila_de_aproximacao, Fila *fila_de_decolagem){
   printf("--------------------------------------------------------------------------------\n");
  	printf("Aeroporto Internacional de Brasília\n");
  	printf("Hora inicial: %s\n",__TIME__);
  	printf("Fila de Pedidos: \n");
- 	printf("\tNúmero de Voos Total: %d\n", *NVoo);
- 	printf("\tVoos Aproximações: %d\n", *NAproximacoes);
- 	printf("\tVoos Decolagens: %d\n", *NDecolagens);
+ 	printf("\tNúmero Total de Voos : %d\n", *NVoo);
+ 	printf("\tQuantidade de Aproximações: %d\n", *NAproximacoes);
+ 	printf("\tQuantidade de Decolagens: %d\n", *NDecolagens);
  	printf("--------------------------------------------------------------------------------\n");
+  getchar();
+  Voo *vooA = (Voo*)malloc(sizeof(Voo));
+  Voo *vooD = (Voo*)malloc(sizeof(Voo));
+  for(vooA=fila_de_aproximacao->primeiro, vooD=fila_de_decolagem->primeiro; ; ){
+    if(vooA==NULL && vooD==NULL){
+      printf("--------------------------------------------------------------------------------\n\n");
+      break;
+    }
+    else if(vooA==NULL && vooD!=NULL){
+      printf("\t------------------------------\t");
+      printf("[ %s - %c - sem prioridade ]\n", vooD->codigo_de_voo, vooD->tipo);
+      vooD=vooD->proximo;
+    }
+    else if(vooD==NULL && vooA!=NULL){
+      printf("\t[ %s - %c - %d ]\t", vooA->codigo_de_voo, vooA->tipo, vooA->combustivel);
+      printf("\t------------------------------\n");
+      vooA=vooA->proximo;
+    }
+    else{ //nenhum e nulo
+      printf("\t[ %s - %c - %d ]\t", vooA->codigo_de_voo, vooA->tipo, vooA->combustivel);
+      printf("\t[ %s - %c - sem prioridade ]\n", vooD->codigo_de_voo, vooD->tipo);
+      vooA=vooA->proximo;
+      vooD=vooD->proximo;
+    }
+  }
+  getchar();
  	printf("Listagem de eventos:\n\n");
 }
