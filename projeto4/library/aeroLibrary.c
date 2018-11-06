@@ -151,7 +151,7 @@ void preencheFilas(Voo *voo, Fila *fila_de_aproximacao, Fila *fila_de_decolagem)
 
 }// end preencheFilas
 
-void ordenaFila(int *NAproximacoes, Fila *fila_de_aproximacao){
+void ordenaFila(int *NAproximacoes, Voo *fila_de_aproximacao){
   Voo * percorre_fila = (Voo*)malloc(sizeof(Voo)); //aux para percorrer a fila
   Voo * temporario = (Voo*)calloc(1,sizeof(Voo)); //temporario para salvar conteudos
 
@@ -160,7 +160,7 @@ void ordenaFila(int *NAproximacoes, Fila *fila_de_aproximacao){
 
   //percorre_fila = fila_de_aproximacao->primeiro; //aponta para o primeiro da fila
   for(int i=0; i< *NAproximacoes; i++){
-    for(percorre_fila = fila_de_aproximacao->primeiro; percorre_fila->proximo!=NULL; percorre_fila=percorre_fila->proximo){
+    for(percorre_fila = fila_de_aproximacao; percorre_fila->proximo!=NULL; percorre_fila=percorre_fila->proximo){
       if(percorre_fila->combustivel > percorre_fila->proximo->combustivel){
         //copiar os dados para o temporario
         strcpy(temporario->codigo_de_voo, percorre_fila->codigo_de_voo);
@@ -183,6 +183,6 @@ void ordenaFila(int *NAproximacoes, Fila *fila_de_aproximacao){
       }
     }// end for percorre fila
   }//end for NAproximacoes vezes
-  free(percorre_fila);
-  free(temporario);
+  //free(temporario);
+  //free(percorre_fila); -> esse free dao erro 
 }//end ordenaFila
