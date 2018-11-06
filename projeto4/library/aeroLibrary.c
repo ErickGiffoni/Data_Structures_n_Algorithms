@@ -113,12 +113,12 @@ void preencheFilas(Voo *voo, Fila *fila_de_aproximacao, Fila *fila_de_decolagem)
               fila_de_aproximacao->primeiro = voo;
               voo->proximo = NULL;
               fila_de_aproximacao->ultimo = voo;
-              printf("Voo codigo na fila A = %s\n", voo->codigo_de_voo);
+              //printf("Voo codigo na fila A = %s\n", voo->codigo_de_voo);
 
             } // end if nao tem elemento na fila
             else{ //tem elemento na fila
               adicionaVooNaFila(voo, fila_de_aproximacao);
-              printf("Voo codigo na fila A = %s\n", voo->codigo_de_voo);
+              //printf("Voo codigo na fila A = %s\n", voo->codigo_de_voo);
 
             }// end else tem elemento na fila
 
