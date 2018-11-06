@@ -4,7 +4,7 @@
 #include <string.h>
 #include "../library/aeroLibrary.h"
 
-void menuInicial(int *, int *, int *);
+void menuInicial(int *, int *, int *, Voo *, Voo *);
 
 int main(){
 
@@ -21,9 +21,7 @@ int main(){
 
 
   int unTempo = 5 ; //minutos
-  int relogio_global[4] = {0,0,0,0} ; // 00:00 h -> hora de inicio dos trabalhos no aeroporto
-
-
+  time_t horario; //  -> hora de inicio dos trabalhos no aeroporto
 
   int CombA ; // combustivel para aproximacao
 
@@ -97,7 +95,6 @@ int main(){
     }
     randomizeModo(voo, NAproximacoes, NDecolagens);
     randomizeNivelDeCombustivel(voo);
-    imprimeVoos(voo);
     //imprimeVoos(voo);
 
 
@@ -108,71 +105,96 @@ int main(){
 
   preencheFilas(voo, fila_de_aproximacao, fila_de_decolagem);
 
-  // ordenar a fila de aproximacao  a partir do primeiro elemento
-
-  Voo * percorre_fila = (Voo*)malloc(sizeof(Voo)); //aux para percorrer a fila
-
+  //Voo * percorre_fila = (Voo*)malloc(sizeof(Voo)); //aux para percorrer a fila
+  //if(percorre_fila==NULL) printf("Aux percorre_fila na ordenacao foi null\n\n"); //alocacao
   //for(percorre_fila = fila_de_aproximacao->primeiro; percorre_fila!=NULL; percorre_fila=percorre_fila->proximo){
   //  printf("%s\n", percorre_fila->codigo_de_voo);
   //  printf("%c\n", percorre_fila->tipo);
   //  printf("%d\n\n", percorre_fila->combustivel);
   //}
 
-  Voo * temporario = (Voo*)calloc(1,sizeof(Voo)); //temporario para salvar conteudos
-  if(percorre_fila==NULL) printf("Aux percorre_fila na ordenacao foi null\n\n"); //alocacao
-  if(temporario==NULL) printf("Aux temporario na ordenacao foi null\n\n"); //alocacao
-  //percorre_fila = fila_de_aproximacao->primeiro; //aponta para o primeiro da fila
-  for(int i=0; i<NAproximacoes; i++){
-    for(percorre_fila = fila_de_aproximacao->primeiro; percorre_fila->proximo!=NULL; percorre_fila=percorre_fila->proximo){
-      if(percorre_fila->combustivel > percorre_fila->proximo->combustivel){
-        //copiar os dados para o temporario
-        strcpy(temporario->codigo_de_voo, percorre_fila->codigo_de_voo);
-        temporario->tipo = percorre_fila->tipo;
-        temporario->combustivel = percorre_fila->combustivel;
-        //trocar dados do percorre_fila com o percorre_fila->proximo
-        strcpy(percorre_fila->codigo_de_voo, percorre_fila->proximo->codigo_de_voo);
-        percorre_fila->tipo = percorre_fila->proximo->tipo;
-        percorre_fila->combustivel = percorre_fila->proximo->combustivel;
-        //atualizar o percorre_fila->proximo
-        strcpy(percorre_fila->proximo->codigo_de_voo, temporario->codigo_de_voo);
-        percorre_fila->proximo->tipo = temporario->tipo;
-        percorre_fila->proximo->combustivel = temporario->combustivel;
-      }//end if ordena combustiveis , troca conteudos
-      else{
-        continue;
-      }
-    }// end for percorre fila
-  }//end for NAproximacoes vezes
+  // ordenar a fila de aproximacao  a partir do primeiro elemento
 
-  for(percorre_fila = fila_de_aproximacao->primeiro; percorre_fila!=NULL; percorre_fila=percorre_fila->proximo){
-    printf("%s\n", percorre_fila->codigo_de_voo);
-    printf("%c\n", percorre_fila->tipo);
-    printf("%d\n\n", percorre_fila->combustivel);
-  }
+  ordenaFila(&NAproximacoes, fila_de_aproximacao->primeiro);
+
+  //Voo * percorre_fila = (Voo*)malloc(sizeof(Voo)); //aux para percorrer a fila
+  //if(percorre_fila==NULL) printf("Aux percorre_fila na ordenacao foi null\n\n"); //alocacao
+  //for(percorre_fila = fila_de_aproximacao->primeiro; percorre_fila!=NULL; percorre_fila=percorre_fila->proximo){
+  //  printf("%s\n", percorre_fila->codigo_de_voo);
+  //  printf("%c\n", percorre_fila->tipo);
+  //  printf("%d\n\n", percorre_fila->combustivel);
+  //}
 
   // chamar o menu, depois mostrar cada voo na tela, um por um
 
+  horario = time(&horario);
+  struct tm *relogio_global;
+  relogio_global = localtime(&horario);
+  //relogio_global->tm_min += 20 ;
+  //printf("%02d:%02d\n", (relogio_global->tm_hour) , relogio_global->tm_min);
+  menuInicial(&NVoos, &NAproximacoes, &NDecolagens, fila_de_aproximacao->primeiro, fila_de_decolagem->primeiro);
 
+  //Voo * percorrer_fila = (Voo*)malloc(sizeof(Voo)); //aux para percorrer a fila
+  //if(percorrer_fila==NULL) printf("Aux percorre_fila na ordenacao foi null\n\n"); //alocacao
+  //for(percorrer_fila = fila_de_aproximacao->primeiro; percorrer_fila!=NULL; percorrer_fila=percorrer_fila->proximo){
+  //  printf("%s\n", percorrer_fila->codigo_de_voo);
+  //  printf("%c\n", percorrer_fila->tipo);
+  //  printf("%d\n\n", percorrer_fila->combustivel);
+  //}
 
   // liberar toda a memoria usada
 
-
+  free(voo);
+  //free(auxc);
+  free(fila_de_aproximacao);
+  free(fila_de_decolagem);
 
   // FIM
-  free(voo);
-  free(percorre_fila);
-  free(temporario);
   return 0;
 }
 
-void menuInicial(int *NVoo, int *NAproximacoes, int *NDecolagens){
+void menuInicial(int *NVoo, int *NAproximacoes, int *NDecolagens, Voo *primeiroA, Voo *primeiroD){
   printf("--------------------------------------------------------------------------------\n");
  	printf("Aeroporto Internacional de Brasília\n");
  	printf("Hora inicial: %s\n",__TIME__);
  	printf("Fila de Pedidos: \n");
- 	printf("\tNúmero de Voos Total: %d\n", *NVoo);
- 	printf("\tVoos Aproximações: %d\n", *NAproximacoes);
- 	printf("\tVoos Decolagens: %d\n", *NDecolagens);
+ 	printf("\tNúmero Total de Voos : %d\n", *NVoo);
+ 	printf("\tQuantidade de Aproximações: %d\n", *NAproximacoes);
+ 	printf("\tQuantidade de Decolagens: %d\n", *NDecolagens);
  	printf("--------------------------------------------------------------------------------\n");
+  getchar();
+  Voo *vooA = (Voo*)malloc(sizeof(Voo));
+  Voo *vooD = (Voo*)malloc(sizeof(Voo));
+  if(vooA==NULL) printf("vooA do menu foi null\n\n");
+  if(vooD==NULL) printf("vooD do menu foi null\n\n");
+  for(vooA=primeiroA, vooD=primeiroD; vooA!=NULL || vooD!=NULL; ){
+    //if(vooA==NULL && vooD==NULL){
+    //  printf("--------------------------------------------------------------------------------\n\n");
+    //  break;
+    //}
+    if(vooA==NULL && vooD!=NULL){
+      printf("\t------------------------------\t");
+      printf("[ %s - %c - sem prioridade ]\n", vooD->codigo_de_voo, vooD->tipo);
+      if(vooD->proximo!=NULL) vooD=vooD->proximo;
+      else vooD = NULL;
+    }
+    else if(vooD==NULL && vooA!=NULL){
+      printf("\t[ %s - %c - %d ]\t", vooA->codigo_de_voo, vooA->tipo, vooA->combustivel);
+      printf("\t------------------------------\n");
+      if(vooA->proximo!=NULL) vooA=vooA->proximo;
+      else vooA = NULL;
+    }
+    else{ //nenhum e nulo
+      printf("\t[ %s - %c - %d ]\t", vooA->codigo_de_voo, vooA->tipo, vooA->combustivel);
+      printf("\t[ %s - %c - sem prioridade ]\n", vooD->codigo_de_voo, vooD->tipo);
+      if(vooA->proximo!=NULL) vooA=vooA->proximo;
+      else vooA = NULL;
+      if(vooD->proximo!=NULL) vooD=vooD->proximo;
+      else vooD = NULL;
+    }
+  }
+  free(vooA);
+  free(vooD);
+  getchar();
  	printf("Listagem de eventos:\n\n");
 }
