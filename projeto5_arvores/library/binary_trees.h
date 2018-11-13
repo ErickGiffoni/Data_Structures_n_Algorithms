@@ -13,6 +13,9 @@ typedef struct tree{
   int empty; //0 -> arvore vazia ; 1 -> arvore com pelo menos a raiz
 }Tree;
 
+Node *newEmptyNode();
+Tree *newEmptyTree();
+Tree *createTree(Tree *tree, int *number);
 Tree *loadTreeFromFile(char *nome_do_arquivo);
 showTree();
 isFull();
