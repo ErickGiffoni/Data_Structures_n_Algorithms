@@ -10,9 +10,10 @@ typedef struct node{
 typedef struct tree{
   Node *root; //ponteiro para o no raiz
   int height; //altura
+  int empty; //0 -> arvore vazia ; 1 -> arvore com pelo menos a raiz
 }Tree;
 
-loadTreeFromFile();
+Tree *loadTreeFromFile(char *nome_do_arquivo);
 showTree();
 isFull();
 searchValue();
