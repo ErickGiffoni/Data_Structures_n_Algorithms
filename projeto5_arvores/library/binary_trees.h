@@ -3,8 +3,8 @@
 
 typedef struct node{
   int value; //informacao
-  struct node *right = NULL; //ponteiro para no da direita
-  struct node *left = NULL; //ponteiro para no da esquerda
+  struct node *right; //ponteiro para no da direita
+  struct node *left; //ponteiro para no da esquerda
 }Node;
 
 typedef struct tree{
