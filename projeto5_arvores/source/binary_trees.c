@@ -20,13 +20,13 @@ Tree *newEmptyTree(){
   else return temp;
 }//end of newEmptyTree
 
-Tree *createTree(Tree *tree, int *number){
+/*Tree *createTree(Tree *tree, int *number){
   Tree *temp = newEmptyTree(); //auxiliar
   if(temp == NULL){
     printf("createTree ERROR: not possible to create new temp empty tree\n\n");
     return NULL;
   }// se arvore temp auxiliar nao foi alocada
-  temp = tree;
+  //temp = tree;
   Node *node;
   //checar se a arvore tem raiz
   if(tree->empty == 0){
@@ -34,6 +34,7 @@ Tree *createTree(Tree *tree, int *number){
     tree->root->value = *number;
     tree->root->right = NULL;
     tree->root->left = NULL;
+    tree->empty = 1; //not empty anymore;
   }//nao tem raiz
   //caso tenha
   else{
@@ -45,8 +46,8 @@ Tree *createTree(Tree *tree, int *number){
           return NULL;
         }//se o no nao foi alocado
         node->value = *number;
+        printf("aqui\n\n");
         tree->root->right = node;
-        //printf("aqui\n\n");
       }//if nao tem no depois da raiz
       else{
         temp->root = tree->root->right;
@@ -72,7 +73,38 @@ Tree *createTree(Tree *tree, int *number){
     }//else go left
   }//else tem raiz
   return tree;
-}//end of createTree
+}//end of createTree */
+
+Tree *createTree(Tree *tree, int *number){
+  Tree *temp = newEmptyTree();
+  if(temp == NULL){
+    printf("createTree ERROR: not possible to create new temp empty tree\n\n");
+    return NULL;
+  }// se arvore temp auxiliar nao foi alocada
+  if(tree->root == NULL){//raiz nula
+    tree->root = newEmptyNode();
+    if(tree->root == NULL){
+      printf("createTree ERROR: not possible to create empty tree->root node\n\n");
+      return NULL;
+    }//se o no nao foi alocado
+    tree->root->value = *number;
+    return tree;
+  }//end raiz nula
+  else{//raiz nao nula
+    if(*number > tree->root->value){//go right
+      temp->root = tree->root->right;
+      temp = createTree(temp, number);
+      tree->root->right = temp->root;
+      return tree;
+    }//end go right
+    else{//go left
+      temp->root = tree->root->left;
+      temp = createTree(temp, number);
+      tree->root->left = temp->root;
+      return tree;
+    }//end go left
+  }//end raiz nao nula
+}//end of createTree version 2
 
 Tree *loadTreeFromFile(char *nome_do_arquivo){
   Tree *tree = newEmptyTree();
@@ -90,6 +122,7 @@ Tree *loadTreeFromFile(char *nome_do_arquivo){
     fscanf(arquivo, "%d ", &number);
     //printf("File Number is: %d\n", number);
     tree = createTree(tree, &number);
+    //printf("tree->root->value is: %d\n", tree->root->value);
   }while(!feof(arquivo)); //enquanto nao chegamos ao final do arquivo
   fclose(arquivo);
   return tree;
