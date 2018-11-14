@@ -30,6 +30,7 @@ Tree *createTree(Tree *tree, int *number){
   Node *node;
   //checar se a arvore tem raiz
   if(tree->empty == 0){
+    tree->root = newEmptyNode();
     tree->root->value = *number;
     tree->root->right = NULL;
     tree->root->left = NULL;
@@ -45,6 +46,7 @@ Tree *createTree(Tree *tree, int *number){
         }//se o no nao foi alocado
         node->value = *number;
         tree->root->right = node;
+        //printf("aqui\n\n");
       }//if nao tem no depois da raiz
       else{
         temp->root = tree->root->right;
