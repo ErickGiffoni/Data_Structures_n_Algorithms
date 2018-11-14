@@ -5,6 +5,12 @@ void menu();
 
 int main(){
 
+  Tree *tree = newEmptyTree();
+  if(tree == NULL){
+    printf("main ERROR: not possible to create new tree\n\n");
+    return NULL;
+  }//se ponteiro para nova arvore foi nulo
+  char nome_do_arquivo[17] = {"../BSTs/bst1.txt"};
   printf("\n\t\tWelcome to the jungle!\n\t\tLet's build some trees?\n\n\n");
   int opcao = 0;
   int True = 1;
@@ -13,7 +19,7 @@ int main(){
     scanf("%d", &opcao);
     switch (opcao) {
       case 1: //loadTreeFromFile
-
+        tree = loadTreeFromFile(nome_do_arquivo);
         break;
       case 2: //showTree
 
