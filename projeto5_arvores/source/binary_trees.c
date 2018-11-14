@@ -88,6 +88,7 @@ Tree *loadTreeFromFile(char *nome_do_arquivo){
   int number; //numero que sera lido no arquivo
   do{
     fscanf(arquivo, "%d ", &number);
+    //printf("File Number is: %d\n", number);
     tree = createTree(tree, &number);
   }while(!feof(arquivo)); //enquanto nao chegamos ao final do arquivo
   fclose(arquivo);
