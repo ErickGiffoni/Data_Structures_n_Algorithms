@@ -117,6 +117,8 @@ Tree *loadTreeFromFile(char *nome_do_arquivo){
     printf("loadTreeFromFile ERROR: not possible to open file\n\n");
     return NULL;
   }// se ponteiro para arquivo com os dados foi nulo
+  // printf("chegou");
+
   int number; //numero que sera lido no arquivo
   do{
     fscanf(arquivo, "%d ", &number);
@@ -128,38 +130,62 @@ Tree *loadTreeFromFile(char *nome_do_arquivo){
   return tree;
 }//end of loadTreeFromFile
 
-showTree(){
+// showTree(){
 
-}//end of showTree
+// }//end of showTree
 
-isFull(){
+// isFull(){
 
-}//end of isFull
+// }//end of isFull
 
-searchValue(){
+// searchValue(){
 
-}//end of searchValue
+// }//end of searchValue
 
-getHeight(){
+// int getHeight(Tree *t){
+//   if(t == NULL)
+//   {
+//     return -1; /* se a arvore for vazia ela retornará altura -1 */
+//   }
+//   else
+//   {
+//     return 1 + maxSizeNode(getHeight(t->root->left),getHeight(t->root->right)); /* caso contrario ela retornará a altura da arvore */
+//   }
+// }//end of getHeight
 
-}//end of getHeight
+// int maxSizeNode(int *left, int *right){
+//   return (left > right) ? left:right;
+// }
 
-removeValue(){
+// removeValue(){
 
-}//end of removeValue
+// }//end of removeValue
 
-printInOrder(){
+// printInOrder(){
 
-}//end of printInOrder
+// }//end of printInOrder
 
-printPreOrder(){
+// printPreOrder(){
 
-}//end of printPreOrder
+// }//end of printPreOrder
 
-printPosOrder(){
+// printPosOrder(){
 
-}//end of printPosOrder
+// }//end of printPosOrder
 
-balanceTree(){
+// balanceTree(){
 
-}//end of balanceTree
+// }//end of balanceTree
+
+Tree *freeTree(Tree *t, Node *n)
+{
+  /* Esta função libera recursivamente todos os elementos das subarvores e em seguida a arvore */
+  if (t != NULL)
+  {
+    freeTree(t, n->left);
+    freeTree(t, n->right);
+    free(n);
+    free(t);
+  }
+  return NULL;
+}

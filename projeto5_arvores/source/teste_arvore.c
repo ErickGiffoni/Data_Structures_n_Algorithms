@@ -1,5 +1,8 @@
 #include "../library/binary_trees.h"
+#include <string.h>
 #include <stdio.h>
+
+#define caminho "../BSTs/"
 
 void menu();
 
@@ -9,8 +12,12 @@ int main(){
   if(tree == NULL){
     printf("main ERROR: not possible to create new tree\n\n");
   }//se ponteiro para nova arvore foi nulo
-  char nome_do_arquivo[17] = {};
+  
+  char nome_do_arquivo[9] = {};
+  char caminho_completo[17] = {};
+  
   printf("\n\t\tWelcome to the jungle!\n\t\tLet's build some trees?\n\n\n");
+  
   int opcao = 0;
   int True = 1;
   do{
@@ -20,7 +27,9 @@ int main(){
       case 1: //loadTreeFromFile
         printf("\n\nType the file's name: ");
         scanf("%s[^\n]", nome_do_arquivo);
-        tree = loadTreeFromFile(nome_do_arquivo);
+        strcpy(caminho_completo, caminho);
+        strcat(caminho_completo, nome_do_arquivo);
+        tree = loadTreeFromFile(caminho_completo);
         break;
       case 2: //showTree
 
@@ -50,6 +59,7 @@ int main(){
 
         break;
       case 11: //sair
+        // tree = freeTree(tree, tree->root);
         printf("Thank you, teacher, for your support!!!\n\n");
         True = 0;
         break;
@@ -64,17 +74,17 @@ int main(){
 }//end main
 
 void menu(){
-  printf("Choose an option below. Type donw its number\n\n");
-  printf("\t1 - load Tree From File\n");
-  printf("\t2 - show Tree\n");
-  printf("\t3 - is Full ?\n");
-  printf("\t4 - search Value\n");
-  printf("\t5 - get Height\n");
-  printf("\t6 - remove Value\n");
-  printf("\t7 - print In Order\n");
-  printf("\t8 - print Pre Order\n");
-  printf("\t9 - print Pos Order\n");
-  printf("\t10 - balance Tree\n");
+  printf("Choose an option below. Type down its number\n\n");
+  printf("\t1 - Load Tree From File\n");
+  printf("\t2 - Show Tree\n");
+  printf("\t3 - Is Full ?\n");
+  printf("\t4 - Search Value\n");
+  printf("\t5 - Get Height\n");
+  printf("\t6 - Remove Value\n");
+  printf("\t7 - Print In Order\n");
+  printf("\t8 - Print Pre Order\n");
+  printf("\t9 - Print Pos Order\n");
+  printf("\t10 - Balance Tree\n");
   printf("\t11 - Exit\n\n");
   printf("Option ");
 }
