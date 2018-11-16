@@ -12,12 +12,12 @@ int main(){
   if(tree == NULL){
     printf("main ERROR: not possible to create new tree\n\n");
   }//se ponteiro para nova arvore foi nulo
-  
+
   char nome_do_arquivo[9] = {};
   char caminho_completo[17] = {};
-  
+
   printf("\n\t\tWelcome to the jungle!\n\t\tLet's build some trees?\n\n\n");
-  
+
   int opcao = 0;
   int True = 1;
   do{
@@ -25,11 +25,12 @@ int main(){
     scanf("%d", &opcao);
     switch (opcao) {
       case 1: //loadTreeFromFile
-        printf("\n\nType the file's name: ");
+        printf("\n\nType the file's name: \nOPTIONS:\n\tbst1.txt\n\tbst2.txt\n\tbst3.txt\n\tbst4.txt\n\tbst5.txt\n\tbst6.txt:\n\n -");
         scanf("%s[^\n]", nome_do_arquivo);
         strcpy(caminho_completo, caminho);
         strcat(caminho_completo, nome_do_arquivo);
         tree = loadTreeFromFile(caminho_completo);
+        printf("\t-----------FILE OPENED SUCCESSFULLY-----------\n");
         break;
       case 2: //showTree
 
