@@ -130,9 +130,18 @@ Tree *loadTreeFromFile(char *nome_do_arquivo){
   return tree;
 }//end of loadTreeFromFile
 
-// showTree(){
-
-// }//end of showTree
+void showTree(Node *root){
+  if(root == NULL){ //se a raiz for nula, retorna
+    //printf("showTree ERROR: passing NULL node to function call\n\n");
+    return;
+  }//end raiz nula
+  else{ //raiz nao nula
+    printf("\t\t%d\n", root->value);
+    printf("/\\\n");
+    showTree(root->left);
+    showTree(root->right);
+  }//end raiz nao nula
+}//end of showTree
 
 // isFull(){
 
@@ -165,9 +174,9 @@ Tree *loadTreeFromFile(char *nome_do_arquivo){
 
 // }//end of printInOrder
 
-// printPreOrder(){
+void printPreOrder(Node *root){
 
-// }//end of printPreOrder
+}//end of printPreOrder
 
 // printPosOrder(){
 
