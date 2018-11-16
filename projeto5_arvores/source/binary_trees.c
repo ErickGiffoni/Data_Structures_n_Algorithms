@@ -175,7 +175,15 @@ void showTree(Node *root){
 // }//end of printInOrder
 
 void printPreOrder(Node *root){
-
+  if(root == NULL){ //se a raiz for nula, retorna
+    //printf("showTree ERROR: passing NULL node to function call\n\n");
+    return;
+  }//end raiz nula
+  else {
+    printf("%d ", root->value);
+    printPreOrder(root->left);
+    printPreOrder(root->right);
+  }
 }//end of printPreOrder
 
 // printPosOrder(){
