@@ -25,8 +25,8 @@ int maxSizeNode(int *left, int *right);
 //removeValue();
 void printInOrder(Node *);
 void printPreOrder(Node *);
-//printPosOrder();
-//balanceTree(); */
+void printPostOrder(Node *);
+//balanceTree();
 Tree *freeTree(Tree *t, Node *n);
 
 #endif
