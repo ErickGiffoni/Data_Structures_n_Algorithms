@@ -47,7 +47,9 @@ int main(){
 
         break;
       case 7: //printInOrder
-
+        puts("\n");
+        printInOrder(tree->root);
+        puts("\n");
         break;
       case 8: //printPreOrder
         puts("\n");
