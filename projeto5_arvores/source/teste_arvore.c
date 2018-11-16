@@ -12,12 +12,12 @@ int main(){
   if(tree == NULL){
     printf("main ERROR: not possible to create new tree\n\n");
   }//se ponteiro para nova arvore foi nulo
-  
+
   char nome_do_arquivo[9] = {};
   char caminho_completo[17] = {};
-  
+
   printf("\n\t\tWelcome to the jungle!\n\t\tLet's build some trees?\n\n\n");
-  
+
   int opcao = 0;
   int True = 1;
   do{
@@ -32,7 +32,7 @@ int main(){
         tree = loadTreeFromFile(caminho_completo);
         break;
       case 2: //showTree
-
+        showTree(tree->root);
         break;
       case 3: //isFull
 
