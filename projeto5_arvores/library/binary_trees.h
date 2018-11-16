@@ -23,7 +23,7 @@ searchValue(); */
 int getHeight(Tree *t);
 int maxSizeNode(int *left, int *right);
 //removeValue();
-//printInOrder();
+void printInOrder(Node *);
 void printPreOrder(Node *);
 //printPosOrder();
 //balanceTree(); */

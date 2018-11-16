@@ -170,9 +170,16 @@ void showTree(Node *root){
 
 // }//end of removeValue
 
-// printInOrder(){
-
-// }//end of printInOrder
+void printInOrder(Node *root){
+  if(root == NULL){
+    return;
+  }//raiz nula
+  else {
+    printInOrder(root->left);//vai para a esquerda
+    printf("%d ", root-> value);//print o atual
+    printInOrder(root->right);//vai para a direita
+  }//raiz nao nula
+}//end of printInOrder
 
 void printPreOrder(Node *root){
   if(root == NULL){ //se a raiz for nula, retorna
