@@ -57,7 +57,9 @@ int main(){
         puts("\n");
         break;
       case 9: //printPosOrder
-
+      puts("\n");
+      printPostOrder(tree->root);
+      puts("\n");
         break;
       case 10: //balanceTree
 
@@ -87,7 +89,7 @@ void menu(){
   printf("\t6 - Remove Value\n");
   printf("\t7 - Print In Order\n");
   printf("\t8 - Print Pre Order\n");
-  printf("\t9 - Print Pos Order\n");
+  printf("\t9 - Print Post Order\n");
   printf("\t10 - Balance Tree\n");
   printf("\t11 - Exit\n\n");
   printf("Option ");
