@@ -50,7 +50,9 @@ int main(){
 
         break;
       case 8: //printPreOrder
-
+        puts("\n");
+        printPreOrder(tree->root);
+        puts("\n");
         break;
       case 9: //printPosOrder
 
