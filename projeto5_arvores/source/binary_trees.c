@@ -130,9 +130,18 @@ Tree *loadTreeFromFile(char *nome_do_arquivo){
   return tree;
 }//end of loadTreeFromFile
 
-// showTree(){
-
-// }//end of showTree
+void showTree(Node *root){
+  if(root == NULL){ //se a raiz for nula, retorna
+    //printf("showTree ERROR: passing NULL node to function call\n\n");
+    return;
+  }//end raiz nula
+  else{ //raiz nao nula
+    printf("\t\t%d\n", root->value);
+    printf("/\\\n");
+    showTree(root->left);
+    showTree(root->right);
+  }//end raiz nao nula
+}//end of showTree
 
 // isFull(){
 
@@ -202,17 +211,32 @@ void searchValue(Tree *tree, int value_for_search, int node){
 
 // }//end of removeValue
 
-// printInOrder(){
+void printInOrder(Node *root){
+  if(root == NULL) return;//raiz nula
+  else {
+    printInOrder(root->left);//vai para a esquerda
+    printf("%d ", root-> value);//print o atual
+    printInOrder(root->right);//vai para a direita
+  }//raiz nao nula
+}//end of printInOrder
 
-// }//end of printInOrder
+void printPreOrder(Node *root){
+  if(root == NULL) return;//raiz nula
+  else {
+    printf("%d ", root->value);//print atual
+    printPreOrder(root->left);//vai p esquerda
+    printPreOrder(root->right);//vai p direita
+  }
+}//end of printPreOrder
 
-// printPreOrder(){
-
-// }//end of printPreOrder
-
-// printPosOrder(){
-
-// }//end of printPosOrder
+void printPostOrder(Node *root){
+  if(root == NULL) return;//raiz nula
+  else {
+    printPostOrder(root->left);//vai p esquerda
+    printPostOrder(root->right);//vai p direita
+    printf("%d ", root->value);//print atual
+  }//raiz nao nula
+}//end of printPosOrder
 
 // balanceTree(){
 

@@ -35,7 +35,7 @@ int main(){
         printf("\t-----------FILE OPENED SUCCESSFULLY-----------\n");
         break;
       case 2: //showTree
-
+        showTree(tree->root);
         break;
       case 3: //isFull
 
@@ -52,13 +52,19 @@ int main(){
 
         break;
       case 7: //printInOrder
-
+        puts("\n");
+        printInOrder(tree->root);
+        puts("\n");
         break;
       case 8: //printPreOrder
-
+        puts("\n");
+        printPreOrder(tree->root);
+        puts("\n");
         break;
       case 9: //printPosOrder
-
+      puts("\n");
+      printPostOrder(tree->root);
+      puts("\n");
         break;
       case 10: //balanceTree
 
@@ -88,7 +94,7 @@ void menu(){
   printf("\t6 - Remove Value\n");
   printf("\t7 - Print In Order\n");
   printf("\t8 - Print Pre Order\n");
-  printf("\t9 - Print Pos Order\n");
+  printf("\t9 - Print Post Order\n");
   printf("\t10 - Balance Tree\n");
   printf("\t11 - Exit\n\n");
   printf("Option ");

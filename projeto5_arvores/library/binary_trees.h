@@ -17,16 +17,22 @@ Node *newEmptyNode();
 Tree *newEmptyTree();
 Tree *createTree(Tree *tree, int *number);
 Tree *loadTreeFromFile(char *nome_do_arquivo);
+<<<<<<< HEAD
 /* showTree();
 isFull();*/
 void searchValue(Tree *, int, int);
+=======
+void showTree(Node *);
+/*isFull();
+searchValue(); */
+>>>>>>> bffce05eda214b2dbcdb008479b06f20cfe083bf
 int getHeight(Tree *t);
 int maxSizeNode(int *left, int *right);
-/* removeValue();
-printInOrder();
-printPreOrder();
-printPosOrder();
-balanceTree(); */
+//removeValue();
+void printInOrder(Node *);
+void printPreOrder(Node *);
+void printPostOrder(Node *);
+//balanceTree();
 Tree *freeTree(Tree *t, Node *n);
 
 #endif
