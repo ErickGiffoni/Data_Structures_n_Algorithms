@@ -18,6 +18,7 @@ int main(){
 
   printf("\n\t\tWelcome to the jungle!\n\t\tLet's build some trees?\n\n\n");
 
+  int value_for_search = 0;
   int balanced;
   int opcao = 0;
   int True = 1;
@@ -40,7 +41,9 @@ int main(){
 
         break;
       case 4: //searchValue
-
+      printf("Informe o valor a ser pesquisado\n");
+      scanf("%d", &value_for_search);
+      searchValue(tree, value_for_search, 0);
         break;
       case 5: //getHeight
 

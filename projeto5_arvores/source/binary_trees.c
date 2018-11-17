@@ -147,9 +147,50 @@ void showTree(Node *root){
 
 // }//end of isFull
 
-// searchValue(){
+void searchValue(Tree *tree, int value_for_search, int node){
+  Node *temp;
+  temp = tree->root;
 
-// }//end of searchValue
+  int t_node = node;
+
+  if (temp == NULL) { // Árvore vazia, sem filho e sem pai.
+       printf("\t\tNIVEL DO NÓ = %d\n\t\tPAI -> nao tem\n\t\tFILHO: nao tem",t_node );
+     }
+
+  else if(temp->value == value_for_search){//VALOR DO NÓ IGUAL AO VALOR DESEJADO, (sem pai, podendo ter filho).
+    int filho_direita, filho_esquerda;
+    if(temp->right != NULL && temp->left != NULL){
+      filho_direita = temp->right->value;
+      filho_esquerda = temp->left->value;
+      printf("\t\tNIVEL DO NÓ = %d\n\t\tPAI -> nao tem\n\t\tFILHO DIREITA: %d\n\t\tFILHO ESQUERDA: %d\n\n",t_node, filho_direita, filho_esquerda);;
+    }
+
+    else if(temp->left != NULL){
+      filho_esquerda = temp->left->value;
+      printf("\t\tNIVEL DO NÓ = %d\n\t\tPAI -> nao tem\n\t\tFILHO DIREITA: nao tem\n\t\tFILHO ESQUERDA: %d\n\n", t_node, filho_esquerda);
+  }
+  else if(temp->right != NULL){
+    filho_direita = temp->right->value;
+    printf("\t\tNIVEL DO NÓ = %d\n\t\tPAI -> nao tem\n\t\tFILHO DIREITA: %d\n\t\tFILHO ESQUERDA: nao tem\n\n",t_node, filho_direita);
+  }
+}
+
+
+  else if (temp->value > value_for_search){
+       printf("chamou value_for_search > value\n");
+       t_node++;
+       tree -> root = tree -> root -> left;
+       return searchValue (tree, value_for_search, t_node);
+     }
+    else{
+        printf("chamou value_for_search < value\n");
+        t_node++;
+        tree -> root = tree -> root -> right;
+       return searchValue (tree, value_for_search, t_node);
+
+     }
+
+ }//end of searchValue
 
 // int getHeight(Tree *t){
 //   if(t == NULL)
