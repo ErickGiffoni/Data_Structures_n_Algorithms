@@ -41,9 +41,9 @@ int main(){
 
         break;
       case 4: //searchValue
-      printf("Informe o valor a ser pesquisado\n");
-      scanf("%d", &value_for_search);
-      searchValue(tree, value_for_search, 0);
+        printf("Informe o valor a ser pesquisado\n");
+        scanf("%d", &value_for_search);
+        searchValue(tree, value_for_search, 0);
         break;
       case 5: //getHeight
 
@@ -62,13 +62,13 @@ int main(){
         puts("\n");
         break;
       case 9: //printPosOrder
-      puts("\n");
-      printPostOrder(tree->root);
-      puts("\n");
+        puts("\n");
+        printPostOrder(tree->root);
+        puts("\n");
         break;
       case 10: //balanceTree
-        balanced = isBalanced(tree->root);
-        printf("balanced = %d\n", balanced);
+        //balanced = isBalanced(tree->root);
+        //printf("balanced = %d\n", balanced);
         break;
       case 11: //sair
         //tree = freeTree(tree, tree->root);
