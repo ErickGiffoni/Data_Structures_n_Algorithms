@@ -253,9 +253,19 @@ int isBalanced(Node *root){// 0 -> not balanced | 1 -> balanced
   }//end raiz nao nula
 }//end of isBalanced
 
-// balanceTree(){
-
-// }//end of balanceTree
+/*Tree *balanceTree(Tree *tree){
+  if(tree == NULL){//se a arvore for nula
+    printf("balanceTree ERROR: NULL tree function call\n\n");
+    return NULL;
+  }//end if arvore nula
+  int balanced = isBalanced(tree->root);//verifica se esta balanceada
+  if(balanced){//se esta balanceada
+    return tree; //retorna a arvore
+  }//end if esta balanceada
+  else{//se nao esta balanceada
+//TODO rotacionar
+  }//end nao esta balanceada
+}//end of balanceTree */
 
 Tree *freeTree(Tree *t, Node *n)
 {
