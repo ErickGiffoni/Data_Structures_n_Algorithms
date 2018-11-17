@@ -18,6 +18,7 @@ int main(){
 
   printf("\n\t\tWelcome to the jungle!\n\t\tLet's build some trees?\n\n\n");
 
+  int balanced;
   int opcao = 0;
   int True = 1;
   do{
@@ -63,10 +64,11 @@ int main(){
       puts("\n");
         break;
       case 10: //balanceTree
-
+        balanced = isBalanced(tree->root);
+        printf("balanced = %d\n", balanced);
         break;
       case 11: //sair
-        // tree = freeTree(tree, tree->root);
+        //tree = freeTree(tree, tree->root);
         printf("Thank you, teacher, for your support!!!\n\n");
         True = 0;
         break;
