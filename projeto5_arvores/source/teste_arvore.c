@@ -51,11 +51,12 @@ int main(){
       scanf("%d", &value_for_search);
       searchValue(tree,tree -> root -> value, value_for_search, 0);
       getchar();
+
         break;
       case 5: //getHeight
 
         break;
-      case 6: //removeValue
+      case 6:
 
         break;
       case 7: //printInOrder
@@ -77,7 +78,7 @@ int main(){
 
         break;
       case 11: //sair
-        // tree = freeTree(tree, tree->root);
+        tree = freeTree(tree, tree->root);
         printf("Thank you, teacher, for your support!!!\n\n");
         True = 0;
         break;
@@ -92,7 +93,7 @@ int main(){
 }//end main
 
 void menu(){
-  printf("Choose an option below. Type down its number\n\n");
+  printf("\nChoose an option below. Type down its number\n\n");
   printf("\t1 - Load Tree From File\n");
   printf("\t2 - Show Tree\n");
   printf("\t3 - Is Full ?\n");

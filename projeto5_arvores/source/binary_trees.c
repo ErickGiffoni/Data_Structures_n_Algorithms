@@ -246,7 +246,10 @@ void searchValue(Tree *tree, int pai, int value_for_search, int node){
 // }
 
 // removeValue(){
-
+Node *removeValue(Node *root)
+{
+  /* função de busca aqui */
+}
 // }//end of removeValue
 
 void printInOrder(Node *root){

@@ -23,7 +23,7 @@ void showTree(Node *);
 
 //int getHeight(Tree *t);
 int maxSizeNode(int *left, int *right);
-//removeValue();
+Node *removeValue(Node *root, int *numb);
 void printInOrder(Node *);
 void printPreOrder(Node *);
 void printPostOrder(Node *);
