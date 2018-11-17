@@ -35,7 +35,7 @@ int main(){
         printf("\t-----------FILE OPENED SUCCESSFULLY-----------\n");
         break;
       case 2: //showTree
-        showTree(tree->root);
+      //  showTree(tree->root);
         break;
       case 3: //isFull
 
@@ -44,6 +44,7 @@ int main(){
       printf("Informe o valor a ser pesquisado\n");
       scanf("%d", &value_for_search);
       searchValue(tree, value_for_search, 0);
+      getchar();
         break;
       case 5: //getHeight
 
