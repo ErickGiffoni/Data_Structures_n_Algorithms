@@ -18,8 +18,8 @@ Tree *newEmptyTree();
 Tree *createTree(Tree *tree, int *number);
 Tree *loadTreeFromFile(char *nome_do_arquivo);
 /* showTree();
-isFull();
-searchValue(); */
+isFull();*/
+void searchValue(Tree *, int, int);
 int getHeight(Tree *t);
 int maxSizeNode(int *left, int *right);
 /* removeValue();
