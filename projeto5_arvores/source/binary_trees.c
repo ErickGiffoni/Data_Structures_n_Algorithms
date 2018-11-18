@@ -161,6 +161,7 @@ void showTree(Node *root){
   puts("\n");
   getElement(root, array, &position/*,getHeight(root)*/);
   for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
+  free(array);
 }//end of showTree
 
 /*  void isFull(Tree *tree){
