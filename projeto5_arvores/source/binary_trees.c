@@ -257,11 +257,59 @@ int maxSizeNode(int left, int right){
 }
 
 // removeValue(){
-Node *removeValue(Node *root)
+Node *removeValue(Node *root, int numb)
 {
-  /* função de busca aqui */
+  if(root == NULL)
+  {
+    printf("Cannot find a node with the value %d", numb);
+    return NULL;
+  }
+
+  if(numb < root->value)
+  {
+    root->left = removeValue(root->left, numb);
+  }
+  else if(numb > root->value)
+  {
+    root->right = removeValue(root->right, numb);
+  }
+  else
+  {
+    if(root->left == NULL)
+    {
+      Node *temp = root->right;
+      free(root);
+      printf("Node %d removed with success!\n", numb);
+
+      return temp;
+    }
+    if(root->right == NULL)
+    {
+      Node *temp = root->left;
+      free(root);
+      printf("Node %d removed with success!\n", numb);
+
+      return temp;
+    }
+    Node *temp = findMinimum(root->right);
+    root->value = temp->value;
+    root->right = removeValue(root->right, temp->value);
+  }
+  return root;
 }
-// }//end of removeValue
+
+Node *findMinimum(Node *n)
+{
+  if(n == NULL)
+    return NULL;
+
+  else if(n->left == NULL)
+    return n;
+  
+  else
+    return findMinimum(n->left);
+}
+//end of removeValue
 
 void printInOrder(Node *root){
   if(root == NULL) return;//raiz nula

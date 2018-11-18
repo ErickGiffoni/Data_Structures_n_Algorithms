@@ -19,6 +19,7 @@ int main(){
 
   int value_for_search = 0;
   int treeSize = 0;
+  int find_del = 0;
 
   int opcao = 0;
   int True = 1;
@@ -41,7 +42,7 @@ int main(){
 
         break;
       case 4: //searchValue
-        printf("Informe o valor a ser pesquisado\n");
+        printf("Type a value that'll be selected:\n");
         scanf("%d", &value_for_search);
         searchValue(tree,tree -> root -> value, value_for_search, 0);
         getchar();
@@ -53,7 +54,9 @@ int main(){
         tree->height = treeSize;
         break;
       case 6:
-
+        printf("Type a value that'll be selected:\n");
+        scanf("%d", &find_del);
+        tree->root = removeValue(tree->root, find_del);
         break;
       case 7: //printInOrder
         puts("\n");
