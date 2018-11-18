@@ -269,7 +269,7 @@ int getHeight(Node *t){
 
 int maxSizeNode(int left, int right){
   return (left > right) ? left:right;
-}
+}//end of maxSizeNode
 
 // removeValue(){
 Node *removeValue(Node *root)
@@ -344,5 +344,5 @@ void freeTree(Node *n)
   freeTree(n->left);
   freeTree(n->right);
   free(n);
-  
+
 }
