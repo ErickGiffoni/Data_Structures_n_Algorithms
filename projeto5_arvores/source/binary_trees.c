@@ -143,24 +143,35 @@ void showTree(Node *root){
   }//end raiz nao nula
 }//end of showTree
 
-// isFull(){
+/*  void isFull(Tree *tree){
 
-// }//end of isFull
+    Tree *temp_right;
+    temp_right = tree;
 
-void searchValue(Tree *tree, int pai, int value_for_search, int node){
-  Node *temp;
-  temp = tree->root;
+    Tree *temp_left;
+    temp_left = tree;
 
-  int temp_pai;
-  temp_pai = pai;
+    if(temp->right != NULL && temp->left != NULL){
+      temp = temp->right;
 
-  Tree *temp_tree;
-  temp_tree = tree;
+    }
+    else if()
 
-  //Node *temp_pai;
-  //temp_pai = tr_pai;
 
-  int t_node = node;
+
+ }//end of isFull */
+
+  void searchValue(Tree *tree, int pai, int value_for_search, int node){
+    Node *temp;
+    temp = tree->root;
+
+    int temp_pai;
+    temp_pai = pai;
+
+    Tree *temp_tree;
+    temp_tree = tree;
+
+    int t_node = node;
 
   if (temp == NULL) { // Árvore vazia, sem filho e sem pai.
        printf("\n\t\t---------------VALOR NAO ENCONTRADO---------------\n\t\t---------------TENTE NOVAMENTE---------------\n");
