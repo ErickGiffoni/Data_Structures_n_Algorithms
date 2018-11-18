@@ -34,20 +34,20 @@ int main(){
         strcpy(caminho_completo, caminho);
         strcat(caminho_completo, nome_do_arquivo);
         tree = loadTreeFromFile(caminho_completo);
-        printf("\t-----------FILE OPENED SUCCESSFULLY-----------\n");
+        if (tree)printf("\t-----------FILE OPENED SUCCESSFULLY-----------\n");
         break;
       case 2: //showTree
-      //  showTree(tree->root);
+        showTree(tree->root);
         break;
       case 3: //isFull
 
         break;
       case 4: //searchValue
-        printf("Type a value that'll be selected:\n");
-        scanf("%d", &value_for_search);
-        searchValue(tree,tree -> root -> value, value_for_search, 0);
-        getchar();
-        tree = loadTreeFromFile(caminho_completo);
+      printf("Informe o valor a ser pesquisado\n");
+      scanf("%d", &value_for_search);
+      searchValue(tree,tree -> root -> value, value_for_search, 1);
+      getchar();
+      tree = loadTreeFromFile(caminho_completo);
         break;
       case 5: //getHeight
         treeSize = getHeight(tree->root);
