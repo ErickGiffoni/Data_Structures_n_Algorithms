@@ -137,7 +137,22 @@ void showTree(Node *root){
   }//end raiz nula
   else{ //raiz nao nula
     printf("\t\t%d\n", root->value);
-    printf("/\\\n");
+    printf("\t\t |\n\t   ------ ------\n");
+    printf("\t  %d \t\t %d\n", root->left->value, root->right->value);
+    //if(root->left && root->right){//se tem esquerda e direita
+    //  printf("\t\t |\n\t   ------ ------\n");
+    //  showTree(root->left);
+    //  showTree(root->right);
+    //}//end se tem esquerda e direita
+    //else if(root->left && root->right == NULL){//se tem so esquerda
+    //  printf("\t  ------ \n");
+    //  showTree(root->left);
+    //}//end se tem so esquerda
+    //else if(root->left == NULL && root->right){//se tem so direita
+    //  printf("\t         ------\n");
+    //  showTree(root->right);
+    //}//end se tem so direita
+    //printf("/\\\n");
     showTree(root->left);
     showTree(root->right);
   }//end raiz nao nula
@@ -254,9 +269,9 @@ int getHeight(Node *t){
 
 int maxSizeNode(int left, int right){
   return (left > right) ? left:right;
-}
+}//end of maxSizeNode
 
-// removeValue(){
+// removeValue()
 Node *removeValue(Node *root, int numb)
 {
   if(root == NULL)
@@ -338,7 +353,7 @@ void printPostOrder(Node *root){
   }//raiz nao nula
 }//end of printPosOrder
 
-/* int isBalanced(Node *root){// 0 -> not balanced | 1 -> balanced
+int isBalanced(Node *root){// 0 -> not balanced | 1 -> balanced
   if(root == NULL) return 1; //raiz nula, logo esta balanceado, pois nao ha direita nem esquerda
   else{
     if(abs(getHeight(root->right) - getHeight(root->left)) > 1){//se a diferenca das alturas da esquerda e da direita for > 1
@@ -351,7 +366,7 @@ void printPostOrder(Node *root){
       else return 0; //se nao esta balanceada dos dois lados -> desbalanceada
     }//end diferenca de alturas <= 1
   }//end raiz nao nula
-}//end of isBalanced */
+}//end of isBalanced
 
 /*Tree *balanceTree(Tree *tree){
   if(tree == NULL){//se a arvore for nula
@@ -377,5 +392,5 @@ void freeTree(Node *n)
   freeTree(n->left);
   freeTree(n->right);
   free(n);
-  
+
 }

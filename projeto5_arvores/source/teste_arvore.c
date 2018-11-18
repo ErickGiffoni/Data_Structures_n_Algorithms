@@ -21,6 +21,7 @@ int main(){
   int treeSize = 0;
   int find_del = 0;
 
+  int balanced;
   int opcao = 0;
   int True = 1;
   do{
@@ -69,12 +70,13 @@ int main(){
         puts("\n");
         break;
       case 9: //printPosOrder
-      puts("\n");
-      printPostOrder(tree->root);
-      puts("\n");
+        puts("\n");
+        printPostOrder(tree->root);
+        puts("\n");
         break;
       case 10: //balanceTree
-
+        balanced = isBalanced(tree->root);
+        printf("balanced = %d\n", balanced);
         break;
       case 11: //sair
         printf("\nFreeing elements tree");
