@@ -272,10 +272,10 @@ int maxSizeNode(int left, int right){
 }//end of maxSizeNode
 
 // removeValue(){
-Node *removeValue(Node *root)
-{
-  /* função de busca aqui */
-}
+//Node *removeValue(Node *root)
+//{
+//  /* função de busca aqui */
+//}
 // }//end of removeValue
 
 void printInOrder(Node *root){
@@ -305,20 +305,20 @@ void printPostOrder(Node *root){
   }//raiz nao nula
 }//end of printPosOrder
 
-//int isBalanced(Node *root){// 0 -> not balanced | 1 -> balanced
-//  if(root == NULL) return 1; //raiz nula, logo esta balanceado, pois nao ha direita nem esquerda
-//  else{
-//    if(abs(getHeight(root->right) - getHeight(root->left)) > 1){//se a diferenca das alturas da esquerda e da direita for > 1
-//      return 0; //desbalanceada
-//    }//end verifica diferenca nas alturas right e left
-//    else{//se a diferenca nas alturas for <= 1
-//      if(isBalanced(root->right)&&isBalanced(root->left)){//se esta balanceada dos dois lados
-//        return 1; //balanceada
-//      }//end if balanceada dos dois lados
-//      else return 0; //se nao esta balanceada dos dois lados -> desbalanceada
-//    }//end diferenca de alturas <= 1
-//  }//end raiz nao nula
-//}//end of isBalanced
+int isBalanced(Node *root){// 0 -> not balanced | 1 -> balanced
+  if(root == NULL) return 1; //raiz nula, logo esta balanceado, pois nao ha direita nem esquerda
+  else{
+    if(abs(getHeight(root->right) - getHeight(root->left)) > 1){//se a diferenca das alturas da esquerda e da direita for > 1
+      return 0; //desbalanceada
+    }//end verifica diferenca nas alturas right e left
+    else{//se a diferenca nas alturas for <= 1
+      if(isBalanced(root->right)&&isBalanced(root->left)){//se esta balanceada dos dois lados
+        return 1; //balanceada
+      }//end if balanceada dos dois lados
+      else return 0; //se nao esta balanceada dos dois lados -> desbalanceada
+    }//end diferenca de alturas <= 1
+  }//end raiz nao nula
+}//end of isBalanced
 
 /*Tree *balanceTree(Tree *tree){
   if(tree == NULL){//se a arvore for nula
