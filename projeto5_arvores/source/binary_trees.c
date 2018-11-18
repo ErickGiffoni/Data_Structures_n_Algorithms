@@ -256,23 +256,26 @@ void showTree(Node *root){
 
  }//end of searchValue
 
-// int getHeight(Tree *t){
-//   if(t == NULL)
-//   {
-//     return -1; /* se a arvore for vazia ela retornará altura -1 */
-//   }
-//   else
-//   {
-//     return 1 + maxSizeNode(getHeight(t->root->left),getHeight(t->root->right)); /* caso contrario ela retornará a altura da arvore */
-//   }
-// }//end of getHeight
+int getHeight(Node *t){
+  if(t == NULL)
+  {
+    return -1; /* se a arvore for vazia ela retornará altura -1 */
+  }
+  else
+  {
+    return 1 + maxSizeNode(getHeight(t->left),getHeight(t->right)); /* caso contrario ela retornará a altura da arvore */
+  }
+}//end of getHeight
 
-// int maxSizeNode(int *left, int *right){
-//   return (left > right) ? left:right;
-// }
+int maxSizeNode(int left, int right){
+  return (left > right) ? left:right;
+}
 
 // removeValue(){
-
+Node *removeValue(Node *root)
+{
+  /* função de busca aqui */
+}
 // }//end of removeValue
 
 void printInOrder(Node *root){
@@ -331,15 +334,15 @@ void printPostOrder(Node *root){
   }//end nao esta balanceada
 }//end of balanceTree */
 
-Tree *freeTree(Tree *t, Node *n)
+void freeTree(Node *n)
 {
   /* Esta função libera recursivamente todos os elementos das subarvores e em seguida a arvore */
-  if (t != NULL)
-  {
-    freeTree(t, n->left);
-    freeTree(t, n->right);
-    free(n);
-    free(t);
+  if(n == NULL){
+    return;
   }
-  return NULL;
+  printf("Node: %d\n", n->value);
+  freeTree(n->left);
+  freeTree(n->right);
+  free(n);
+  
 }
