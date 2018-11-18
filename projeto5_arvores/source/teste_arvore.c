@@ -79,11 +79,18 @@ int main(){
         printf("balanced = %d\n", balanced);
         break;
       case 11: //sair
-        printf("\nFreeing elements tree");
-        printf("\n-----------------------------------------------\n");
-        freeTree(tree->root);
-        printf("-----------------------------------------------\n");
-        printf("Thank you, teacher, for your support!!!\n\n");
+        if (tree == NULL)
+        {
+          printf("impossible to free a NULL tree\n");
+        }
+        else
+        {
+          printf("\nFreeing elements tree");
+          printf("\n-----------------------------------------------\n");
+          freeTree(tree->root);
+          printf("-----------------------------------------------\n");
+          printf("Thank you, teacher, for your support!!!\n\n");
+        }
         True = 0;
         break;
       default :
