@@ -7,7 +7,6 @@
 void menu();
 
 int main(){
-
   Tree *tree = newEmptyTree();
   if(tree == NULL){
     printf("main ERROR: not possible to create new tree\n\n");
@@ -19,6 +18,7 @@ int main(){
   printf("\n\t\tWelcome to the jungle!\n\t\tLet's build some trees?\n\n\n");
 
   int value_for_search = 0;
+  int treeSize = 0;
 
   int opcao = 0;
   int True = 1;
@@ -47,14 +47,16 @@ int main(){
       strcat(caminho_completo, nome_do_arquivo);
       tree = loadTreeFromFile(caminho_completo);
 
-      printf("Informe o valor a ser pesquisado\n");
+      printf("Type the value that'll be selected:\n");
       scanf("%d", &value_for_search);
       searchValue(tree,tree -> root -> value, value_for_search, 0);
       getchar();
 
         break;
       case 5: //getHeight
-
+        treeSize = getHeight(tree->root);
+        printf("Height: %d\n", treeSize);
+        tree->height = treeSize;
         break;
       case 6:
 
@@ -78,7 +80,10 @@ int main(){
 
         break;
       case 11: //sair
-        tree = freeTree(tree, tree->root);
+        printf("\nFreeing elements tree");
+        printf("\n-----------------------------------------------\n");
+        freeTree(tree->root);
+        printf("-----------------------------------------------\n");
         printf("Thank you, teacher, for your support!!!\n\n");
         True = 0;
         break;
