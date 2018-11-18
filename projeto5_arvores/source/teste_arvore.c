@@ -19,7 +19,7 @@ int main(){
   printf("\n\t\tWelcome to the jungle!\n\t\tLet's build some trees?\n\n\n");
 
   int value_for_search = 0;
-  int balanced;
+
   int opcao = 0;
   int True = 1;
   do{
@@ -41,10 +41,12 @@ int main(){
 
         break;
       case 4: //searchValue
+
       printf("Informe o valor a ser pesquisado\n");
       scanf("%d", &value_for_search);
-      searchValue(tree, value_for_search, 0);
+      searchValue(tree,tree -> root -> value, value_for_search, 0);
       getchar();
+      tree = loadTreeFromFile(caminho_completo);
         break;
       case 5: //getHeight
 
@@ -72,7 +74,7 @@ int main(){
         //printf("balanced = %d\n", balanced);
         break;
       case 11: //sair
-        //tree = freeTree(tree, tree->root);
+        // tree = freeTree(tree, tree->root);
         printf("Thank you, teacher, for your support!!!\n\n");
         True = 0;
         break;
