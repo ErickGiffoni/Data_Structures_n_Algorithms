@@ -33,10 +33,10 @@ int main(){
         strcpy(caminho_completo, caminho);
         strcat(caminho_completo, nome_do_arquivo);
         tree = loadTreeFromFile(caminho_completo);
-        printf("\t-----------FILE OPENED SUCCESSFULLY-----------\n");
+        if (tree)printf("\t-----------FILE OPENED SUCCESSFULLY-----------\n");
         break;
       case 2: //showTree
-      //  showTree(tree->root);
+        showTree(tree->root);
         break;
       case 3: //isFull
 
