@@ -1,6 +1,7 @@
 #include "../library/binary_trees.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 Node *newEmptyNode(){
   Node *temp = (Node *)calloc(1,sizeof(Node)); //nova arvore vazia, toda em zero
@@ -130,32 +131,36 @@ Tree *loadTreeFromFile(char *nome_do_arquivo){
   return tree;
 }//end of loadTreeFromFile
 
-void showTree(Node *root){
-  if(root == NULL){ //se a raiz for nula, retorna
-    //printf("showTree ERROR: passing NULL node to function call\n\n");
+void getElement(Node *root, int *array, int *position/*,int *height*/){
+  // right_or_left - 0 ->left , 1 -> right
+  if(root == NULL){
+    //if(getHeight(root) <= 0)
+    //array[*position] = 0;
+    //*position+=1;
     return;
-  }//end raiz nula
-  else{ //raiz nao nula
-    printf("\t\t%d\n", root->value);
-    printf("\t\t |\n\t   ------ ------\n");
-    printf("\t  %d \t\t %d\n", root->left->value, root->right->value);
-    //if(root->left && root->right){//se tem esquerda e direita
-    //  printf("\t\t |\n\t   ------ ------\n");
-    //  showTree(root->left);
-    //  showTree(root->right);
-    //}//end se tem esquerda e direita
-    //else if(root->left && root->right == NULL){//se tem so esquerda
-    //  printf("\t  ------ \n");
-    //  showTree(root->left);
-    //}//end se tem so esquerda
-    //else if(root->left == NULL && root->right){//se tem so direita
-    //  printf("\t         ------\n");
-    //  showTree(root->right);
-    //}//end se tem so direita
-    //printf("/\\\n");
-    showTree(root->left);
-    showTree(root->right);
-  }//end raiz nao nula
+  }//se nao ha um node, trata-se como se o valor dele fosse zero
+  else{
+    array[*position] = root->value;
+    *position+=1;
+    getElement(root->left, array, position);
+    //*position+=1;
+    getElement(root->right, array, position);
+    //*position+=1;
+    return;
+  }
+}//end of getElement
+
+void showTree(Node *root){
+  //dar um jeito de pegar os elementos da arvore e jogar num vetor
+  int height = getHeight(root);//pega a altura
+  int number_of_elements_in_tree = pow(2,height+1) -1; //numero de elementos = 2^nivel-maximo -1 || nivel-maximo = altura +1
+  int *array = (int *)calloc(number_of_elements_in_tree, sizeof(int));//vetor com number_of_elements_in_tree posicoes
+  printf("number_of_elements_in_tree = %d\n", number_of_elements_in_tree);//vai contar os filhos nulos tambem
+  int position=0, i;
+  for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
+  puts("\n");
+  getElement(root, array, &position/*,getHeight(root)*/);
+  for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
 }//end of showTree
 
 /*  void isFull(Tree *tree){
