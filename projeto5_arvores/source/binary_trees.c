@@ -137,7 +137,22 @@ void showTree(Node *root){
   }//end raiz nula
   else{ //raiz nao nula
     printf("\t\t%d\n", root->value);
-    printf("/\\\n");
+    printf("\t\t |\n\t   ------ ------\n");
+    printf("\t  %d \t\t %d\n", root->left->value, root->right->value);
+    //if(root->left && root->right){//se tem esquerda e direita
+    //  printf("\t\t |\n\t   ------ ------\n");
+    //  showTree(root->left);
+    //  showTree(root->right);
+    //}//end se tem esquerda e direita
+    //else if(root->left && root->right == NULL){//se tem so esquerda
+    //  printf("\t  ------ \n");
+    //  showTree(root->left);
+    //}//end se tem so esquerda
+    //else if(root->left == NULL && root->right){//se tem so direita
+    //  printf("\t         ------\n");
+    //  showTree(root->right);
+    //}//end se tem so direita
+    //printf("/\\\n");
     showTree(root->left);
     showTree(root->right);
   }//end raiz nao nula
@@ -241,24 +256,75 @@ void showTree(Node *root){
 
  }//end of searchValue
 
-// int getHeight(Tree *t){
-//   if(t == NULL)
-//   {
-//     return -1; /* se a arvore for vazia ela retornará altura -1 */
-//   }
-//   else
-//   {
-//     return 1 + maxSizeNode(getHeight(t->root->left),getHeight(t->root->right)); /* caso contrario ela retornará a altura da arvore */
-//   }
-// }//end of getHeight
+int getHeight(Node *t){
+  if(t == NULL)
+  {
+    return -1; /* se a arvore for vazia ela retornará altura -1 */
+  }
+  else
+  {
+    return 1 + maxSizeNode(getHeight(t->left),getHeight(t->right)); /* caso contrario ela retornará a altura da arvore */
+  }
+}//end of getHeight
 
-// int maxSizeNode(int *left, int *right){
-//   return (left > right) ? left:right;
-// }
+int maxSizeNode(int left, int right){
+  return (left > right) ? left:right;
+}//end of maxSizeNode
 
-// removeValue(){
+// removeValue()
+Node *removeValue(Node *root, int numb)
+{
+  if(root == NULL)
+  {
+    printf("Cannot find a node with the value %d", numb);
+    return NULL;
+  }
 
-// }//end of removeValue
+  if(numb < root->value)
+  {
+    root->left = removeValue(root->left, numb);
+  }
+  else if(numb > root->value)
+  {
+    root->right = removeValue(root->right, numb);
+  }
+  else
+  {
+    if(root->left == NULL)
+    {
+      Node *temp = root->right;
+      free(root);
+      printf("Node %d removed with success!\n", numb);
+
+      return temp;
+    }
+    if(root->right == NULL)
+    {
+      Node *temp = root->left;
+      free(root);
+      printf("Node %d removed with success!\n", numb);
+
+      return temp;
+    }
+    Node *temp = findMinimum(root->right);
+    root->value = temp->value;
+    root->right = removeValue(root->right, temp->value);
+  }
+  return root;
+}
+
+Node *findMinimum(Node *n)
+{
+  if(n == NULL)
+    return NULL;
+
+  else if(n->left == NULL)
+    return n;
+  
+  else
+    return findMinimum(n->left);
+}
+//end of removeValue
 
 void printInOrder(Node *root){
   if(root == NULL) return;//raiz nula
@@ -287,7 +353,7 @@ void printPostOrder(Node *root){
   }//raiz nao nula
 }//end of printPosOrder
 
-/* int isBalanced(Node *root){// 0 -> not balanced | 1 -> balanced
+int isBalanced(Node *root){// 0 -> not balanced | 1 -> balanced
   if(root == NULL) return 1; //raiz nula, logo esta balanceado, pois nao ha direita nem esquerda
   else{
     if(abs(getHeight(root->right) - getHeight(root->left)) > 1){//se a diferenca das alturas da esquerda e da direita for > 1
@@ -300,7 +366,7 @@ void printPostOrder(Node *root){
       else return 0; //se nao esta balanceada dos dois lados -> desbalanceada
     }//end diferenca de alturas <= 1
   }//end raiz nao nula
-}//end of isBalanced */
+}//end of isBalanced
 
 /*Tree *balanceTree(Tree *tree){
   if(tree == NULL){//se a arvore for nula
@@ -316,15 +382,15 @@ void printPostOrder(Node *root){
   }//end nao esta balanceada
 }//end of balanceTree */
 
-Tree *freeTree(Tree *t, Node *n)
+void freeTree(Node *n)
 {
   /* Esta função libera recursivamente todos os elementos das subarvores e em seguida a arvore */
-  if (t != NULL)
-  {
-    freeTree(t, n->left);
-    freeTree(t, n->right);
-    free(n);
-    free(t);
+  if(n == NULL){
+    return;
   }
-  return NULL;
+  printf("Node: %d\n", n->value);
+  freeTree(n->left);
+  freeTree(n->right);
+  free(n);
+
 }

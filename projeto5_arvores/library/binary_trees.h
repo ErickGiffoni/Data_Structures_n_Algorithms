@@ -21,16 +21,17 @@ Tree *loadTreeFromFile(char *nome_do_arquivo);
 void searchValue(Tree *,int , int, int);
 void showTree(Node *);
 
-//int getHeight(Tree *t);
-int maxSizeNode(int *left, int *right);
-//removeValue();
+int getHeight(Node *t);
+int maxSizeNode(int left, int right);
+Node *removeValue(Node *root, int numb);
+Node *findMinimum(Node *n);
 void printInOrder(Node *);
 void printPreOrder(Node *);
 void printPostOrder(Node *);
 
 void isFull(Tree *);
-//int isBalanced(Node *);
+int isBalanced(Node *);
 Tree *balanceTree(Tree *);
-Tree *freeTree(Tree *t, Node *n);
+void freeTree(Node *n);
 
 #endif

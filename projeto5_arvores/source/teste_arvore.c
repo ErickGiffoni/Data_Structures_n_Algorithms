@@ -7,7 +7,6 @@
 void menu();
 
 int main(){
-
   Tree *tree = newEmptyTree();
   if(tree == NULL){
     printf("main ERROR: not possible to create new tree\n\n");
@@ -19,7 +18,10 @@ int main(){
   printf("\n\t\tWelcome to the jungle!\n\t\tLet's build some trees?\n\n\n");
 
   int value_for_search = 0;
+  int treeSize = 0;
+  int find_del = 0;
 
+  int balanced;
   int opcao = 0;
   int True = 1;
   do{
@@ -41,18 +43,30 @@ int main(){
 
         break;
       case 4: //searchValue
+<<<<<<< HEAD
 
       printf("Informe o valor a ser pesquisado\n");
       scanf("%d", &value_for_search);
       searchValue(tree,tree -> root -> value, value_for_search, 1);
       getchar();
       tree = loadTreeFromFile(caminho_completo);
+=======
+        printf("Type a value that'll be selected:\n");
+        scanf("%d", &value_for_search);
+        searchValue(tree,tree -> root -> value, value_for_search, 0);
+        getchar();
+        tree = loadTreeFromFile(caminho_completo);
+>>>>>>> ab91ddf73dbc81d8de2fad9b193dec92ff622200
         break;
       case 5: //getHeight
-
+        treeSize = getHeight(tree->root);
+        printf("Height: %d\n", treeSize);
+        tree->height = treeSize;
         break;
-      case 6: //removeValue
-
+      case 6:
+        printf("Type a value that'll be selected:\n");
+        scanf("%d", &find_del);
+        tree->root = removeValue(tree->root, find_del);
         break;
       case 7: //printInOrder
         puts("\n");
@@ -65,15 +79,19 @@ int main(){
         puts("\n");
         break;
       case 9: //printPosOrder
-      puts("\n");
-      printPostOrder(tree->root);
-      puts("\n");
+        puts("\n");
+        printPostOrder(tree->root);
+        puts("\n");
         break;
       case 10: //balanceTree
-
+        balanced = isBalanced(tree->root);
+        printf("balanced = %d\n", balanced);
         break;
       case 11: //sair
-        // tree = freeTree(tree, tree->root);
+        printf("\nFreeing elements tree");
+        printf("\n-----------------------------------------------\n");
+        freeTree(tree->root);
+        printf("-----------------------------------------------\n");
         printf("Thank you, teacher, for your support!!!\n\n");
         True = 0;
         break;
@@ -88,7 +106,7 @@ int main(){
 }//end main
 
 void menu(){
-  printf("Choose an option below. Type down its number\n\n");
+  printf("\nChoose an option below. Type down its number\n\n");
   printf("\t1 - Load Tree From File\n");
   printf("\t2 - Show Tree\n");
   printf("\t3 - Is Full ?\n");
