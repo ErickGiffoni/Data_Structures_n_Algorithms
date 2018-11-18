@@ -41,17 +41,11 @@ int main(){
 
         break;
       case 4: //searchValue
-      printf("\n\nType the file's name: \nOPTIONS:\n\tbst1.txt\n\tbst2.txt\n\tbst3.txt\n\tbst4.txt\n\tbst5.txt\n\tbst6.txt:\n\n -");
-      scanf("%s[^\n]", nome_do_arquivo);
-      strcpy(caminho_completo, caminho);
-      strcat(caminho_completo, nome_do_arquivo);
-      tree = loadTreeFromFile(caminho_completo);
-
-      printf("Type the value that'll be selected:\n");
-      scanf("%d", &value_for_search);
-      searchValue(tree,tree -> root -> value, value_for_search, 0);
-      getchar();
-
+        printf("Informe o valor a ser pesquisado\n");
+        scanf("%d", &value_for_search);
+        searchValue(tree,tree -> root -> value, value_for_search, 0);
+        getchar();
+        tree = loadTreeFromFile(caminho_completo);
         break;
       case 5: //getHeight
         treeSize = getHeight(tree->root);

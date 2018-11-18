@@ -27,6 +27,8 @@ Node *removeValue(Node *root);
 void printInOrder(Node *);
 void printPreOrder(Node *);
 void printPostOrder(Node *);
+
+void isFull(Tree *);
 //int isBalanced(Node *);
 Tree *balanceTree(Tree *);
 void freeTree(Node *n);
