@@ -20,6 +20,7 @@ int main(){
   int value_for_search = 0;
   int treeSize = 0;
 
+  int balanced;
   int opcao = 0;
   int True = 1;
   do{
@@ -71,8 +72,8 @@ int main(){
         puts("\n");
         break;
       case 10: //balanceTree
-        //balanced = isBalanced(tree->root);
-        //printf("balanced = %d\n", balanced);
+        balanced = isBalanced(tree->root);
+        printf("balanced = %d\n", balanced);
         break;
       case 11: //sair
         printf("\nFreeing elements tree");
