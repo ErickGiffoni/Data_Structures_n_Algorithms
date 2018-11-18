@@ -131,7 +131,7 @@ Tree *loadTreeFromFile(char *nome_do_arquivo){
   return tree;
 }//end of loadTreeFromFile
 
-void getElement(Node *root, int *array, int *position/*,int *height*/){
+void getElement(Node *root, int *array, int *position){
   // right_or_left - 0 ->left , 1 -> right
   if(root == NULL){
     //if(getHeight(root) <= 0)
@@ -159,7 +159,7 @@ void showTree(Node *root){
   int position=0, i;
   for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
   puts("\n");
-  getElement(root, array, &position/*,getHeight(root)*/);
+  getElement(root, array, &position);
   for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
   free(array);
 }//end of showTree
