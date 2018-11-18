@@ -202,7 +202,7 @@ void showTree(Node *root){
   else if(temp->value == value_for_search){//VALOR DO NÓ IGUAL AO VALOR DESEJADO, (sem pai, podendo ter filho).
     int filho_direita, filho_esquerda, value_pai;
 
-    if(t_node == 0){
+    if(t_node == 1){
       filho_direita = temp->right->value;
       filho_esquerda = temp->left->value;
       value_pai = temp_pai;
@@ -276,12 +276,60 @@ int maxSizeNode(int left, int right){
   return (left > right) ? left:right;
 }//end of maxSizeNode
 
-// removeValue(){
-//Node *removeValue(Node *root)
-//{
-//  /* função de busca aqui */
-//}
-// }//end of removeValue
+// removeValue()
+Node *removeValue(Node *root, int numb)
+{
+  if(root == NULL)
+  {
+    printf("Cannot find a node with the value %d", numb);
+    return NULL;
+  }
+
+  if(numb < root->value)
+  {
+    root->left = removeValue(root->left, numb);
+  }
+  else if(numb > root->value)
+  {
+    root->right = removeValue(root->right, numb);
+  }
+  else
+  {
+    if(root->left == NULL)
+    {
+      Node *temp = root->right;
+      free(root);
+      printf("Node %d removed with success!\n", numb);
+
+      return temp;
+    }
+    if(root->right == NULL)
+    {
+      Node *temp = root->left;
+      free(root);
+      printf("Node %d removed with success!\n", numb);
+
+      return temp;
+    }
+    Node *temp = findMinimum(root->right);
+    root->value = temp->value;
+    root->right = removeValue(root->right, temp->value);
+  }
+  return root;
+}
+
+Node *findMinimum(Node *n)
+{
+  if(n == NULL)
+    return NULL;
+
+  else if(n->left == NULL)
+    return n;
+
+  else
+    return findMinimum(n->left);
+}
+//end of removeValue
 
 void printInOrder(Node *root){
   if(root == NULL) return;//raiz nula
