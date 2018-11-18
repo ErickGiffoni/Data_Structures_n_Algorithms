@@ -43,20 +43,11 @@ int main(){
 
         break;
       case 4: //searchValue
-<<<<<<< HEAD
-
       printf("Informe o valor a ser pesquisado\n");
       scanf("%d", &value_for_search);
       searchValue(tree,tree -> root -> value, value_for_search, 1);
       getchar();
       tree = loadTreeFromFile(caminho_completo);
-=======
-        printf("Type a value that'll be selected:\n");
-        scanf("%d", &value_for_search);
-        searchValue(tree,tree -> root -> value, value_for_search, 0);
-        getchar();
-        tree = loadTreeFromFile(caminho_completo);
->>>>>>> ab91ddf73dbc81d8de2fad9b193dec92ff622200
         break;
       case 5: //getHeight
         treeSize = getHeight(tree->root);

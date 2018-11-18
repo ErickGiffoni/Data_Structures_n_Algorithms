@@ -197,7 +197,7 @@ void showTree(Node *root){
   else if(temp->value == value_for_search){//VALOR DO NÓ IGUAL AO VALOR DESEJADO, (sem pai, podendo ter filho).
     int filho_direita, filho_esquerda, value_pai;
 
-    if(t_node == 0){
+    if(t_node == 1){
       filho_direita = temp->right->value;
       filho_esquerda = temp->left->value;
       value_pai = temp_pai;
@@ -320,7 +320,7 @@ Node *findMinimum(Node *n)
 
   else if(n->left == NULL)
     return n;
-  
+
   else
     return findMinimum(n->left);
 }
