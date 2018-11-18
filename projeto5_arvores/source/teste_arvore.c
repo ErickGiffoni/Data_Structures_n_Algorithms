@@ -44,7 +44,7 @@ int main(){
 
       printf("Informe o valor a ser pesquisado\n");
       scanf("%d", &value_for_search);
-      searchValue(tree,tree -> root -> value, value_for_search, 0);
+      searchValue(tree,tree -> root -> value, value_for_search, 1);
       getchar();
       tree = loadTreeFromFile(caminho_completo);
         break;
