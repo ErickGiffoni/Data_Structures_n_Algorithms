@@ -38,17 +38,21 @@ int main(){
         if (tree)printf("\t-----------FILE OPENED SUCCESSFULLY-----------\n");
         break;
       case 2: //showTree
-        showTree(tree->root);
+        if(tree) showTree(tree->root);
+        else printf("option 2 ERROR: not possible to show a null tree\n\n");
         break;
       case 3: //isFull
 
         break;
       case 4: //searchValue
-      printf("Informe o valor a ser pesquisado\n");
-      scanf("%d", &value_for_search);
-      searchValue(tree,tree -> root -> value, value_for_search, 1);
-      getchar();
-      tree = loadTreeFromFile(caminho_completo);
+        if(tree->root){
+          printf("Informe o valor a ser pesquisado\n");
+          scanf("%d", &value_for_search);
+          searchValue(tree,tree -> root -> value, value_for_search, 1);
+          getchar();
+          tree = loadTreeFromFile(caminho_completo);
+        }
+        else printf("option 4 ERROR: not possible to search in a null tree\n\n");
         break;
       case 5: //getHeight
         treeSize = getHeight(tree->root);
@@ -62,29 +66,43 @@ int main(){
         break;
       case 7: //printInOrder
         puts("\n");
-        printInOrder(tree->root);
+        if (tree->root)printInOrder(tree->root);
+        else printf("option 7 ERROR: not possible to print a null tree\n\n");
         puts("\n");
         break;
       case 8: //printPreOrder
         puts("\n");
-        printPreOrder(tree->root);
+        if (tree->root)printPreOrder(tree->root);
+        else printf("option 8 ERROR: not possible to print a null tree\n\n");
         puts("\n");
         break;
       case 9: //printPosOrder
         puts("\n");
-        printPostOrder(tree->root);
+        if(tree->root)printPostOrder(tree->root);
+        else printf("option 9 ERROR: not possible to print a null tree\n\n");
         puts("\n");
         break;
       case 10: //balanceTree
-        balanced = isBalanced(tree->root);
-        printf("balanced = %d\n", balanced);
+        if (tree->root){
+          balanced = isBalanced(tree->root);
+          printf("balanced = %d\n", balanced);
+        }
+        else printf("option 10 ERROR: not possible to balance a null tree\n\n");
         break;
       case 11: //sair
-        printf("\nFreeing elements tree");
-        printf("\n-----------------------------------------------\n");
-        freeTree(tree->root);
-        printf("-----------------------------------------------\n");
-        printf("Thank you, teacher, for your support!!!\n\n");
+        if (tree->root == NULL)
+        {
+          printf("impossible to free a NULL tree\n");
+          printf("Thank you, teacher, for your support!!!\n\n");
+        }
+        else
+        {
+          printf("\nFreeing elements tree");
+          printf("\n-----------------------------------------------\n");
+          freeTree(tree->root);
+          printf("-----------------------------------------------\n");
+          printf("Thank you, teacher, for your support!!!\n\n");
+        }
         True = 0;
         break;
       default :

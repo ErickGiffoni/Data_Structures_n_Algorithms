@@ -131,7 +131,7 @@ Tree *loadTreeFromFile(char *nome_do_arquivo){
   return tree;
 }//end of loadTreeFromFile
 
-void getElement(Node *root, int *array, int *position/*,int *height*/){
+void getElement(Node *root, int *array, int *position){
   // right_or_left - 0 ->left , 1 -> right
   if(root == NULL){
     //if(getHeight(root) <= 0)
@@ -151,16 +151,35 @@ void getElement(Node *root, int *array, int *position/*,int *height*/){
 }//end of getElement
 
 void showTree(Node *root){
+  if(!root){
+    printf("showTree ERROR: not possible to show a null root\n\n");
+    return;
+  }
   //dar um jeito de pegar os elementos da arvore e jogar num vetor
   int height = getHeight(root);//pega a altura
   int number_of_elements_in_tree = pow(2,height+1) -1; //numero de elementos = 2^nivel-maximo -1 || nivel-maximo = altura +1
   int *array = (int *)calloc(number_of_elements_in_tree, sizeof(int));//vetor com number_of_elements_in_tree posicoes
-  printf("number_of_elements_in_tree = %d\n", number_of_elements_in_tree);//vai contar os filhos nulos tambem
+  //printf("number_of_elements_in_tree = %d\n", number_of_elements_in_tree);//vai contar os filhos nulos tambem
   int position=0, i;
-  for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
+  //for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
   puts("\n");
-  getElement(root, array, &position/*,getHeight(root)*/);
-  for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
+  getElement(root, array, &position);
+  //for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
+  printf("\t\t\t\t\t                    %d\n", array[0]);//print na raiz
+  int left, right;
+  for(i=1; i<number_of_elements_in_tree; i++){
+    if(array[i]>array[0]){
+      right = array[i];
+      break;
+    }
+  }//for percorre array
+  if(array[1]<=array[0]){
+    left = array[1];
+    printf("\t\t\t\t\t--------------------|--------------------\n");
+    printf("\t\t\t\t\t%d                                      %d\n", left,right);
+  }
+  else printf("\t\t\t\t\t                                        %d\n", right);
+  free(array);
 }//end of showTree
 
 /*  void isFull(Tree *tree){
