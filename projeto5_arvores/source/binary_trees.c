@@ -21,61 +21,6 @@ Tree *newEmptyTree(){
   else return temp;
 }//end of newEmptyTree
 
-/*Tree *createTree(Tree *tree, int *number){
-  Tree *temp = newEmptyTree(); //auxiliar
-  if(temp == NULL){
-    printf("createTree ERROR: not possible to create new temp empty tree\n\n");
-    return NULL;
-  }// se arvore temp auxiliar nao foi alocada
-  //temp = tree;
-  Node *node;
-  //checar se a arvore tem raiz
-  if(tree->empty == 0){
-    tree->root = newEmptyNode();
-    tree->root->value = *number;
-    tree->root->right = NULL;
-    tree->root->left = NULL;
-    tree->empty = 1; //not empty anymore;
-  }//nao tem raiz
-  //caso tenha
-  else{
-    if(*number > tree->root->value){
-      if(tree->root->right == NULL){
-        node = newEmptyNode();
-        if(node == NULL){
-          printf("createTree ERROR: not possible to create empty node\n\n");
-          return NULL;
-        }//se o no nao foi alocado
-        node->value = *number;
-        printf("aqui\n\n");
-        tree->root->right = node;
-      }//if nao tem no depois da raiz
-      else{
-        temp->root = tree->root->right;
-        temp = createTree(temp, number);
-        tree->root->right = temp->root;
-      }//tem no depois da raiz
-    }//go right
-    else{
-      if(tree->root->left == NULL){
-        node = newEmptyNode();
-        if(node == NULL){
-          printf("createTree ERROR: not possible to create empty node\n\n");
-          return NULL;
-        }//se o no nao foi alocado
-        node->value = *number;
-        tree->root->left = node;
-      }//if nao tem no depois da raiz
-      else{
-        temp->root = tree->root->left;
-        temp = createTree(temp, number);
-        tree->root->left = temp->root;
-      }//tem no depois da raiz
-    }//else go left
-  }//else tem raiz
-  return tree;
-}//end of createTree */
-
 Tree *createTree(Tree *tree, int *number){
   Tree *temp = newEmptyTree();
   if(temp == NULL){
@@ -134,18 +79,13 @@ Tree *loadTreeFromFile(char *nome_do_arquivo){
 void getElement(Node *root, int *array, int *position){
   // right_or_left - 0 ->left , 1 -> right
   if(root == NULL){
-    //if(getHeight(root) <= 0)
-    //array[*position] = 0;
-    //*position+=1;
     return;
   }//se nao ha um node, trata-se como se o valor dele fosse zero
   else{
     array[*position] = root->value;
     *position+=1;
     getElement(root->left, array, position);
-    //*position+=1;
     getElement(root->right, array, position);
-    //*position+=1;
     return;
   }
 }//end of getElement
@@ -171,10 +111,6 @@ void showTree(Node *root){
 //  printf("\t\t\t\t\t                    %d\n", array[0]);//print na raiz
 
 
-
-
-
-
   int number_of_lines = 25;
   int number_of_columns = 50;
 
@@ -198,7 +134,6 @@ void showTree(Node *root){
       break;
     }
   }
-
 
   printf("LAST elements: %d\n\n\n", last_element);
 
@@ -289,8 +224,6 @@ void showTree(Node *root){
     }
   }
 
-
-
   for(int i=0;i<number_of_lines;i++){ //Printa a matriz de Árvore Binária
     for(int j=0;j<number_of_columns;j++){
       if(m_showTree[i][j] == 0){
@@ -308,9 +241,6 @@ void showTree(Node *root){
 
   free(array);
 }//end of showTree
-
-
-
 
 /*  void isFull(Tree *tree){
 
@@ -391,7 +321,6 @@ void showTree(Node *root){
 
   }
 }
-
 
   else if (temp_tree->root->value > value_for_search){
        t_node++;
