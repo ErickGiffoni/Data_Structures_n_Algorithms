@@ -175,7 +175,7 @@ void showTree(Node *root){
 
 
 
-  int number_of_lines = 18;
+  int number_of_lines = 25;
   int number_of_columns = 50;
 
   int m_showTree[number_of_lines][number_of_columns]; //Matriz onde será armazenado os valores em formato de Árvore  Binária
@@ -206,21 +206,24 @@ void showTree(Node *root){
 
   for(int i=1; i <= last_element; i++){//TRATA OS VALORES DO array INSERINDO-OS EM UMA MATRIZ DE ÁRVORE BINÁRIA.
     if(array[i] <= array[0]){
-      int l=1;
+      int l=2;
       int j_left = aux_left;
       int j_right = aux_right;
       if(m_showTree[l][j_left] == 0){
         m_showTree[l][j_left] = array[i];
+        m_showTree[l-1][j_left+2] = 1000;
+
         printf("m_showTree1: %d\n",m_showTree[l][j_left] );
         continue;
       }
       else{
         while (1) {
           if(array[i]>m_showTree[l][j_left]){
-            l++;
+            l+=2;
             j_left++;
             if(m_showTree[l][j_left] == 0){
               m_showTree[l][j_left] = array[i];
+              m_showTree[l-1][j_left] = 1001;
               printf("m_showTree2: %d\n",m_showTree[l][j_left] );
               break;
             }
@@ -229,10 +232,11 @@ void showTree(Node *root){
               }
             }
             if(array[i]<m_showTree[l][j_left]){
-              l++;
+              l+=2;
               j_left--;
               if(m_showTree[l][j_left] == 0){
                 m_showTree[l][j_left] = array[i];
+                m_showTree[l-1][j_left] = 1000;
                 printf("m_showTree3: %d\n",m_showTree[l][j_left] );
                 break;
               }
@@ -247,18 +251,20 @@ void showTree(Node *root){
       }
     }
     else if(array[i] > array[0]){
-      int l=1;
+      int l=2;
       int j_right = aux_right;
       if(m_showTree[l][j_right] == 0){
         m_showTree[l][j_right] = array[i];
+        m_showTree[l-1][j_right-1] = 1001;
       }
       else{
         while(1){
           if(array[i]>m_showTree[l][j_right]){
-            l++;
+            l+=2;
             j_right++;
             if(m_showTree[l][j_right] == 0){
               m_showTree[l][j_right] = array[i];
+              m_showTree[l-1][j_right+1] = 1001;
               break;
             }
             else{
@@ -266,10 +272,11 @@ void showTree(Node *root){
             }
           }
           else if(array[i]<m_showTree[l][j_right]){
-            l++;
+            l+=2;
             j_right--;
             if(m_showTree[l][j_right]== 0){
               m_showTree[l][j_right] = array[i];
+              m_showTree[l-1][j_right+1] = 1000;
               break;
             }
             else{
@@ -287,14 +294,17 @@ void showTree(Node *root){
   for(int i=0;i<number_of_lines;i++){ //Printa a matriz de Árvore Binária
     for(int j=0;j<number_of_columns;j++){
       if(m_showTree[i][j] == 0){
-        printf("-");
+        printf(" ");
       }
+      else if(m_showTree[i][j] == 1000)printf("/");
+      else if(m_showTree[i][j] == 1001)printf("\\");
       else{
       printf("%d", m_showTree[i][j]);
     }
     }
     printf("\n");
   }
+  getchar();
 
   free(array);
 }//end of showTree
