@@ -157,30 +157,150 @@ void showTree(Node *root){
   }
   //dar um jeito de pegar os elementos da arvore e jogar num vetor
   int height = getHeight(root);//pega a altura
+  printf("HEIGHT = %d\n",height);
   int number_of_elements_in_tree = pow(2,height+1) -1; //numero de elementos = 2^nivel-maximo -1 || nivel-maximo = altura +1
+  printf("NUMBER OS elements = %d\n\n\n\n",number_of_elements_in_tree );
   int *array = (int *)calloc(number_of_elements_in_tree, sizeof(int));//vetor com number_of_elements_in_tree posicoes
   //printf("number_of_elements_in_tree = %d\n", number_of_elements_in_tree);//vai contar os filhos nulos tambem
   int position=0, i;
-  //for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
+  for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
   puts("\n");
   getElement(root, array, &position);
-  //for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
-  printf("\t\t\t\t\t                    %d\n", array[0]);//print na raiz
-  int left, right;
-  for(i=1; i<number_of_elements_in_tree; i++){
-    if(array[i]>array[0]){
-      right = array[i];
+  for(i=0; i<number_of_elements_in_tree; i++) printf("array[%d] %d ",i, array[i]);
+  printf("\n\n\n\n\n\n" );
+//  printf("\t\t\t\t\t                    %d\n", array[0]);//print na raiz
+
+
+
+
+
+
+  int number_of_lines = 18;
+  int number_of_columns = 50;
+
+  int m_showTree[number_of_lines][number_of_columns]; //Matriz onde será armazenado os valores em formato de Árvore  Binária
+
+  for(int i=0; i<number_of_lines; i++){ //Define todos os valores da matriz como 0.
+    for(int j=0;j<number_of_columns; j++){
+      m_showTree[i][j] = 0;
+    }
+  }
+
+  int last_element = 0; //Guarda a posicao onde fica o último valor da árvore no array
+  int line = 1; // Contador de lihas para o tratamento da Matriz de Árvore Binária
+  int aux = (number_of_columns/2); //Posicao onde será posicionada a Raíz
+  int aux_left = aux-5;
+  int aux_right = aux+5;
+
+  for(int i=0; i<number_of_elements_in_tree;i++){ // Guarda a posicao do último elemento válido do array.
+    if(array[i] == 0){
+      last_element = i;
       break;
     }
-  }//for percorre array
-  if(array[1]<=array[0]){
-    left = array[1];
-    printf("\t\t\t\t\t--------------------|--------------------\n");
-    printf("\t\t\t\t\t%d                                      %d\n", left,right);
   }
-  else printf("\t\t\t\t\t                                        %d\n", right);
+
+
+  printf("LAST elements: %d\n\n\n", last_element);
+
+  m_showTree[0][aux] = array[0]; // PRIMANDO VALOR DO ARRAY SEMPRE É A RAÍZ
+
+  for(int i=1; i <= last_element; i++){//TRATA OS VALORES DO array INSERINDO-OS EM UMA MATRIZ DE ÁRVORE BINÁRIA.
+    if(array[i] <= array[0]){
+      int l=1;
+      int j_left = aux_left;
+      int j_right = aux_right;
+      if(m_showTree[l][j_left] == 0){
+        m_showTree[l][j_left] = array[i];
+        printf("m_showTree1: %d\n",m_showTree[l][j_left] );
+        continue;
+      }
+      else{
+        while (1) {
+          if(array[i]>m_showTree[l][j_left]){
+            l++;
+            j_left++;
+            if(m_showTree[l][j_left] == 0){
+              m_showTree[l][j_left] = array[i];
+              printf("m_showTree2: %d\n",m_showTree[l][j_left] );
+              break;
+            }
+            else{
+              continue;
+              }
+            }
+            if(array[i]<m_showTree[l][j_left]){
+              l++;
+              j_left--;
+              if(m_showTree[l][j_left] == 0){
+                m_showTree[l][j_left] = array[i];
+                printf("m_showTree3: %d\n",m_showTree[l][j_left] );
+                break;
+              }
+              else{
+                continue;
+              }
+            }
+          }
+
+
+        continue;
+      }
+    }
+    else if(array[i] > array[0]){
+      int l=1;
+      int j_right = aux_right;
+      if(m_showTree[l][j_right] == 0){
+        m_showTree[l][j_right] = array[i];
+      }
+      else{
+        while(1){
+          if(array[i]>m_showTree[l][j_right]){
+            l++;
+            j_right++;
+            if(m_showTree[l][j_right] == 0){
+              m_showTree[l][j_right] = array[i];
+              break;
+            }
+            else{
+              continue;
+            }
+          }
+          else if(array[i]<m_showTree[l][j_right]){
+            l++;
+            j_right--;
+            if(m_showTree[l][j_right]== 0){
+              m_showTree[l][j_right] = array[i];
+              break;
+            }
+            else{
+              continue;
+            }
+          }
+        }
+        continue;
+      }
+    }
+  }
+
+
+
+  for(int i=0;i<number_of_lines;i++){ //Printa a matriz de Árvore Binária
+    for(int j=0;j<number_of_columns;j++){
+      if(m_showTree[i][j] == 0){
+        printf("-");
+      }
+      else{
+      printf("%d", m_showTree[i][j]);
+    }
+    }
+    printf("\n");
+  }
+
   free(array);
 }//end of showTree
+
+
+
 
 /*  void isFull(Tree *tree){
 
