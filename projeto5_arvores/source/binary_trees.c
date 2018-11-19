@@ -161,7 +161,7 @@ void showTree(Node *root){
   int *array = (int *)calloc(number_of_elements_in_tree, sizeof(int));//vetor com number_of_elements_in_tree posicoes
   //printf("number_of_elements_in_tree = %d\n", number_of_elements_in_tree);//vai contar os filhos nulos tambem
   int position=0, i;
-  for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
+  //for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
   puts("\n");
   getElement(root, array, &position);
   //for(i=0; i<number_of_elements_in_tree; i++) printf("%d ", array[i]);
