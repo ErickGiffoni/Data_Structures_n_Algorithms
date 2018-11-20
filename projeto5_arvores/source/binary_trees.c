@@ -393,17 +393,17 @@ Node *removeValue(Node *root, int numb)
     else {
       /* se tiver dois filhos */
       Node *dad = root;
-      Node *son = root->left;
+      Node *son = root->right;
 
-      while(son->right != NULL)
+      while(son->left != NULL)
       {
         dad = son;
-        son = son->right;
+        son = son->left;
       }
       /* trocando as informações para pegar o sucessor do valor removido */
       root->value = son->value;
       son->value = numb;
-      root->left = removeValue(root->left, numb);
+      root->right = removeValue(root->right, numb);
     }
   }
   return root;
@@ -483,12 +483,12 @@ Tree *balanceTree(Tree* tree){
       grand = tree->root; /* avo inicia na raiz da arvore */
       dad = tree->root; /* pai inicia na raiz da arvore */
       son = tree->root; /* filho inicia na raiz da arvore */
-      if (dad != NULL) 
+      if (dad != NULL)
         son = dad->right; /* filho vai para direita */
-      
+
       if (son != NULL)
         tree->root = leftRotantion(NULL, dad, son, tree->root);
-      
+
       grand = dad; /* atualiza o avo para o lugar do pai */
       dad = son; /* atualiza o pai para o lugar do filho */
       son = dad->right; /* filho vai para o proximo elemento */
@@ -497,20 +497,20 @@ Tree *balanceTree(Tree* tree){
       {
         grand = dad; /* atualiza o avo para o lugar do pai */
         dad = son; /* atualiza o pai para o lugar do filho */
-        
+
         if (dad != NULL)
           son = dad->right; /* filho vai pra o proximo elemento */
 
         if(son != NULL)
           tree->root = leftRotantion(grand, dad, son, tree->root);
-        
+
         /* atualiza avo pai e filho */
-        grand = dad; 
+        grand = dad;
         dad = son;
-        
+
         if (dad != NULL)
           son = dad->right;
-        
+
       }
       /* o laço se repete 3 vezes para 'ordenar' avo pai e filho para rotacionar cada um dos elementos */
     }
@@ -561,7 +561,7 @@ Node *rightRotation(Node *grand, Node *dad, Node *son)
 
 Node *leftRotantion(Node *grand, Node *dad, Node *son, Node *root)
 {
-  son->left = dad; 
+  son->left = dad;
   dad->right = NULL;
 
   if (grand != NULL)
@@ -574,7 +574,7 @@ Node *leftRotantion(Node *grand, Node *dad, Node *son, Node *root)
   }
   if (dad == root) /* coloca node filho na raiz */
     root = son;
-  
+
   return root;
 }
 
