@@ -175,8 +175,8 @@ void showTree(Node *root){
 
 
 
-  int number_of_lines = 18;
-  int number_of_columns = 50;
+  int number_of_lines = 10;
+  int number_of_columns = 20;
 
   int m_showTree[number_of_lines][number_of_columns]; //Matriz onde será armazenado os valores em formato de Árvore  Binária
 
@@ -284,41 +284,35 @@ void showTree(Node *root){
 
 
 
-  for(int i=0;i<number_of_lines;i++){ //Printa a matriz de Árvore Binária
-    for(int j=0;j<number_of_columns;j++){
+  for(int i=0;i<number_of_lines; i++){ //Printa a matriz de Árvore Binária
+    for(int j=0;j<number_of_columns; j++){
       if(m_showTree[i][j] == 0){
-        printf("-");
+        printf("    ");
       }
       else{
       printf("%d", m_showTree[i][j]);
     }
     }
-    printf("\n");
+    printf("\n\n");
   }
 
   free(array);
 }//end of showTree
 
+int isFull(Node *root)
+{
+  if(root == NULL)
+    return 1; // retorna 1 -> true,  se a subarvore for NULL ->
+  if((root->left == NULL) && (root->right == NULL))
+    return 1; // caso o nó da esquerda e da direita for NULL e considerada cheia
 
-
-
-/*  void isFull(Tree *tree){
-
-    Tree *temp_right;
-    temp_right = tree;
-
-    Tree *temp_left;
-    temp_left = tree;
-
-    if(temp->right != NULL && temp->left != NULL){
-      temp = temp->right;
-
-    }
-    else if()
-
-
-
- }//end of isFull */
+  if(root->left && root->right)
+  {
+    return (isFull(root->left) && isFull(root->right));
+    /* chamada de recursividade para percorrer
+    as subarvores para checkar se tem nó seguinte / folha */
+  }
+}//end of isFull
 
   void searchValue(Tree *tree, int pai, int value_for_search, int node){
 
@@ -433,6 +427,7 @@ Node *removeValue(Node *root, int numb)
   }
   else
   {
+    /* checar se existe elementos filhos do node atual */
     if(root->left == NULL)
     {
       Node *temp = root->right;
@@ -449,23 +444,23 @@ Node *removeValue(Node *root, int numb)
 
       return temp;
     }
-    Node *temp = findMinimum(root->right);
-    root->value = temp->value;
-    root->right = removeValue(root->right, temp->value);
+
+    Node *temp = findMinimum(root->right); /* achar o sucessor proximo do elemento a ser removido */
+    root->value = temp->value; /* receber o valor do sucessor proximo */
+    root->right = removeValue(root->right, temp->value); /* remove o elemento sucessor da posiçao anterior */
   }
   return root;
 }
 
 Node *findMinimum(Node *n)
 {
-  if(n == NULL)
-    return NULL;
-
-  else if(n->left == NULL)
-    return n;
-
-  else
-    return findMinimum(n->left);
+  Node *node = n;
+  
+  while(node->left != NULL)
+  {
+    node = node->left;
+  }
+  return node;
 }
 //end of removeValue
 

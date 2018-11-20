@@ -30,7 +30,7 @@ void printInOrder(Node *);
 void printPreOrder(Node *);
 void printPostOrder(Node *);
 
-void isFull(Tree *);
+int isFull(Node *root);
 int isBalanced(Node *);
 Tree *balanceTree(Tree *);
 void freeTree(Node *n);

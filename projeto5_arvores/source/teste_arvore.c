@@ -22,6 +22,7 @@ int main(){
   int treeSize = 0;
   int find_del = 0;
 
+  int response = 0;
   int balanced;
   int opcao = 0;
   int True = 1;
@@ -42,7 +43,8 @@ int main(){
         else printf("option 2 ERROR: not possible to show a null tree\n\n");
         break;
       case 3: //isFull
-
+        response = isFull(tree->root);
+        printf("Tree is %s!\n", (response == 1) ? "Full": "Not Full");
         break;
       case 4: //searchValue
         if(tree->root){
