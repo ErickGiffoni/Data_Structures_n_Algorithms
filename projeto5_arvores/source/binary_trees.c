@@ -257,59 +257,60 @@ int isFull(Node *root)
   }
 }//end of isFull
 
-  void searchValue(Tree *tree, int pai, int value_for_search, int node){
+  void searchValue(Node *tree, int pai, int value_for_search, int node){
 
 
     int temp_pai;
     temp_pai = pai;
 
-    Tree *temp_tree;
-    temp_tree = tree;
+    Node *temp_node;
+    temp_node = newEmptyNode();
+    temp_node = tree;
 
     int t_node = node;
 
-  if (temp_tree->root == NULL) { // Árvore vazia, sem filho e sem pai.
+  if (temp_node == NULL) { // Árvore vazia, sem filho e sem pai.
        printf("\n\t\t---------------VALOR NAO ENCONTRADO---------------\n\t\t---------------TENTE NOVAMENTE---------------\n");
        printf("\n\t\t\\\\\\\\\\\\\\\\\\\\\\\\PRESS ENTER TO CONTINUE//////////\n\n");
        getchar();
      }
 
-  else if(temp_tree->root->value == value_for_search){//VALOR DO NÓ IGUAL AO VALOR DESEJADO, (sem pai, podendo ter filho).
+  else if(temp_node->value == value_for_search){//VALOR DO NÓ IGUAL AO VALOR DESEJADO, (sem pai, podendo ter filho).
     int filho_direita, filho_esquerda, value_pai;
 
     if(t_node == 1){
-      filho_direita = temp_tree->root->right->value;
-      filho_esquerda = temp_tree->root->left->value;
+      filho_direita = temp_node->right->value;
+      filho_esquerda = temp_node->left->value;
       value_pai = temp_pai;
       printf("\t\tNIVEL DO NÓ = %d\n\t\tPAI -> sem pai\n\t\tFILHO DIREITA: %d\n\t\tFILHO ESQUERDA: %d\n\n",t_node, filho_direita, filho_esquerda);
       printf("\n\t========= RAÍZ ==========\n");
       printf("\n\t\t\\\\\\\\\\\\\\\\\\\\\\\\PRESS ENTER TO CONTINUE//////////\n\n");
       getchar();
     }
-    else if(temp_tree->root->right != NULL && temp_tree->root->left != NULL){
-      filho_direita = temp_tree->root->right->value;
-      filho_esquerda = temp_tree->root->left->value;
+    else if(temp_node->right != NULL && temp_node->left != NULL){
+      filho_direita = temp_node->right->value;
+      filho_esquerda = temp_node->left->value;
       value_pai = temp_pai;
       printf("\t\tNIVEL DO NÓ = %d\n\t\tPAI -> %d\n\t\tFILHO DIREITA: %d\n\t\tFILHO ESQUERDA: %d\n\n",t_node,value_pai, filho_direita, filho_esquerda);
       printf("\n\t\t\\\\\\\\\\\\\\\\\\\\\\\\PRESS ENTER TO CONTINUE//////////\n\n");
       getchar();
     }
 
-    else if(temp_tree->root->left != NULL){
-      filho_esquerda = temp_tree->root->left->value;
+    else if(temp_node->left != NULL){
+      filho_esquerda = temp_node->left->value;
       value_pai = temp_pai;
       printf("\t\tNIVEL DO NÓ = %d\n\t\tPAI ->  %d\n\t\tFILHO DIREITA: nao tem\n\t\tFILHO ESQUERDA: %d\n\n", t_node,value_pai, filho_esquerda);
       printf("\n\t\t\\\\\\\\\\\\\\\\\\\\\\\\PRESS ENTER TO CONTINUE//////////\n\n");
       getchar();
   }
-  else if(temp_tree->root->right != NULL){
-    filho_direita = temp_tree->root->right->value;
+  else if(temp_node->right != NULL){
+    filho_direita = temp_node->right->value;
     value_pai = temp_pai;
     printf("\t\tNIVEL DO NÓ = %d\n\t\tPAI -> %d\n\t\tFILHO DIREITA: %d\n\t\tFILHO ESQUERDA: nao tem\n\n",t_node, value_pai, filho_direita);
     printf("\n\t\t\\\\\\\\\\\\\\\\\\\\\\\\PRESS ENTER TO CONTINUE//////////\n\n");
     getchar();
   }
-  else if(temp_tree ->root-> right == NULL && temp_tree->root -> left == NULL){
+  else if(temp_node -> right == NULL && temp_node-> left == NULL){
     value_pai = temp_pai;
     printf("\t\tNIVEL DO NÓ = %d\n\t\tPAI -> %d\n\t\tFILHO DIREITA: nao tem\n\t\tFILHO ESQUERDA: nao tem\n\n",t_node, value_pai);
     printf("\t\t========= É FOLHA =========\n\n" );
@@ -319,17 +320,14 @@ int isFull(Node *root)
   }
 }
 
-  else if (temp_tree->root->value > value_for_search){
+  else if (temp_node->value > value_for_search){
        t_node++;
-       temp_pai = temp_tree->root->value;
-       temp_tree -> root = temp_tree -> root -> left;
-       return searchValue (temp_tree,temp_pai, value_for_search, t_node);
+       temp_pai = temp_node->value;
+       return searchValue (temp_node -> left,temp_node->value, value_for_search, t_node);
      }
-  else if(temp_tree->root->value < value_for_search){
+  else if(temp_node->value < value_for_search){
         t_node++;
-        temp_pai = temp_tree->root->value;
-        temp_tree -> root = temp_tree -> root -> right;
-       return searchValue (temp_tree, temp_pai, value_for_search, t_node);
+       return searchValue (temp_node -> right, temp_node->value, value_for_search, t_node);
 
      }
 
@@ -397,7 +395,7 @@ Node *removeValue(Node *root, int numb)
 Node *findMinimum(Node *n)
 {
   Node *node = n;
-  
+
   while(node->left != NULL)
   {
     node = node->left;

@@ -18,7 +18,7 @@ Tree *newEmptyTree();
 Tree *createTree(Tree *tree, int *number);
 Tree *loadTreeFromFile(char *nome_do_arquivo);
 
-void searchValue(Tree *,int , int, int);
+void searchValue(Node *,int , int, int);
 void getElement(Node *, int *, int *);
 void showTree(Node *);
 

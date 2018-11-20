@@ -50,9 +50,13 @@ int main(){
         if(tree->root){
           printf("Informe o valor a ser pesquisado\n");
           scanf("%d", &value_for_search);
-          searchValue(tree,tree -> root -> value, value_for_search, 1);
+          Node *temp;
+          temp = newEmptyNode();
+          temp = tree->root;
+
+          searchValue(temp,temp-> value, value_for_search, 1);
           getchar();
-          tree = loadTreeFromFile(caminho_completo);
+          //tree = loadTreeFromFile(caminho_completo);
         }
         else printf("option 4 ERROR: not possible to search in a null tree\n\n");
         break;
