@@ -30,7 +30,7 @@ void printInOrder(Node *);
 void printPreOrder(Node *);
 void printPostOrder(Node *);
 Tree *setBackbone(Tree *tree);
-Node *RightRotation(Node *grand, Node *dad, Node *son);
+Node *rightRotation(Node *grand, Node *dad, Node *son);
 Node *leftRotantion(Node *grand, Node *dad, Node *son, Node *root);
 int isFull(Node *root);
 int isBalanced(Node *);

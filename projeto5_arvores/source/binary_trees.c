@@ -462,20 +462,6 @@ int isBalanced(Node *root){// 0 -> not balanced | 1 -> balanced
     }//end diferenca de alturas <= 1
   }//end raiz nao nula
 }//end of isBalanced
-
-// Tree *balanceTree(Tree *tree){
-//   if(tree == NULL){//se a arvore for nula
-//     printf("balanceTree ERROR: NULL tree function call\n\n");
-//     return NULL;
-//   }//end if arvore nula
-//   int balanced = isBalanced(tree->root);//verifica se esta balanceada
-//   if(balanced){//se esta balanceada
-//     return tree; //retorna a arvore
-//   }//end if esta balanceada
-//   else{
-//     int balance = getBalance(tree->root);
-//     if(balance > 1 && )
-    
 // //TODO rotacionar
 //   }//end nao esta balanceada
 // }//end of balanceTree
@@ -501,7 +487,7 @@ Tree *balanceTree(Tree* tree){
         son = dad->right; /* filho vai para direita */
       
       if (son != NULL)
-        tree->root = rotationLeft(NULL, dad, son, tree->root);
+        tree->root = leftRotantion(NULL, dad, son, tree->root);
       
       grand = dad; /* atualiza o avo para o lugar do pai */
       dad = son; /* atualiza o pai para o lugar do filho */
@@ -516,7 +502,7 @@ Tree *balanceTree(Tree* tree){
           son = dad->right; /* filho vai pra o proximo elemento */
 
         if(son != NULL)
-          tree->root = rotationLeft(grand, dad, son, tree->root);
+          tree->root = leftRotantion(grand, dad, son, tree->root);
         
         /* atualiza avo pai e filho */
         grand = dad; 
@@ -538,7 +524,7 @@ Tree *setBackbone(Tree *tree)
   Node *grand, *dad, *son;
 
   while (tree->root->left != NULL)
-    tree->root = rotationRight(NULL, tree->root, tree->root->left);
+    tree->root = rightRotation(NULL, tree->root, tree->root->left);
 
   grand = tree->root;
   dad = tree->root->right;
@@ -555,13 +541,13 @@ Tree *setBackbone(Tree *tree)
 
     while(dad->left != NULL)
     {
-      dad = rotationRight(grand, dad, dad->left);
+      dad = rightRotation(grand, dad, dad->left);
     }
   }
   return tree;
 }
 
-Node *RightRotation(Node *grand, Node *dad, Node *son)
+Node *rightRotation(Node *grand, Node *dad, Node *son)
 {
   /* rotaciona elementos para direita */
   if(grand != NULL)
