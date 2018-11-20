@@ -92,6 +92,15 @@ int main(){
         if (tree->root){
           balanced = isBalanced(tree->root);
           printf("balanced = %d\n", balanced);
+          if(balanced == 0)
+          {
+            tree = balanceTree(tree);
+            printf("\nThe Tree is balanced now!\n\n");
+          }
+          else
+          {
+            printf("\nThe Tree was balanced!\n\n");
+          }
         }
         else printf("option 10 ERROR: not possible to balance a null tree\n\n");
         break;

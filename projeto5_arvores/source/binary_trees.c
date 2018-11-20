@@ -463,27 +463,135 @@ int isBalanced(Node *root){// 0 -> not balanced | 1 -> balanced
   }//end raiz nao nula
 }//end of isBalanced
 
-Tree *balanceTree(Tree *tree){
+// Tree *balanceTree(Tree *tree){
+//   if(tree == NULL){//se a arvore for nula
+//     printf("balanceTree ERROR: NULL tree function call\n\n");
+//     return NULL;
+//   }//end if arvore nula
+//   int balanced = isBalanced(tree->root);//verifica se esta balanceada
+//   if(balanced){//se esta balanceada
+//     return tree; //retorna a arvore
+//   }//end if esta balanceada
+//   else{
+//     int balance = getBalance(tree->root);
+//     if(balance > 1 && )
+    
+// //TODO rotacionar
+//   }//end nao esta balanceada
+// }//end of balanceTree
+
+Tree *balanceTree(Tree* tree){
+  Node *grand, *dad, *son;
   if(tree == NULL){//se a arvore for nula
     printf("balanceTree ERROR: NULL tree function call\n\n");
     return NULL;
-  }//end if arvore nula
-  int balanced = isBalanced(tree->root);//verifica se esta balanceada
-  if(balanced){//se esta balanceada
-    return tree; //retorna a arvore
-  }//end if esta balanceada
-  else{
-    
+  }
+  else
+  {
     //se nao esta balanceada
-//TODO rotacionar
-  }//end nao esta balanceada
-}//end of balanceTree
+    tree = setBackbone(tree); /* função para linearizar a arvore */
 
-Tree *rightRotation(Node *node)
-/* rotacionar para direita os elementos das subarvores */
-{
+    while(!isBalanced(tree->root))
+    {
+      /* definindo avo pai e filho para manipular os dados */
+      grand = tree->root; /* avo inicia na raiz da arvore */
+      dad = tree->root; /* pai inicia na raiz da arvore */
+      son = tree->root; /* filho inicia na raiz da arvore */
+      if (dad != NULL) 
+        son = dad->right; /* filho vai para direita */
+      
+      if (son != NULL)
+        tree->root = rotationLeft(NULL, dad, son, tree->root);
+      
+      grand = dad; /* atualiza o avo para o lugar do pai */
+      dad = son; /* atualiza o pai para o lugar do filho */
+      son = dad->right; /* filho vai para o proximo elemento */
 
+      while((dad != NULL) && !isBalanced(tree->root)) /* condição para que seja feita a rotação de todos os elementos */
+      {
+        grand = dad; /* atualiza o avo para o lugar do pai */
+        dad = son; /* atualiza o pai para o lugar do filho */
+        
+        if (dad != NULL)
+          son = dad->right; /* filho vai pra o proximo elemento */
+
+        if(son != NULL)
+          tree->root = rotationLeft(grand, dad, son, tree->root);
+        
+        /* atualiza avo pai e filho */
+        grand = dad; 
+        dad = son;
+        
+        if (dad != NULL)
+          son = dad->right;
+        
+      }
+      /* o laço se repete 3 vezes para 'ordenar' avo pai e filho para rotacionar cada um dos elementos */
+    }
+  }
+  return tree;
 }
+
+Tree *setBackbone(Tree *tree)
+{
+  /* linearizar todos os elementos da arvore para entao executar o passo de balanceamento */
+  Node *grand, *dad, *son;
+
+  while (tree->root->left != NULL)
+    tree->root = rotationRight(NULL, tree->root, tree->root->left);
+
+  grand = tree->root;
+  dad = tree->root->right;
+
+  while (dad->right != NULL)
+  {
+    grand = tree->root;
+    dad = tree->root->right;
+
+    while ((dad->left == NULL) && (dad->right !=NULL)) {
+      grand = grand->right;
+      dad = dad->right;
+    }
+
+    while(dad->left != NULL)
+    {
+      dad = rotationRight(grand, dad, dad->left);
+    }
+  }
+  return tree;
+}
+
+Node *RightRotation(Node *grand, Node *dad, Node *son)
+{
+  /* rotaciona elementos para direita */
+  if(grand != NULL)
+    grand->right = son; /* avo aponta para filho */
+
+  dad->left = son->right; /* atualiza o pai para o elemento seguinte do filho */
+  son->right = dad; /* elemento seguinte ao filho recebe pai */
+  return son;
+}
+
+
+Node *leftRotantion(Node *grand, Node *dad, Node *son, Node *root)
+{
+  son->left = dad; 
+  dad->right = NULL;
+
+  if (grand != NULL)
+  {
+    if(grand->left == dad)
+      grand->left = son; /* atualiza o avo para elemento menor se o node esquerdo for igual ao pai caso contrario para o maior */
+    else
+      grand->right = son;
+
+  }
+  if (dad == root) /* coloca node filho na raiz */
+    root = son;
+  
+  return root;
+}
+
 
 void freeTree(Node *n)
 {
