@@ -365,29 +365,46 @@ Node *removeValue(Node *root, int numb)
   {
     root->right = removeValue(root->right, numb);
   }
-  else
+  else /* quando achar o elemento */
   {
     /* checar se existe elementos filhos do node atual */
-    if(root->left == NULL)
+    if (root->left == NULL && root->right == NULL)
     {
-      Node *temp = root->right;
+      /* caso nao exista nenhum filho */
+      free(root);
+      root = NULL;
+    }
+    else if(root->left == NULL)
+    {
+      /* se tem um filho a direita */
+      Node *temp = root;
+      root = root->right;
       free(root);
       printf("Node %d removed with success!\n", numb);
-
-      return temp;
     }
-    if(root->right == NULL)
+    else if(root->right == NULL)
     {
-      Node *temp = root->left;
+      /* se tem um filho a esquerda */
+      Node *temp = root;
+      root = root->left;
       free(root);
       printf("Node %d removed with success!\n", numb);
-
-      return temp;
     }
+    else {
+      /* se tiver dois filhos */
+      Node *dad = root;
+      Node *son = root->left;
 
-    Node *temp = findMinimum(root->right); /* achar o sucessor proximo do elemento a ser removido */
-    root->value = temp->value; /* receber o valor do sucessor proximo */
-    root->right = removeValue(root->right, temp->value); /* remove o elemento sucessor da posiçao anterior */
+      while(son->right != NULL)
+      {
+        dad = son;
+        son = son->right;
+      }
+      /* trocando as informações para pegar o sucessor do valor removido */
+      root->value = son->value;
+      son->value = numb;
+      root->left = removeValue(root->left, numb);
+    }
   }
   return root;
 }
@@ -446,7 +463,7 @@ int isBalanced(Node *root){// 0 -> not balanced | 1 -> balanced
   }//end raiz nao nula
 }//end of isBalanced
 
-/*Tree *balanceTree(Tree *tree){
+Tree *balanceTree(Tree *tree){
   if(tree == NULL){//se a arvore for nula
     printf("balanceTree ERROR: NULL tree function call\n\n");
     return NULL;
@@ -455,10 +472,18 @@ int isBalanced(Node *root){// 0 -> not balanced | 1 -> balanced
   if(balanced){//se esta balanceada
     return tree; //retorna a arvore
   }//end if esta balanceada
-  else{//se nao esta balanceada
+  else{
+    
+    //se nao esta balanceada
 //TODO rotacionar
   }//end nao esta balanceada
-}//end of balanceTree */
+}//end of balanceTree
+
+Tree *rightRotation(Node *node)
+/* rotacionar para direita os elementos das subarvores */
+{
+
+}
 
 void freeTree(Node *n)
 {
