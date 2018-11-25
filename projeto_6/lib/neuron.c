@@ -10,9 +10,9 @@ double logistic_function(double *somatorio){
 }//end of logistic_function
 
 double dot_product(double *p, double *w){//funcao do produto interno - recebe o vetor de entrada e o de pesos, retorna o somatorio dos dot products
-  double somatorio;
+  double somatorio = 0.0;
   for(int i=0; i<537; i++){//dot product
-
+    somatorio += (p[i] * w[i]);
   }//end of for dot product
-  return 0;
+  return somatorio;
 }//end of dot_product
