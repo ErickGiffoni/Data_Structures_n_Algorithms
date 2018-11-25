@@ -38,7 +38,7 @@ int num_de_char_no_path_asfalto;
 while(contador < numero_de_imagens){
 
 
-  num_de_char_no_path_grama = sprintf(path_grama, "../projeto_2/DataSet/grass/grass_%d%d.txt", vec_numeros[contador][0], vec_numeros[contador][1]);
+  num_de_char_no_path_grama = sprintf(path_grama, "DataSet/grass/grass_%d%d.txt", vec_numeros[contador][0], vec_numeros[contador][1]);
 
   //printf("path grama = %s\n\n", path_grama);
 
@@ -67,7 +67,7 @@ contador = 0;
 while(contador <numero_de_imagens){
 
   //printf("Aqui o erro\n");
-  num_de_char_no_path_asfalto = sprintf(path_asfalto, "../projeto_2/DataSet/asphalt/asphalt_%d%d.txt", vec_numeros[contador][0], vec_numeros[contador][1] );
+  num_de_char_no_path_asfalto = sprintf(path_asfalto, "DataSet/asphalt/asphalt_%d%d.txt", vec_numeros[contador][0], vec_numeros[contador][1] );
 
   //printf("path asfalto = %s\n\n", path_asfalto);
 
@@ -1408,7 +1408,7 @@ contador = 0;
 while(contador <numero_de_imagens){
 
   //printf("Aqui o erro\n");
-  num_de_char_no_path_asfalto = sprintf(path_asfalto, "../DataSet/asphalt/asphalt_%d%d.txt", vec_numeros[contador][0], vec_numeros[contador][1] );
+  num_de_char_no_path_asfalto = sprintf(path_asfalto, "DataSet/asphalt/asphalt_%d%d.txt", vec_numeros[contador][0], vec_numeros[contador][1] );
 
   //printf("path asfalto = %s\n\n", path_asfalto);
 
@@ -1593,7 +1593,9 @@ while(contador <numero_de_imagens){
     }
   }
 
-  //CRIANDO VETOR NORMALIZADO:
+  //CRIANDO VETOR NORMALIZADO E ADICIONANDO A UM ARQUIVO .TXT:
+
+  FILE *arq = fopen("vetores_normalizados.txt", "w");
 
   double normalized_vetor_concatenado_grama[numero_de_imagens][536]= {0}; // GRAMA
   double normalized_vetor_concatenado_asfalto[numero_de_imagens][536] = {0}; //ASFALTO
@@ -1603,6 +1605,20 @@ while(contador <numero_de_imagens){
       normalized_vetor_concatenado_grama[i][j] = (vetor_concatenado_grama[i][j] - i_min_grass)/(i_max_grass - i_min_grass);
       normalized_vetor_concatenado_asfalto[i][j] = (vetor_concatenado_asfalto[i][j] - i_min_asphalt)/(i_max_asphalt - i_min_asphalt);
     }
+  }
+
+  //percorrer cada matriz grama e cada asfalto e adicionar no arquivo
+  for(int i=0; i<numero_de_imagens; i++){//grama
+    for(int j=0; j<536; j++){
+      fprintf(arq, "%lf ", normalized_vetor_concatenado_grama[i][j]);
+    }
+    fprintf(arq, "\n"); //proximo vetor normalizado na outra linha
+  }
+  for(int i=0; i<numero_de_imagens; i++){//grama
+    for(int j=0; j<536; j++){
+      fprintf(arq, "%lf ", normalized_vetor_concatenado_asfalto[i][j]);
+    }
+    fprintf(arq, "\n"); //proximo vetor normalizado na outra linha
   }
 
 
