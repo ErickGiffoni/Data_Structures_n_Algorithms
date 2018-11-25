@@ -1603,20 +1603,23 @@ while(contador <numero_de_imagens){
   for(int i=0; i<numero_de_imagens;i++){
     for(int j=0; j<536; j++){
       normalized_vetor_concatenado_grama[i][j] = (vetor_concatenado_grama[i][j] - i_min_grass)/(i_max_grass - i_min_grass);
+      printf("%.50lf ", normalized_vetor_concatenado_grama[i][j]);
       normalized_vetor_concatenado_asfalto[i][j] = (vetor_concatenado_asfalto[i][j] - i_min_asphalt)/(i_max_asphalt - i_min_asphalt);
+      printf("%.50lf ", normalized_vetor_concatenado_asfalto[i][j]);
     }
+    printf("\n\n");
   }
 
   //percorrer cada matriz grama e cada asfalto e adicionar no arquivo
   for(int i=0; i<numero_de_imagens; i++){//grama
     for(int j=0; j<536; j++){
-      fprintf(arq, "%lf ", normalized_vetor_concatenado_grama[i][j]);
+      fprintf(arq, "%.50lf ", normalized_vetor_concatenado_grama[i][j]);
     }
     fprintf(arq, "\n"); //proximo vetor normalizado na outra linha
   }
   for(int i=0; i<numero_de_imagens; i++){//grama
     for(int j=0; j<536; j++){
-      fprintf(arq, "%lf ", normalized_vetor_concatenado_asfalto[i][j]);
+      fprintf(arq, "%.50lf ", normalized_vetor_concatenado_asfalto[i][j]);
     }
     fprintf(arq, "\n"); //proximo vetor normalizado na outra linha
   }
