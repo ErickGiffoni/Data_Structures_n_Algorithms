@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "../lib/neuron.h"
 
 //compile: gcc main.c ../lib../neuron.c -o main
@@ -7,6 +8,7 @@
 #define qtd_neurons 536
 
 int main(int argc, char **argv){
+    srand(time(NULL));
     printf("Hello World!\n");
     int number_of_neurons_hidden_layer = atoi(argv[1]);//numero de neuronios na camada oculta
     printf("numero de neuronios na camada oculta = %d\n", number_of_neurons_hidden_layer);
@@ -19,8 +21,12 @@ int main(int argc, char **argv){
     double saida = logistic_function(&somatorio);//1
     printf("saida = %.5lf\n", saida);//1
     //testing neuron.h
+    printf("\n----------------------------------------------\n");
     Neuron *neuron = new_neuron();
-    //neuron->w = [23,12,13,14,45,6,7,32,45]; // nao da certo
+    if(set_random_weight(neuron, 536)); /* definir o valor do peso dos neuronios aleatoriamente */
+    printf("peso do neuronio = %.2f\n", neuron->w[200]);
+    if(set_random_bias(neuron, 536)); /* definir o valor do escalar aleatoriamente */
+    printf("escalar do neuronio = %.2f\n", neuron->b);
     neuron->s = exit_neuron(neuron, array1);
     //criando os arrays de camadas de neuronios
     Neuron **first_layer = (Neuron **)calloc(qtd_neurons,sizeof(Neuron*));//array de neuronios com qtd_neurons posicoes
