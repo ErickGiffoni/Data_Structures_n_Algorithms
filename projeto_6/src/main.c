@@ -19,9 +19,13 @@ int main(int argc, char **argv){
     Neuron *last_layer = new_neuron();//ultima camada e um unico neuronio
     for(int i=0; i<qtd_neurons; i++){
       first_layer[i] = new_neuron();
+      if(!set_random_weight(first_layer[i], 536)) printf("main set_random_weight ERROR: return value <= 0\n\n");//preenche os pesos com valores aleatorios e retorna 0 se deu errado - 536 e o tamanho do vetor de pesos que queremos
+      if(!set_random_bias(first_layer[i])) printf("main set_random_bias ERROR: return value <= 0\n\n");//da um valor aleatorio para o bias e retorna 0 se deu errado
     }//alocaao de neuronios na primeira camada
     for(int i=0; i<number_of_neurons_hidden_layer; i++){
       hidden_layer[i] = new_neuron();
+      if(!set_random_weight(hidden_layer[i], 536)) printf("main set_random_weight ERROR: return value <= 0\n\n");//preenche os pesos com valores aleatorios e retorna 0 se deu errado - 536 e o tamanho do vetor de pesos que queremos
+      if(!set_random_bias(hidden_layer[i])) printf("main set_random_bias ERROR: return value <= 0\n\n");//da um valor aleatorio para o bias e retorna 0 se deu errado
     }//alocaao de neuronios camada oculta
     //-----------------------------------------------------//
     return 0;
