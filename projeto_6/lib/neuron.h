@@ -13,6 +13,6 @@ double exit_neuron(Neuron *, double *);//funcao para fazer todo o calculo dento 
 double logistic_function(double *);//recebe o resultado do dot_product + escalar b, retorna a saida s
 double dot_product(double *, double *);//funcao do produto interno - recebe o vetor de entrada e o de pesos, retorna o somatorio dos dot products
 int set_random_weight(Neuron *, int); /* funcao para gerar valores aleatorios para o peso */
-int set_random_bias(Neuron *, int); /* funcao para gerar valores aleatorios para o escalar */
+int set_random_bias(Neuron *); /* funcao para gerar valores aleatorios para o escalar */
 
 #endif

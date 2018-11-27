@@ -48,8 +48,9 @@ int set_random_weight(Neuron *n ,int value)
   if(!n)
   {
     printf("set_random_weight ERROR: cannot allocate memory to value\n");
-    return -1;
-  }
+    return 0;//false
+  }//end if
+  else{
   n->w = (double *) calloc(value, sizeof(double)); /* value e um valor dinamico no caso para alocar 536 posições */
 /* se o neuronio não existe então nao tem como alocar o peso */
   for(int i = 0; i < value; i++)
@@ -57,13 +58,11 @@ int set_random_weight(Neuron *n ,int value)
     int random_num = (rand() % 32767) - 16384; /* pega o limite maximo e mínimo para determinar os valores randomicos */
     n->w[i] = random_num;
   }
-  if(n->w)
-    return 1;
-  else
-    return 0;
+  return 1;//true
+}//end else
 }//end of set_random_weight
 
-int set_random_bias(Neuron *n ,int value)
+int set_random_bias(Neuron *n)
 {
   if(!n)
   {
