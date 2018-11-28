@@ -35,6 +35,10 @@ double logistic_function(double *somatorio){
   return 1.0/(1.0 + exp(-(*somatorio)));
 }//end of logistic_function
 
+double d_dx_logistic_function(double *value){//derivada da logistica
+  return exp(*value)/( pow( (exp(*value)+1) , 2) );//e^x / (e^x + 1)^2
+}//end of d_dx_logistic_function
+
 double dot_product(double *p, double *w){//funcao do produto interno - recebe o vetor de entrada e o de pesos, retorna o somatorio dos dot products
   double somatorio = 0.0;
   for(int i=1; i<qtd_neurons+1; i++){//dot product
