@@ -17,13 +17,14 @@ int main(int argc, char **argv){
     //ler os vetores do arquivo ../projeto2/vetores_normalizados.txt
     double **vetores_normalizados = (double **)calloc(numero_de_imagens,sizeof(double*));//alocando as linhas da matriz de vetores do tamanho de numero_de_imagens
     for(int i=0; i<numero_de_imagens; i++){
-      vetores_normalizados[i] = (double *)calloc(qtd_neurons,sizeof(double));//qtd_neurons colunas
+      vetores_normalizados[i] = (double *)calloc(qtd_neurons+1,sizeof(double));//qtd_neurons colunas
     }//end for alocando as colunas
     FILE *arq_vet_norm = fopen("../projeto2/vetores_normalizados.txt", "r");//abre o arquivo para leitura
     if(!arq_vet_norm) printf("main ERROR: arq_vet_norm = NULL\n\n");
     else{
     for(int i=0; i<numero_de_imagens; i++){
-      for(int j=0; j<qtd_neurons; j++){
+      if(i>49) vetores_normalizados[i][0] = 1;//primeira posicao dos asfaltos tem valor 1
+      for(int j=1; j<qtd_neurons+1; j++){
         fscanf(arq_vet_norm, "%lf", &vetores_normalizados[i][j]);
       }//end for percorre colunas e le o numero no .txt
     }//end for percorre linhas
