@@ -37,7 +37,7 @@ double logistic_function(double *somatorio){
 
 double dot_product(double *p, double *w){//funcao do produto interno - recebe o vetor de entrada e o de pesos, retorna o somatorio dos dot products
   double somatorio = 0.0;
-  for(int i=1; i<537; i++){//dot product
+  for(int i=1; i<qtd_neurons+1; i++){//dot product
     somatorio += (p[i] * w[i-1]);
   }//end of for dot product
   return somatorio;
