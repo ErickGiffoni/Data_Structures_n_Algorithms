@@ -5,9 +5,6 @@
 
 //compile: gcc main.c ../lib/neuron.c -o main
 
-#define qtd_neurons 536
-#define numero_de_imagens 100
-
 int main(int argc, char **argv){
     srand(time(NULL));
     printf("Hello World!\nWe have a Neural Network here!!!\n\n");
