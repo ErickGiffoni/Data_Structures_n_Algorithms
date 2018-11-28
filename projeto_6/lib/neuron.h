@@ -1,6 +1,9 @@
 #ifndef NEURON_H
 #define NEURON_H
 
+#define qtd_neurons 536
+#define numero_de_imagens 100
+
 typedef struct neuron{
   double *w; //vetor de pesos
   double somatorio; //somatorio do produto interno(dot product): entrada * w
