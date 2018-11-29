@@ -59,8 +59,10 @@ int set_random_weight(Neuron *n ,int value)
 /* se o neuronio não existe então nao tem como alocar o peso */
   for(int i = 0; i < value; i++)
   {
-    int random_num = (rand() % 32767) - 16384; /* pega o limite maximo e mínimo para determinar os valores randomicos */
+    double random_num = (rand() % 32767) - 16384; /* pega o limite maximo e mínimo para determinar os valores randomicos */
     n->w[i] = random_num;
+    //if(n->w[i] == 0)printf("ZEEEEEEEEERRRRRRROOOOOOOOOO\n\n\n");
+    //printf("n->w[i] = %lf\n\n", n->w[i]);
   }
   return 1;//true
 }//end else
