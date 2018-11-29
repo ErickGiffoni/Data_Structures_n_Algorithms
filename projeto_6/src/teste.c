@@ -110,21 +110,26 @@ int main(int argc, char **argv){
     }
     //enviar os novos resultados para a ultima camada, calcular o erro e backpropagation
     last_layer->s = exit_neuron(last_layer, results_hidden_layer);
-    if(contador_de_erros<(numero_de_imagens/2)) erros[contador_de_erros] = (vet_treino_geral[array[counter]][0] == 0) ? (last_layer->s) : (1 - last_layer->s);
-    else {
+    if(contador_de_erros<(numero_de_imagens/2)){
+     erros[contador_de_erros] = (vet_treino_geral[array[counter]][0] == 0) ? (last_layer->s) : (1 - last_layer->s);
+     //backpropagation TODO here !!!!
+
+     //end backpropagation
+   }//end if verifica ja ja teve 50 erros
+    else {//calcular erro geral
       erro_geral = 0;
       contador_de_erros = 0;
       for(int i=0; i<(numero_de_imagens/2); i++){
         erro_geral += pow(erros[i],2);
-      }
+      }//erro geral
       erro_geral /= 50.0;
       printf("Accuracy on %d period was %.5lf\n\n", numero_de_epocas, erro_geral);
-    }
+    }//end else calcula erro geral
     if(erro_geral<=limiar_do_erro_geral){
       break;
-    }
+    }//end if verifica se obtivemos a performance desejada
     //printf("erro = %.5lf\n\n", erros[contador_de_erros]);
-    //se numero_de_epocas%(numero_de_imagens/2)==0, calcular erro geral e verificar o limiar_do_erro_geral
+    //acima : se numero_de_epocas%(numero_de_imagens/2)==0, calcular erro geral e verificar o limiar_do_erro_geral
     contador_de_erros++;
     numero_de_epocas+=1;
     counter++;
