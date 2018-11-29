@@ -48,7 +48,7 @@ int main(int argc, char **argv){
     double taxa_de_aprendizagem = 0.45;//taxa de aprendizagem para a rede neural
     //treinar a rede neural
     do{
-      
+       
       numero_de_epocas+=1;
     }while(numero_de_epocas<=1000 || erro_geral>limiar_do_erro_geral)
     //-----------------------------------------------------//
