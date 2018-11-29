@@ -40,14 +40,16 @@ int main(int argc, char **argv){
   Neuron *last_layer = new_neuron();//ultima camada e um unico neuronio
   for(int i=0; i<qtd_neurons; i++){
     first_layer[i] = new_neuron();
-    if(!set_random_weight(first_layer[i], 536)) printf("main set_random_weight ERROR: return value <= 0\n\n");//preenche os pesos com valores aleatorios e retorna 0 se deu errado - 536 e o tamanho do vetor de pesos que queremos
-    if(!set_random_bias(first_layer[i])) printf("main set_random_bias ERROR: return value <= 0\n\n");//da um valor aleatorio para o bias e retorna 0 se deu errado
+    if(!set_random_weight(first_layer[i], 536)) printf("main set_random_weight first ERROR: return value <= 0\n\n");//preenche os pesos com valores aleatorios e retorna 0 se deu errado - 536 e o tamanho do vetor de pesos que queremos
+    if(!set_random_bias(first_layer[i])) printf("main set_random_bias first ERROR: return value <= 0\n\n");//da um valor aleatorio para o bias e retorna 0 se deu errado
   }//alocaao de neuronios na primeira camada
   for(int i=0; i<number_of_neurons_hidden_layer; i++){
     hidden_layer[i] = new_neuron();
-    if(!set_random_weight(hidden_layer[i], 536)) printf("main set_random_weight ERROR: return value <= 0\n\n");//preenche os pesos com valores aleatorios e retorna 0 se deu errado - 536 e o tamanho do vetor de pesos que queremos
-    if(!set_random_bias(hidden_layer[i])) printf("main set_random_bias ERROR: return value <= 0\n\n");//da um valor aleatorio para o bias e retorna 0 se deu errado
+    if(!set_random_weight(hidden_layer[i], 536)) printf("main set_random_weight hidden ERROR: return value <= 0\n\n");//preenche os pesos com valores aleatorios e retorna 0 se deu errado - 536 e o tamanho do vetor de pesos que queremos
+    if(!set_random_bias(hidden_layer[i])) printf("main set_random_bias hidden ERROR: return value <= 0\n\n");//da um valor aleatorio para o bias e retorna 0 se deu errado
   }//alocaao de neuronios camada oculta
+  if(!set_random_weight(last_layer, 536)) printf("main set_random_weight last ERROR: return value <= 0\n\n");//preenche os pesos com valores aleatorios e retorna 0 se deu errado - 536 e o tamanho do vetor de pesos que queremos
+  if(!set_random_bias(last_layer)) printf("main set_random_bias last ERROR: return value <= 0\n\n");//da um valor aleatorio para o bias e retorna 0 se deu errado
   //Escolher, para cada classe, 25 vetores treino aleatorios
   double vet_treino_grama[numero_de_imagens/4][qtd_neurons+1];
   double vet_treino_asfalto[numero_de_imagens/4][qtd_neurons+1];
@@ -89,8 +91,8 @@ int main(int argc, char **argv){
   double limiar_do_erro_geral = 0.2;//erro_geral deve ser = ou menor que isso
   int numero_de_epocas=0;//vai de 0 a 1000, ou de 0 a x se erro_geral<=limiar_do_erro_geral
   double taxa_de_aprendizagem = 0.4625;//taxa de aprendizagem para a rede neural
-  double *results_first_layer = (double *)calloc(qtd_neurons, sizeof(double));//vetor de resultados entre a 1 camada e a camada oculta
-  double *results_hidden_layer = (double *)calloc(number_of_neurons_hidden_layer, sizeof(double));//vetor dos resultados da camada oculta com number_of_neurons_hidden_layer posicoes
+  double *results_first_layer = (double *)calloc(qtd_neurons+1, sizeof(double));//vetor de resultados entre a 1 camada e a camada oculta
+  double *results_hidden_layer = (double *)calloc(number_of_neurons_hidden_layer+1, sizeof(double));//vetor dos resultados da camada oculta com number_of_neurons_hidden_layer posicoes
   if(!erros) printf("main allocation ERROR: *erros failed\n\n");
   if(!results_first_layer) printf("main allocation ERROR: *results_first_layer failed\n\n");
   if(!results_hidden_layer) printf("main allocation ERROR: *results_hidden_layer failed\n\n");
@@ -101,12 +103,13 @@ int main(int argc, char **argv){
     //enviar a entrada para a primeira camada e salvar os resultados
     for(int i=0; i<qtd_neurons; i++){
       if(counter == (numero_de_imagens/2)) counter = 0;
-      results_first_layer[i] = exit_neuron(first_layer[i], vet_treino_geral[array[counter]]);
-      //printf("aqui %d\n\n", i);
+      //printf("aqui first %d\n\n", i);
+      results_first_layer[i+1] = exit_neuron(first_layer[i], vet_treino_geral[array[counter]]);
     }
     //enviar os resultados anteriores para a camada escondida e salvar os novos resultados
     for(int i=0; i<number_of_neurons_hidden_layer; i++){
-      results_hidden_layer[i] = exit_neuron(hidden_layer[i], results_first_layer);
+      //printf("aqui second %d\n\n", i);
+      results_hidden_layer[i+1] = exit_neuron(hidden_layer[i], results_first_layer);
     }
     //enviar os novos resultados para a ultima camada, calcular o erro e backpropagation
     last_layer->s = exit_neuron(last_layer, results_hidden_layer);
