@@ -40,11 +40,17 @@ int main(int argc, char **argv){
       if(!set_random_weight(hidden_layer[i], 536)) printf("main set_random_weight ERROR: return value <= 0\n\n");//preenche os pesos com valores aleatorios e retorna 0 se deu errado - 536 e o tamanho do vetor de pesos que queremos
       if(!set_random_bias(hidden_layer[i])) printf("main set_random_bias ERROR: return value <= 0\n\n");//da um valor aleatorio para o bias e retorna 0 se deu errado
     }//alocaao de neuronios camada oculta
+    //variaveis importantes
     double *erros = (double *)calloc(numero_de_imagens/2, sizeof(double));//vetor de erros com 50 posicoes
-    double erro_geral;//erro geral = sum(erros[i]^2)/50
+    double erro_geral=1;//erro geral = sum(erros[i]^2)/50
     double limiar_do_erro_geral = 0.2;//erro_geral deve ser = ou menor que isso
-    int numero_de_epocas;//vai de 0 a 1000, ou de 0 a x se erro_geral<=limiar_do_erro_geral
+    int numero_de_epocas=0;//vai de 0 a 1000, ou de 0 a x se erro_geral<=limiar_do_erro_geral
     double taxa_de_aprendizagem = 0.45;//taxa de aprendizagem para a rede neural
+    //treinar a rede neural
+    do{
+      
+      numero_de_epocas+=1;
+    }while(numero_de_epocas<=1000 || erro_geral>limiar_do_erro_geral)
     //-----------------------------------------------------//
     //freeing elements
     for(int i=0; i<numero_de_imagens; i++){
@@ -57,6 +63,6 @@ int main(int argc, char **argv){
       free(hidden_layer[i]);
     }//liberando neuronios camada oculta
     free(last_layer);//liberando ultima camada
-    free(erros);//liberando vetor de erros 
+    free(erros);//liberando vetor de erros
     return 0;
 }
