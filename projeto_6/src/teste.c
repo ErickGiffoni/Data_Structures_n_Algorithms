@@ -112,6 +112,7 @@ int main(int argc, char **argv){
     last_layer->s = exit_neuron(last_layer, results_hidden_layer);
     if(contador_de_erros<(numero_de_imagens/2)) erros[contador_de_erros] = (vet_treino_geral[array[counter]][0] == 0) ? (last_layer->s) : (1 - last_layer->s);
     else {
+      erro_geral = 0;
       contador_de_erros = 0;
       for(int i=0; i<(numero_de_imagens/2); i++){
         erro_geral += pow(erros[i],2);
@@ -128,8 +129,8 @@ int main(int argc, char **argv){
     numero_de_epocas+=1;
     counter++;
     if(numero_de_epocas % 50 == 0) printf("%d periods already done\n\n", numero_de_epocas);
-  }while(numero_de_epocas<=1000);
-  printf("Training time : %d periods\n\nAccuracy reached : %.5lf\n\n", numero_de_epocas-1, erro_geral);
+  }while(numero_de_epocas<1000);
+  printf("Training time : %d periods\n\nAccuracy reached : %.5lf\n\n", numero_de_epocas, erro_geral);
   //-----------------------------------------------------//
   //freeing elements
   for(int i=0; i<numero_de_imagens; i++){
