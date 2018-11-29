@@ -42,6 +42,9 @@ int main(int argc, char **argv){
       if(!set_random_weight(hidden_layer[i], 536)) printf("main set_random_weight ERROR: return value <= 0\n\n");//preenche os pesos com valores aleatorios e retorna 0 se deu errado - 536 e o tamanho do vetor de pesos que queremos
       if(!set_random_bias(hidden_layer[i])) printf("main set_random_bias ERROR: return value <= 0\n\n");//da um valor aleatorio para o bias e retorna 0 se deu errado
     }//alocaao de neuronios camada oculta
+
+
+  
     //-----------------------------------------------------//
     //freeing elements
     for(int i=0; i<numero_de_imagens; i++){
