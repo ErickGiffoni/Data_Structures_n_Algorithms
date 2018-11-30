@@ -98,6 +98,7 @@ int main(int argc, char **argv){
   if(!results_hidden_layer) printf("main allocation ERROR: *results_hidden_layer failed\n\n");
   int counter = 0;
   int contador_de_erros=0;
+  double gradiente;//gradiente local para usar na backpropagation
   //treinar a rede neural
   do{
     //enviar a entrada para a primeira camada e salvar os resultados
@@ -116,6 +117,26 @@ int main(int argc, char **argv){
     if(contador_de_erros<(numero_de_imagens/2)){
      erros[contador_de_erros] = (vet_treino_geral[array[counter]][0] == 0) ? (last_layer->s) : (1 - last_layer->s);
      //backpropagation TODO here !!!!
+     printf("BACKPROPAGATION iniciating...%d period\n\n", numero_de_epocas);
+     gradiente = d_dx_logistic_function(&last_layer->s)*erros[contador_de_erros];//para a ultima camada, gradiente = f'(obtido)*erro
+     for(int i=0; i<number_of_neurons_hidden_layer; i++){//passar em cada w da ultima camada e atualizar
+       last_layer->w[i] = last_layer->w[i] + taxa_de_aprendizagem*(last_layer->s)*gradiente;
+     }//end for atualiza pesos da ultima camada
+     last_layer->b = last_layer->b + taxa_de_aprendizagem*gradiente;//atualiza bias da ultima camada
+     for(int i=0; i<number_of_neurons_hidden_layer; i++){//for passa nos neurons da hidden layer
+       gradiente = d_dx_logistic_function(&last_layer->s)*gradiente*erros[contador_de_erros];//derivada do obtido * gradiente anterior * erro
+       for(int j=0; j<qtd_neurons; j++){//atualizar cada peso
+         hidden_layer[i]->w[j] = hidden_layer[i]->w[j] + taxa_de_aprendizagem*(last_layer->s)*gradiente;
+       }//for atualiza cada peso
+       hidden_layer[i]->b = hidden_layer[i]->b + taxa_de_aprendizagem*gradiente;
+     }//end backpropagation hidden_layer
+     for(int i=0; i<qtd_neurons; i++){//for passa nos neurons da first layer
+       gradiente = d_dx_logistic_function(&last_layer->s)*gradiente*erros[contador_de_erros];//derivada do obtido * gradiente anterior * erro
+       for(int j=0; j<qtd_neurons; j++){//atualizar cada peso
+         first_layer[i]->w[j] = first_layer[i]->w[j] + taxa_de_aprendizagem*(last_layer->s)*gradiente;
+       }//for atualiza cada peso
+       first_layer[i]->b = first_layer[i]->b + taxa_de_aprendizagem*gradiente;
+     }//end backpropagation first_layer
 
      //end backpropagation
    }//end if verifica ja ja teve 50 erros
@@ -126,7 +147,7 @@ int main(int argc, char **argv){
         erro_geral += pow(erros[i],2);
       }//erro geral
       erro_geral /= 50.0;
-      printf("Accuracy on %d period was %.5lf\n\n", numero_de_epocas, erro_geral);
+      printf("Accuracy on %d period was %.50lf\n\n", numero_de_epocas, erro_geral);
     }//end else calcula erro geral
     if(erro_geral<=limiar_do_erro_geral){
       break;
@@ -138,7 +159,9 @@ int main(int argc, char **argv){
     counter++;
     if(numero_de_epocas % 50 == 0) printf("%d periods already done\n\n", numero_de_epocas);
   }while(numero_de_epocas<1000);
-  printf("Training time : %d periods\n\nAccuracy reached : %.5lf\n\n", numero_de_epocas, erro_geral);
+  printf("Training time : %d periods\n\nAccuracy reached : %.50lf\n\n", numero_de_epocas, erro_geral);
+  //TESTING NEURAL NETWORK
+  
   //-----------------------------------------------------//
   //freeing elements
   for(int i=0; i<numero_de_imagens; i++){
