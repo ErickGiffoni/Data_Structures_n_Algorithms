@@ -117,7 +117,7 @@ int main(int argc, char **argv){
     if(contador_de_erros<(numero_de_imagens/2)){
      erros[contador_de_erros] = (vet_treino_geral[array[counter]][0] == 0) ? (last_layer->s) : (1 - last_layer->s);
      //backpropagation TODO here !!!!
-     printf("BACKPROPAGATION iniciating...%d period\n\n", numero_de_epocas);
+     printf("BACKPROPAGATION initiating...%d period\n\n", numero_de_epocas);
      gradiente = d_dx_logistic_function(&last_layer->s)*erros[contador_de_erros];//para a ultima camada, gradiente = f'(obtido)*erro
      for(int i=0; i<number_of_neurons_hidden_layer; i++){//passar em cada w da ultima camada e atualizar
        last_layer->w[i] = last_layer->w[i] + taxa_de_aprendizagem*(last_layer->s)*gradiente;
@@ -161,7 +161,37 @@ int main(int argc, char **argv){
   }while(numero_de_epocas<1000);
   printf("Training time : %d periods\n\nAccuracy reached : %.50lf\n\n", numero_de_epocas, erro_geral);
   //TESTING NEURAL NETWORK
-  
+  printf("\n\nInitiating Neural Network ...\n\n\t\t********\n\n");
+  double taxa_de_acerto = 0;
+  double taxa_de_falsa_aceitacao = 0; // ASFALTOS CLASSIFICADOS COMO GRAMA.
+  double taxa_de_falsa_rejeicao = 0; // GRAMA CLASSIFICADOS COMO ASFALTO
+  counter=0;
+  do{
+    //enviar a entrada para a primeira camada e salvar os resultados
+    for(int i=0; i<qtd_neurons; i++){
+      //printf("aqui first %d\n\n", i);
+      results_first_layer[i+1] = exit_neuron(first_layer[i], vetores_normalizados[counter]);
+    }
+    //enviar os resultados anteriores para a camada escondida e salvar os novos resultados
+    for(int i=0; i<number_of_neurons_hidden_layer; i++){
+      //printf("aqui second %d\n\n", i);
+      results_hidden_layer[i+1] = exit_neuron(hidden_layer[i], results_first_layer);
+    }
+    //enviar os novos resultados para a ultima camada, calcular o erro e backpropagation
+    last_layer->s = exit_neuron(last_layer, results_hidden_layer);
+    if(vetores_normalizados[counter][0] == 0){//asfalto
+      last_layer->s <= 0.5 ? (taxa_de_acerto++) : (taxa_de_falsa_aceitacao++);
+    }//end if asfalto
+    else{//else grama
+      last_layer->s > 0.5 ? (taxa_de_acerto++) : (taxa_de_falsa_rejeicao++);
+    }//end else grama
+    counter++;
+  }while(counter<numero_de_imagens);
+  printf("number_of_neurons_hidden_layer: %d\n", number_of_neurons_hidden_layer);
+  printf("...\t...\t...\t...\t...\n\nWe have got the results...\n\n");
+  printf("Taxa de acerto: %.3lf\n", taxa_de_acerto/100.0);
+  printf("Taxa de falsa aceitacao: %.3lf\n", taxa_de_falsa_aceitacao/100.0);
+  printf("Taxa de falsa rejeicao: %.3lf\n", taxa_de_falsa_rejeicao/100.0);
   //-----------------------------------------------------//
   //freeing elements
   for(int i=0; i<numero_de_imagens; i++){
