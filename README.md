@@ -1,7 +1,7 @@
 # Data_Structures_n_Algorithms
 Repository for my work about Data Structures and Algorithms 1 at Universidade de Brasília
 
-## Projeto 1
+## ![](https://github.com/ErickGiffoni/Data_Structures_n_Algorithms/tree/master/projeto_1)Projeto 1
 <ul><H3>  Problema...</H3></ul> 
 <ul> <ul>
   <li>1 - Neurônio</li>
@@ -19,5 +19,7 @@ Repository for my work about Data Structures and Algorithms 1 at Universidade de
 <ul><H3> Controle de voos em um aeroporto - lista e fila </H3></ul>
 
 ## Projeto 5
+<ul><H3> Árvores Binárias </H3></ul>
 
 ## Projeto 6
+<ul><H3> Redes Neurais em C para classificação de padrões e processamento de imagens </H3></ul>
