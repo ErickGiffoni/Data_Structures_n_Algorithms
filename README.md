@@ -4,22 +4,22 @@ Repository for my work about Data Structures and Algorithms 1 at Universidade de
 ## Projeto 1![ ](https://github.com/ErickGiffoni/Data_Structures_n_Algorithms/tree/master/projeto_1) 
 <ul><H3>  Problema...</H3></ul> 
 <ul> <ul>
-  <li>1 - Neurônio</li>
-  <li>2 - Sala de aula</li>
-  <li>3 - Torre de Hanoi</li>
+  <li>1 - <strong>Neurônio</strong></li>
+  <li>2 - <strong>Sala de aula</strong></li>
+  <li>3 - <strong>Torre</strong> de <strong>Hanoi</strong></li>
   </ul> </ul>
   
 ## Projeto 2![ ](https://github.com/ErickGiffoni/Data_Structures_n_Algorithms/tree/master/projeto_2) 
-<ul><H3> Classificação de padrões e processamento de imagens - ILBP e GLCM </H3></ul>
+<ul><H3> <strong>Classificação de padrões</strong> e <strong>processamento de imagens</strong> - <strong>ILBP</strong> e <strong>GLCM</strong> </H3></ul>
 
 ## Projeto 3![ ](https://github.com/ErickGiffoni/Data_Structures_n_Algorithms/tree/master/projeto_3) 
-<ul><H3> Agenda de contatos - lista </H3></ul>
+<ul><H3> <strong>Agenda de contatos</strong> - <strong>lista</strong><strong> encadeada</strong> </H3></ul>
 
 ## Projeto 4![ ](https://github.com/ErickGiffoni/Data_Structures_n_Algorithms/tree/master/projeto_4) 
-<ul><H3> Controle de voos em um aeroporto - lista e fila </H3></ul>
+<ul><H3> <strong>Controle de voos em um aeroporto</strong> - <strong>lista</strong> e <strong>fila</strong> </H3></ul>
 
 ## Projeto 5![ ](https://github.com/ErickGiffoni/Data_Structures_n_Algorithms/tree/master/projeto_5) 
-<ul><H3> Árvores Binárias </H3></ul>
+<ul><H3> </strong>Árvores Binárias</strong> </H3></ul>
 
 ## Projeto 6
-<ul><H3> Redes Neurais em C para classificação de padrões e processamento de imagens </H3></ul>
+<ul><H3> <strong>Redes Neurais</strong> em <strong>C</strong> para <strong>classificação de padrões</strong> e <strong>processamento de imagens</strong> </H3></ul>
