@@ -1,7 +1,7 @@
 # Data_Structures_n_Algorithms
 Repository for my work about Data Structures and Algorithms 1 at Universidade de Brasília
 
-## Projeto![ ](https://github.com/ErickGiffoni/Data_Structures_n_Algorithms/tree/master/projeto_1)1 
+## Projeto 1![ ](https://github.com/ErickGiffoni/Data_Structures_n_Algorithms/tree/master/projeto_1) 
 <ul><H3>  Problema...</H3></ul> 
 <ul> <ul>
   <li>1 - Neurônio</li>
