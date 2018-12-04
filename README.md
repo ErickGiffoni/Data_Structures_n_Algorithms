@@ -1,5 +1,5 @@
 # Data_Structures_n_Algorithms
-Repository for my work about Data Structures and Algorithms 1 at Universidade de Brasília
+Repository for my work about <strong>Data Structures</strong> and <strong>Algorithms</strong> 1 at <strong>Universidade de Brasília</strong>
 
 ## Projeto 1![ ](https://github.com/ErickGiffoni/Data_Structures_n_Algorithms/tree/master/projeto_1) 
 <ul><H3>  Problema...</H3></ul> 
@@ -23,3 +23,5 @@ Repository for my work about Data Structures and Algorithms 1 at Universidade de
 
 ## Projeto 6
 <ul><H3> <strong>Redes Neurais</strong> em <strong>C</strong> para <strong>classificação de padrões</strong> e <strong>processamento de imagens</strong> </H3></ul>
+
+<h4>by: <strong>ErickGiffoni</strong></h4>
