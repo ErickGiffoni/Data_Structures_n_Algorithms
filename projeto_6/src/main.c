@@ -87,7 +87,7 @@ int main(int argc, char **argv){
   double erro_geral=1;//erro geral = sum(erros[i]^2)/50
   double limiar_do_erro_geral = 0.2;//erro_geral deve ser = ou menor que isso
   int numero_de_epocas=0;//vai de 0 a 1000, ou de 0 a x se erro_geral<=limiar_do_erro_geral
-  double taxa_de_aprendizagem = 0.4625;//taxa de aprendizagem para a rede neural
+  double taxa_de_aprendizagem = 0.2;//taxa de aprendizagem para a rede neural
   double *results_first_layer = (double *)calloc(qtd_neurons+1, sizeof(double));//vetor de resultados entre a 1 camada e a camada oculta
   double *results_hidden_layer = (double *)calloc(number_of_neurons_hidden_layer+1, sizeof(double));//vetor dos resultados da camada oculta com number_of_neurons_hidden_layer posicoes
   if(!erros) printf("main allocation ERROR: *erros failed\n\n");
