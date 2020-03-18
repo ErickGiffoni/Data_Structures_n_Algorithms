@@ -62,6 +62,8 @@ int main(){
         }// end for print
 
         printf("\n\nThank you !\n");
+        free(array);
+
         return 0;
 
      }// end if
