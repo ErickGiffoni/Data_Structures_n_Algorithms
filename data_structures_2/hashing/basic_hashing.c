@@ -10,6 +10,10 @@
 #include "hash.h"
 
 int main(){
-    int modHash = modular_hash(-12, -36);
-    printf("%d\n", modHash);
+    //int modHash = modular_hash(-12, -36);
+    //printf("%d\n", modHash);
+    char stringKey[15];
+    scanf(" %s", stringKey);
+    printf("%s\n", stringKey);
+    printf("%d\n", string_hash(stringKey));
 }

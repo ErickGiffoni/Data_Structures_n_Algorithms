@@ -1,4 +1,5 @@
 #include "hash.h"
+#include <string.h>
 
 int modular_hash(int a, int b){
 /* hash by modular division */
@@ -21,4 +22,20 @@ int mod(int a, int b){
         else return (a % b) + b;
     }
     return a % b;
+}
+
+int string_hash(char * stringKey){
+/* hash a string key - based on problem https://www.spoj.com/problems/HASHIT.pdf */
+    return (int) mod( hashS(stringKey), 101 );
+}
+
+int hashS(char * stringKey){
+/* hash every char of stringKey based on its ASCII number */
+/* h(key)= 19 *(ASCII(a1)*1+...+ASCII(an)*n) */
+    int mult = 0;
+    for(int i=1; strcmp(&stringKey[0], "\0") != 0; stringKey ++, i++){
+        mult += (stringKey[0]) * (i);
+        //printf("stringKey %d * (%d)\nmult = %d\n", stringKey[0], (i), mult);
+    }
+    return 19 * mult;
 }
