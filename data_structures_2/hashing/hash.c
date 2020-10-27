@@ -51,7 +51,7 @@ void * new_hash_table(int qttElements){
     return hashTable;
 }
 
-int find_index_by_stringKey(char * stringKey, char ** hashTable){
+int find_index_by_stringKey(char * stringKey, Data ** hashTable){
 /* finds the index of the element defined by the stringKey */
 /* returns the index or -1 in case of not found */
     int indexToFind = string_hash(stringKey);
@@ -60,7 +60,7 @@ int find_index_by_stringKey(char * stringKey, char ** hashTable){
     if(hashtable_index_not_null(&indexToFind, hashTable)){
         //printf("hashtable[indexToFind] is: %s\n", hashTable[indexToFind]);
 
-        if(strcmp(hashTable[indexToFind], stringKey) == 0){
+        if(strcmp(hashTable[indexToFind]->stringKey, stringKey) == 0){
             /* contents match */
             //printf("MATCH !!! %s and %s\n", hashTable[indexToFind], stringKey);
             return indexToFind;
@@ -83,7 +83,7 @@ int find_index_by_stringKey(char * stringKey, char ** hashTable){
             if(hashtable_index_not_null(&nextIndex, hashTable)){
                 //printf("hashtable[NEXT] is: %s\n", hashTable[nextIndex]);
 
-                if (strcmp(hashTable[nextIndex], stringKey) == 0){
+                if (strcmp(hashTable[nextIndex]->stringKey, stringKey) == 0){
                     /* contents match */
                     //printf("MATCH !!! %s and %s at index %d\n", hashTable[nextIndex], stringKey, nextIndex);
                     return nextIndex;
@@ -95,7 +95,7 @@ int find_index_by_stringKey(char * stringKey, char ** hashTable){
     return -1;
 }
 
-int hashtable_index_not_null(int * index, char ** hashTable){
+int hashtable_index_not_null(int * index, Data ** hashTable){
 /* Verifies if a position in a hash table is not null given an index */
     if(hashTable[*index] != NULL){
         return 1; // index is valid
@@ -103,15 +103,18 @@ int hashtable_index_not_null(int * index, char ** hashTable){
     else return 0; // index is null
 }
 
-int insert_stringkey_into_hashtable(char * stringkey, char ** hashtable){
+int insert_stringkey_into_hashtable(char * stringkey, Data ** hashtable){
 /* Returns the index where stringkey was inserted in case of successful insertion, -1 otherwise */
     int indexToInsert = string_hash(stringkey);
     // verificar se index esta vazio
     printf("inicio do insert\n");
-    if( hashtable_index_not_null(&indexToInsert, hashtable)){
+    if(hashtable_index_not_null(&indexToInsert, hashtable)){
         printf("entrei\n");
+        //verificar se ja ha algo naquele indice
+
         //printf("o que tem aqui e: %s |||\n", hashtable[indexToInsert]);
-        strcpy(hashtable[indexToInsert], stringkey);
+        strcpy(hashtable[indexToInsert]->stringKey, stringkey);
+        hashtable[indexToInsert]->isFree = 0; // marks it as not free
         return indexToInsert;
     }
     else return -1;
