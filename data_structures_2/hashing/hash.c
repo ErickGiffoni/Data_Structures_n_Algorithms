@@ -1,5 +1,6 @@
 #include "hash.h"
 #include <string.h>
+#include <stdlib.h>
 
 int modular_hash(int a, int b){
 /* hash by modular division */
@@ -38,4 +39,80 @@ int hashS(char * stringKey){
         //printf("stringKey %d * (%d)\nmult = %d\n", stringKey[0], (i), mult);
     }
     return 19 * mult;
+}
+
+void * new_hash_table(int qttElements){
+/* returns a void * hash table (uses malloc) */
+    void * hashTable = malloc(qttElements);
+    if(!hashTable){
+        printf("## new hash table error ##\n\t|\n ----> unable to alocate\n\n");
+        return NULL;
+    }
+    return hashTable;
+}
+
+int find_index_by_stringKey(char * stringKey, char ** hashTable){
+/* finds the index of the element defined by the stringKey */
+/* returns the index or -1 in case of not found */
+    int indexToFind = string_hash(stringKey);
+    //printf("index to find is: %d\n", indexToFind);
+
+    if(hashtable_index_not_null(&indexToFind, hashTable)){
+        //printf("hashtable[indexToFind] is: %s\n", hashTable[indexToFind]);
+
+        if(strcmp(hashTable[indexToFind], stringKey) == 0){
+            /* contents match */
+            //printf("MATCH !!! %s and %s\n", hashTable[indexToFind], stringKey);
+            return indexToFind;
+        }
+    }
+    else{
+        //printf("entrei\n");
+        /* tries to find stringKey in other positions */
+        int nextIndex = 0;
+        //int counter = 20;
+        for(int j=1; j<=19; j++){
+            //if(counter<1){
+            //    return -1; // we only try to find the index 20 times
+            //}
+
+            nextIndex = indexToFind + j*j + 23*j;
+            nextIndex = mod(nextIndex, 101);
+            //printf("now NEXT index to find is: %d\n", nextIndex);
+
+            if(hashtable_index_not_null(&nextIndex, hashTable)){
+                //printf("hashtable[NEXT] is: %s\n", hashTable[nextIndex]);
+
+                if (strcmp(hashTable[nextIndex], stringKey) == 0){
+                    /* contents match */
+                    //printf("MATCH !!! %s and %s at index %d\n", hashTable[nextIndex], stringKey, nextIndex);
+                    return nextIndex;
+                }
+            }
+            //else counter --;
+        }
+    }
+    return -1;
+}
+
+int hashtable_index_not_null(int * index, char ** hashTable){
+/* Verifies if a position in a hash table is not null given an index */
+    if(hashTable[*index] != NULL){
+        return 1; // index is valid
+    }
+    else return 0; // index is null
+}
+
+int insert_stringkey_into_hashtable(char * stringkey, char ** hashtable){
+/* Returns the index where stringkey was inserted in case of successful insertion, -1 otherwise */
+    int indexToInsert = string_hash(stringkey);
+    // verificar se index esta vazio
+    printf("inicio do insert\n");
+    if( hashtable_index_not_null(&indexToInsert, hashtable)){
+        printf("entrei\n");
+        //printf("o que tem aqui e: %s |||\n", hashtable[indexToInsert]);
+        strcpy(hashtable[indexToInsert], stringkey);
+        return indexToInsert;
+    }
+    else return -1;
 }
