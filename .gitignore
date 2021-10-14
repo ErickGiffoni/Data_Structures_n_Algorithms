@@ -1,2 +1,8 @@
+.gitignore
 .vscode/
 DataSet/
+*/*.out
+*/.*
+.*
+*/*/.*
+*.out
