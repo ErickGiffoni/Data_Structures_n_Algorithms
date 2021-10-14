@@ -65,33 +65,33 @@ int find_index_by_stringKey(char * stringKey, Data ** hashTable){
             //printf("MATCH !!! %s and %s\n", hashTable[indexToFind], stringKey);
             return indexToFind;
         }
-    }
-    else{
-        //printf("entrei\n");
-        /* tries to find stringKey in other positions */
-        int nextIndex = 0;
-        //int counter = 20;
-        for(int j=1; j<=19; j++){
-            //if(counter<1){
-            //    return -1; // we only try to find the index 20 times
-            //}
+        else{
+            /* tries to find stringKey in other positions */
+            int nextIndex = 0;
+            //int counter = 20;
+            for (int j = 1; j <= 19; j++){
+                //if(counter<1){
+                //    return -1; // we only try to find the index 20 times
+                //}
 
-            nextIndex = indexToFind + j*j + 23*j;
-            nextIndex = mod(nextIndex, 101);
-            //printf("now NEXT index to find is: %d\n", nextIndex);
+                nextIndex = indexToFind + j * j + 23 * j;
+                nextIndex = mod(nextIndex, 101);
+                //printf("now NEXT index to find is: %d\n", nextIndex);
 
-            if(hashtable_index_not_null(&nextIndex, hashTable)){
-                //printf("hashtable[NEXT] is: %s\n", hashTable[nextIndex]);
+                if (hashtable_index_not_null(&nextIndex, hashTable)){
+                    //printf("hashtable[NEXT] is: %s\n", hashTable[nextIndex]);
 
-                if (strcmp(hashTable[nextIndex]->stringKey, stringKey) == 0){
-                    /* contents match */
-                    //printf("MATCH !!! %s and %s at index %d\n", hashTable[nextIndex], stringKey, nextIndex);
-                    return nextIndex;
+                    if (strcmp(hashTable[nextIndex]->stringKey, stringKey) == 0){
+                        /* contents match */
+                        //printf("MATCH !!! %s and %s at index %d\n", hashTable[nextIndex], stringKey, nextIndex);
+                        return nextIndex;
+                    }
                 }
+                //else counter --;
             }
-            //else counter --;
         }
-    }
+    }//end if hashtable index not null
+
     return -1;
 }
 
@@ -106,16 +106,32 @@ int hashtable_index_not_null(int * index, Data ** hashTable){
 int insert_stringkey_into_hashtable(char * stringkey, Data ** hashtable){
 /* Returns the index where stringkey was inserted in case of successful insertion, -1 otherwise */
     int indexToInsert = string_hash(stringkey);
-    // verificar se index esta vazio
-    printf("inicio do insert\n");
     if(hashtable_index_not_null(&indexToInsert, hashtable)){
-        printf("entrei\n");
-        //verificar se ja ha algo naquele indice
+        if(hashtable[indexToInsert]->isFree=='1'){
+            /* do insertion */
+            strcpy(hashtable[indexToInsert]->stringKey, stringkey);
+            hashtable[indexToInsert]->isFree = '0'; // marks it as not free
+            return indexToInsert;    
+        }//end if is free
+        else{
+            /* colision: find another place to insert */
+            int nextIndex = 0;
+            for (int j = 1; j <= 19; j++){
 
-        //printf("o que tem aqui e: %s |||\n", hashtable[indexToInsert]);
-        strcpy(hashtable[indexToInsert]->stringKey, stringkey);
-        hashtable[indexToInsert]->isFree = 0; // marks it as not free
-        return indexToInsert;
-    }
-    else return -1;
+                nextIndex = indexToInsert + j * j + 23 * j;
+                nextIndex = mod(nextIndex, 101);
+
+                if (hashtable_index_not_null(&nextIndex, hashtable)){
+
+                    if (hashtable[nextIndex]->isFree == '1'){
+                        /* do insertion */
+                        strcpy(hashtable[nextIndex]->stringKey, stringkey);
+                        hashtable[nextIndex]->isFree = '0'; // marks it as not free
+                        return nextIndex;
+                    } //end if is free
+                }//end if not null
+            }//end for
+        }//end colision
+    }//end if not null
+    return -1;
 }
