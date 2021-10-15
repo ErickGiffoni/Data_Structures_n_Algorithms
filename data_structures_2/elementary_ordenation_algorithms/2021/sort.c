@@ -1,4 +1,5 @@
 #include "sort.h"
+#include <stdlib.h>
 
 void swap(int *array, int index1, int index2){
    int tmp = array[index1];
@@ -60,3 +61,45 @@ void quickSort(int *array, int leftIndex, int rightIndex){
 
    return;
 } // end quickSort
+
+void merge(int *array, int leftIndex, int middleIndex, int rightIndex){
+   int *aux = (int *) malloc((rightIndex - leftIndex + 1) * sizeof(int));
+   int i = leftIndex, j = middleIndex + 1, k = 0;
+
+   while(i <= middleIndex && j <= rightIndex){
+      if(array[i] <= array[j]){
+         aux[k] = array[i];
+         i++;
+      } else {
+         aux[k] = array[j];
+         j++;
+      }
+      k++;
+   }
+
+   while(i <= middleIndex)
+      aux[k++] = array[i++];
+   while(j <= rightIndex)
+      aux[k++] = array[j++];
+
+   k = 0;
+   for(i = leftIndex; i <= rightIndex; i++)
+      array[i] = aux[k++];
+
+   free(aux);
+
+   return;
+}
+
+void  mergeSort(int *array, int leftIndex, int rightIndex){
+   if(leftIndex >= rightIndex)
+      return;
+
+   int middleIndex = (rightIndex + leftIndex) / 2;
+
+   mergeSort(array, leftIndex, middleIndex);
+   mergeSort(array, middleIndex+1, rightIndex);
+   merge(array, leftIndex, middleIndex, rightIndex);
+
+   return;
+} // end mergeSort
